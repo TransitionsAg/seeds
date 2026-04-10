@@ -1,0 +1,24 @@
+{
+  "name": "@transitionsag/primitives",
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    "./button": "./src/button/mod.tsx",
+    "./checkbox": "./src/checkbox/mod.tsx",
+    "./polymorphic": "./src/polymorphic/mod.tsx",
+    "./input/*": "./src/input/*.tsx",
+    "./tree-view": "./src/tree-view/mod.tsx"
+  },
+  "dependencies": {
+    "@zag-js/checkbox": "1.39.1",
+    "@zag-js/solid": "1.39.1",
+    "@zag-js/tree-view": "1.39.1",
+    "solid-js": "^1.9.12"
+  },
+  "devDependencies": {
+    "@solidjs/testing-library": "^0.8.10",
+    "happy-dom": "^17.4.4",
+    "vite-plugin-solid": "^2.11.6",
+    "vitest": "^3.2.1"
+  }
+}

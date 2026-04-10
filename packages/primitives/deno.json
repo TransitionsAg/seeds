@@ -1,0 +1,19 @@
+{
+  "name": "@transitionsag/primitives",
+  "version": "0.0.1",
+  "exports": {
+    "./button": "./src/button/mod.tsx",
+    "./checkbox": "./src/checkbox/mod.tsx",
+    "./polymorphic": "./src/polymorphic/mod.tsx",
+    "./input": "./src/input/mod.tsx",
+    "./tree-view": "./src/tree-view/mod.tsx"
+  },
+  "publish": {
+    "include": ["src/", "deno.json"],
+    "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
+  },
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js"
+  }
+}
