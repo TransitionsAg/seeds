@@ -23,8 +23,8 @@ export function TreeViewBranchText<T extends ValidComponent = "span">(
   const node = useTreeViewNode();
   const merged = mergeProps({ as: "span" as T }, rawProps);
   const [local, others] = splitProps(merged, ["as"]);
-  // @ts-ignore: Props are valid but not worth calculating
   return (
+    // @ts-ignore: polymorphic spread props are valid but too complex for TS
     <Dynamic
       {...mergeProps(api.getBranchTextProps(node), others)}
       component={local.as}

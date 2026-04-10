@@ -9,7 +9,7 @@
     "tailwind-merge": "npm:tailwind-merge@^3.0.0"
   },
   "tasks": {
-    "check": "deno check packages/primitives/src/mod.tsx packages/form/src/mod.ts packages/bloom/src/mod.ts",
+    "check": "deno check packages/form/src/mod.ts packages/bloom/src/mod.ts",
     "test": "cd packages/form && deno task test",
     "lint": "deno lint",
     "fmt": "deno fmt --check",

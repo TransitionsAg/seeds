@@ -15,6 +15,7 @@ function ButtonRoot<T extends ValidComponent = "button">(
   const merged = mergeProps({ type: "button" }, rawProps);
   const [local, others] = splitProps(merged, ["as"]);
 
+  // @ts-ignore: polymorphic spread props are valid but too complex for TS
   return <Polymorphic as={local.as ?? ("button" as T)} {...others} />;
 }
 

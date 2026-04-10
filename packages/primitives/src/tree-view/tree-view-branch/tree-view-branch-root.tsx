@@ -43,13 +43,16 @@ export function TreeViewBranchRoot<T extends ValidComponent = "div">(
     "indexPath",
   ]);
 
+  const branch = (
+    // @ts-ignore: polymorphic spread props are valid but too complex for TS
+    <Dynamic
+      {...mergeProps(api.getBranchProps(nodeLocal), others)}
+      component={local.as}
+    />
+  );
   return (
     <TreeViewNodeContext.Provider value={nodeLocal}>
-      {/* @ts-ignore: Props are valid but not worth calculating */}
-      <Dynamic
-        {...mergeProps(api.getBranchProps(nodeLocal), others)}
-        component={local.as}
-      />
+      {branch}
     </TreeViewNodeContext.Provider>
   );
 }

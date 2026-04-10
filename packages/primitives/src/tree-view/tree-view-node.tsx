@@ -28,8 +28,8 @@ export function TreeViewNodeCheckbox<T extends ValidComponent = "div">(
   const node = useTreeViewNode();
   const merged = mergeProps({ as: "div" as T }, rawProps);
   const [local, others] = splitProps(merged, ["as"]);
-  // @ts-ignore: Props are valid but not worth calculating
   return (
+    // @ts-ignore: polymorphic spread props are valid but too complex for TS
     <Dynamic
       {...mergeProps(api.getNodeCheckboxProps(node), others)}
       component={local.as}

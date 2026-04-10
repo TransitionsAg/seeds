@@ -55,12 +55,15 @@ export function TreeViewRoot<T extends ValidComponent = "div">(
   const service = useMachine(treeView.machine, rest);
   const api = createMemo(() => treeView.connect(service, normalizeProps));
 
+  const root = (
+    // @ts-ignore: polymorphic spread props are valid but too complex for TS
+    <Dynamic {...mergeProps(api().getRootProps(), rest)} component={local.as}>
+      {local.children}
+    </Dynamic>
+  );
   return (
     <TreeViewApiContext.Provider value={api()}>
-      {/* @ts-ignore: Props are valid but not worth calculating */}
-      <Dynamic {...mergeProps(api().getRootProps(), rest)} component={local.as}>
-        {local.children}
-      </Dynamic>
+      {root}
     </TreeViewApiContext.Provider>
   );
 }

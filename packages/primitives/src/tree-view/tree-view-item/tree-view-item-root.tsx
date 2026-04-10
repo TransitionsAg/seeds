@@ -37,13 +37,16 @@ export function TreeViewItemRoot<T extends ValidComponent = "div">(
     "indexPath",
   ]);
 
+  const item = (
+    // @ts-ignore: polymorphic spread props are valid but too complex for TS
+    <Dynamic
+      {...mergeProps(api.getItemProps(nodeLocal), others)}
+      component={local.as}
+    />
+  );
   return (
     <TreeViewNodeContext.Provider value={nodeLocal}>
-      {/* @ts-ignore: Props are valid but not worth calculating */}
-      <Dynamic
-        {...mergeProps(api.getItemProps(nodeLocal), others)}
-        component={local.as}
-      />
+      {item}
     </TreeViewNodeContext.Provider>
   );
 }
