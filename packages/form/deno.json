@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "tasks": {
-    "test": "deno test --no-check --allow-env --conditions=browser --ignore=src/**/*.test.tsx src/ && deno run -A npm:vitest run",
+    "test": "deno test --no-check --allow-env --conditions=browser --ignore=src/**/*.test.tsx src/errors/ src/resolver/ && deno test --no-check --allow-env --conditions=browser --ignore=src/**/*.test.tsx src/form.test.ts && deno run -A npm:vitest run",
     "test:unit": "deno test --no-check --allow-env --conditions=browser --ignore=src/**/*.test.tsx src/",
     "test:component": "deno run -A npm:vitest run"
   },

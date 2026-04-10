@@ -5,18 +5,14 @@ import { cleanup, renderHook } from "@solidjs/testing-library";
 import { createFormCore } from "./form.ts";
 import type { Resolver } from "./resolver/mod.ts";
 
-// Set up DOM globals for @solidjs/testing-library
-const window = new Window();
+const _win = new Window();
 Object.assign(globalThis, {
-  window,
-  document: window.document,
-  navigator: window.navigator,
-  HTMLElement: window.HTMLElement,
-  MutationObserver: window.MutationObserver,
+  window: _win,
+  document: _win.document,
+  navigator: _win.navigator,
+  HTMLElement: _win.HTMLElement,
+  MutationObserver: _win.MutationObserver,
 });
-
-const maxTimerId = setTimeout(() => {}, 0);
-for (let i = 0; i <= maxTimerId; i++) clearTimeout(i);
 
 type FormValues = {
   email: string;
@@ -51,7 +47,7 @@ function setup(opts?: {
 
 // --- values ---
 
-Deno.test("values - holds initial values", { sanitizeOps: false }, () => {
+Deno.test("values - holds initial values", () => {
   const { f } = setup();
   assertEquals(f.values.email, "");
   assertEquals(f.values.address.city, "");
