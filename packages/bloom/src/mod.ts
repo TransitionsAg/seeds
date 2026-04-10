@@ -9,3 +9,5 @@ export {
   type TreeViewApi,
   type TreeViewNodeProps,
 } from "./tree-view/mod.tsx";
+
+export const stylesheetUrl = new URL("./styles.css", import.meta.url).href;

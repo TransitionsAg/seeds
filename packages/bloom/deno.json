@@ -1,10 +1,9 @@
 {
   "name": "@transitionsag/bloom",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "license": "MIT",
   "exports": {
     ".": "./src/mod.ts",
-    "./styles.css": "./src/styles.css",
     "./checkbox": "./src/checkbox/mod.tsx"
   },
   "publish": {
