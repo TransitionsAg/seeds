@@ -15,6 +15,9 @@ Object.assign(globalThis, {
   MutationObserver: window.MutationObserver,
 });
 
+const maxTimerId = setTimeout(() => {}, 0);
+for (let i = 0; i <= maxTimerId; i++) clearTimeout(i);
+
 type FormValues = {
   email: string;
   password: string;
