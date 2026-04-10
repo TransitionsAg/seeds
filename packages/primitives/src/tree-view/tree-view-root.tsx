@@ -1,4 +1,5 @@
 import {
+  type Context,
   createContext,
   createMemo,
   type JSX,
@@ -15,11 +16,15 @@ import type { PolymorphicProps } from "../polymorphic/mod.tsx";
 export type TreeViewApi = ReturnType<typeof treeView.connect>;
 export type TreeViewNodeProps = treeView.NodeProps;
 
-export const TreeViewApiContext = createContext<TreeViewApi>();
-export const useTreeViewApi = () => useContext(TreeViewApiContext)!;
+export const TreeViewApiContext: Context<TreeViewApi | undefined> =
+  createContext<TreeViewApi | undefined>();
+export const useTreeViewApi = (): TreeViewApi =>
+  useContext(TreeViewApiContext)!;
 
-export const TreeViewNodeContext = createContext<TreeViewNodeProps>();
-export const useTreeViewNode = () => useContext(TreeViewNodeContext)!;
+export const TreeViewNodeContext: Context<TreeViewNodeProps | undefined> =
+  createContext<TreeViewNodeProps | undefined>();
+export const useTreeViewNode = (): TreeViewNodeProps =>
+  useContext(TreeViewNodeContext)!;
 
 type TreeViewRootProps<T extends ValidComponent = "div"> =
   & PolymorphicProps<T>
@@ -44,7 +49,7 @@ type TreeViewRootProps<T extends ValidComponent = "div"> =
  */
 export function TreeViewRoot<T extends ValidComponent = "div">(
   rawProps: TreeViewRootProps<T>,
-) {
+): JSX.Element {
   const merged = mergeProps({ as: "div" as T }, rawProps);
   const [local, rest] = splitProps(merged, ["children", "as"]);
   const service = useMachine(treeView.machine, rest);

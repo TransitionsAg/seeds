@@ -1,4 +1,4 @@
-import type { ComponentProps } from "solid-js";
+import type { ComponentProps, JSX } from "solid-js";
 
 type InputProps = ComponentProps<"input">;
 
@@ -15,6 +15,6 @@ type InputProps = ComponentProps<"input">;
  * <Input type="number" />
  * ```
  */
-export function Input(props: InputProps) {
+export function Input(props: InputProps): JSX.Element {
   return <input {...props} />;
 }

@@ -55,7 +55,8 @@ import "@transitionsag/bloom/styles.css";`}
         >
           <h3 class="typo-h4 mb-1">Card</h3>
           <p class="text-muted-foreground">
-            Container for grouping related content with header, body, and footer.
+            Container for grouping related content with header, body, and
+            footer.
           </p>
         </a>
         <a

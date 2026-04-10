@@ -9,7 +9,5 @@ type CardFooterProps = ComponentProps<"div">;
 
 export function CardFooter(props: CardFooterProps) {
   const [local, others] = splitProps(props, ["class"]);
-  return (
-    <div {...others} class={footerVariants({ class: local.class })} />
-  );
+  return <div {...others} class={footerVariants({ class: local.class })} />;
 }

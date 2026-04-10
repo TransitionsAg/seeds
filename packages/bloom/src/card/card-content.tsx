@@ -9,7 +9,5 @@ type CardContentProps = ComponentProps<"div">;
 
 export function CardContent(props: CardContentProps) {
   const [local, others] = splitProps(props, ["class"]);
-  return (
-    <div {...others} class={contentVariants({ class: local.class })} />
-  );
+  return <div {...others} class={contentVariants({ class: local.class })} />;
 }

@@ -9,7 +9,5 @@ type CardHeaderProps = ComponentProps<"div">;
 
 export function CardHeader(props: CardHeaderProps) {
   const [local, others] = splitProps(props, ["class"]);
-  return (
-    <div {...others} class={headerVariants({ class: local.class })} />
-  );
+  return <div {...others} class={headerVariants({ class: local.class })} />;
 }

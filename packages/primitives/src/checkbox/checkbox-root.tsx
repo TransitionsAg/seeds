@@ -1,5 +1,5 @@
 import {
-  type Accessor,
+  type Context,
   createContext,
   createMemo,
   type JSX,
@@ -15,8 +15,10 @@ import type { PolymorphicProps } from "../polymorphic/mod.tsx";
 
 export type CheckboxApi = ReturnType<typeof checkbox.connect>;
 
-export const CheckboxApiContext = createContext<Accessor<CheckboxApi>>();
-export const useCheckboxApi = () => useContext(CheckboxApiContext)!;
+export const CheckboxApiContext: Context<CheckboxApi | undefined> =
+  createContext<CheckboxApi | undefined>();
+export const useCheckboxApi = (): CheckboxApi =>
+  useContext(CheckboxApiContext)!;
 
 type CheckboxRootProps<T extends ValidComponent = "label"> =
   & PolymorphicProps<T>
@@ -40,14 +42,14 @@ type CheckboxRootProps<T extends ValidComponent = "label"> =
  */
 export function CheckboxRoot<T extends ValidComponent = "label">(
   rawProps: CheckboxRootProps<T>,
-) {
+): JSX.Element {
   const merged = mergeProps({ as: "label" as T }, rawProps);
   const [local, rest] = splitProps(merged, ["children", "as"]);
   const service = useMachine(checkbox.machine, rest);
   const api = createMemo(() => checkbox.connect(service, normalizeProps));
 
   return (
-    <CheckboxApiContext.Provider value={api}>
+    <CheckboxApiContext.Provider value={api()}>
       {/* @ts-ignore: Props are valid but not worth calculating */}
       <Dynamic
         {...mergeProps(api().getRootProps(), rest)}

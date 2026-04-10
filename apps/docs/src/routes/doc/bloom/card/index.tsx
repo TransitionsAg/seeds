@@ -44,7 +44,9 @@ import "@transitionsag/bloom/styles.css";
                 </Card.Description>
               </Card.Header>
               <Card.Content>
-                <p class="typo-p">You will receive email notifications for important updates.</p>
+                <p class="typo-p">
+                  You will receive email notifications for important updates.
+                </p>
               </Card.Content>
               <Card.Footer>
                 <Button intent="secondary">Cancel</Button>
@@ -79,7 +81,13 @@ import "@transitionsag/bloom/styles.css";
                 </Card.Description>
               </Card.Header>
               <Card.Content>
-                <p class="typo-p">This card uses the <code class="font-mono text-sm bg-secondary px-1 rounded">as</code> prop.</p>
+                <p class="typo-p">
+                  This card uses the{" "}
+                  <code class="font-mono text-sm bg-secondary px-1 rounded">
+                    as
+                  </code>{" "}
+                  prop.
+                </p>
               </Card.Content>
             </Card>
           </div>
@@ -123,7 +131,10 @@ import "@transitionsag/bloom/styles.css";
           <tr class="border-b">
             <td class="py-2 pr-4 font-mono">Card.Root</td>
             <td class="py-2 pr-4 font-mono">div</td>
-            <td class="py-2">Polymorphic container. Ring border, background, flex column with gap-4.</td>
+            <td class="py-2">
+              Polymorphic container. Ring border, background, flex column with
+              gap-4.
+            </td>
           </tr>
           <tr class="border-b">
             <td class="py-2 pr-4 font-mono">Card.Header</td>
@@ -148,14 +159,19 @@ import "@transitionsag/bloom/styles.css";
           <tr class="border-b">
             <td class="py-2 pr-4 font-mono">Card.Footer</td>
             <td class="py-2 pr-4 font-mono">div</td>
-            <td class="py-2">Flex row, right-justified. For actions and buttons.</td>
+            <td class="py-2">
+              Flex row, right-justified. For actions and buttons.
+            </td>
           </tr>
         </tbody>
       </table>
 
       <h2 class="typo-h3 mb-4">Props</h2>
       <p class="typo-p mb-4">
-        <code class="font-mono text-sm bg-secondary px-1 rounded">Card.Root</code> accepts all native element props plus:
+        <code class="font-mono text-sm bg-secondary px-1 rounded">
+          Card.Root
+        </code>{" "}
+        accepts all native element props plus:
       </p>
       <table class="w-full text-sm mb-8">
         <thead>
@@ -179,7 +195,23 @@ import "@transitionsag/bloom/styles.css";
         </tbody>
       </table>
       <p class="typo-p mb-8">
-        All other parts (<code class="font-mono text-sm bg-secondary px-1 rounded">Header</code>, <code class="font-mono text-sm bg-secondary px-1 rounded">Title</code>, <code class="font-mono text-sm bg-secondary px-1 rounded">Description</code>, <code class="font-mono text-sm bg-secondary px-1 rounded">Content</code>, <code class="font-mono text-sm bg-secondary px-1 rounded">Footer</code>) accept native props for their respective elements plus a <code class="font-mono text-sm bg-secondary px-1 rounded">class</code> prop.
+        All other parts
+        (<code class="font-mono text-sm bg-secondary px-1 rounded">
+          Header
+        </code>,{" "}
+        <code class="font-mono text-sm bg-secondary px-1 rounded">Title</code>,
+        {" "}
+        <code class="font-mono text-sm bg-secondary px-1 rounded">
+          Description
+        </code>,{" "}
+        <code class="font-mono text-sm bg-secondary px-1 rounded">
+          Content
+        </code>,{" "}
+        <code class="font-mono text-sm bg-secondary px-1 rounded">Footer</code>)
+        accept native props for their respective elements plus a{" "}
+        <code class="font-mono text-sm bg-secondary px-1 rounded">class</code>
+        {" "}
+        prop.
       </p>
     </div>
   );

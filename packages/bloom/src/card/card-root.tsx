@@ -1,5 +1,8 @@
 import { splitProps, type ValidComponent } from "solid-js";
-import { Polymorphic, type PolymorphicProps } from "@transitionsag/primitives/polymorphic";
+import {
+  Polymorphic,
+  type PolymorphicProps,
+} from "@transitionsag/primitives/polymorphic";
 import { cva, type VariantProps } from "../cva.ts";
 
 export const cardVariants = cva({
@@ -23,7 +26,10 @@ type CardRootProps<T extends ValidComponent = "div"> =
 export function CardRoot<T extends ValidComponent = "div">(
   rawProps: CardRootProps<T>,
 ) {
-  const [local, others] = splitProps(rawProps as CardRootProps, ["size", "class"]);
+  const [local, others] = splitProps(rawProps as CardRootProps, [
+    "size",
+    "class",
+  ]);
 
   return (
     <Polymorphic

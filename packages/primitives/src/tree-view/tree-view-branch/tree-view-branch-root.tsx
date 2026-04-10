@@ -1,11 +1,15 @@
-import { mergeProps, splitProps, type ValidComponent } from "solid-js";
+import {
+  type JSX,
+  mergeProps,
+  splitProps,
+  type ValidComponent,
+} from "solid-js";
 import { Dynamic } from "solid-js/web";
 import type { PolymorphicProps } from "../../polymorphic/mod.tsx";
 import {
   TreeViewNodeContext,
   type TreeViewNodeProps,
   useTreeViewApi,
-  useTreeViewNode,
 } from "../tree-view-root.tsx";
 
 type TreeViewBranchRootProps<T extends ValidComponent = "div"> =
@@ -31,7 +35,7 @@ type TreeViewBranchRootProps<T extends ValidComponent = "div"> =
  */
 export function TreeViewBranchRoot<T extends ValidComponent = "div">(
   rawProps: TreeViewBranchRootProps<T>,
-) {
+): JSX.Element {
   const api = useTreeViewApi();
   const merged = mergeProps({ as: "div" as T }, rawProps);
   const [local, nodeLocal, others] = splitProps(merged, ["as"], [

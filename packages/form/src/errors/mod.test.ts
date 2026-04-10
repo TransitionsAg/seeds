@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert";
+import { assertEquals } from "@std/assert";
 import { initErrors } from "./mod.ts";
 
 Deno.test("initErrors - flat object sets all leaves to null", () => {

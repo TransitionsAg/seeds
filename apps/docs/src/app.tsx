@@ -1,12 +1,12 @@
 import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
-import { Suspense } from "solid-js";
+import { type JSX, Suspense } from "solid-js";
 import { A } from "@solidjs/router";
 import { Button } from "@transitionsag/bloom";
 import { GithubLogoIcon } from "@transitionsag/phosphor-solid/github-logo";
 import "./styles.css";
 
-export default function App() {
+export default function App(): JSX.Element {
   return (
     <Router
       root={(props) => (

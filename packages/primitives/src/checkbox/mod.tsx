@@ -37,4 +37,10 @@ export const Checkbox = Object.assign(CheckboxRoot, {
   Indicator: CheckboxIndicator,
   Label: CheckboxLabel,
   HiddenInput: CheckboxHiddenInput,
-});
+}) as typeof CheckboxRoot & {
+  Root: typeof CheckboxRoot;
+  Control: typeof CheckboxControl;
+  Indicator: typeof CheckboxIndicator;
+  Label: typeof CheckboxLabel;
+  HiddenInput: typeof CheckboxHiddenInput;
+};

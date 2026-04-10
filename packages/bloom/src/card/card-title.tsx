@@ -9,7 +9,5 @@ type CardTitleProps = ComponentProps<"h3">;
 
 export function CardTitle(props: CardTitleProps) {
   const [local, others] = splitProps(props, ["class"]);
-  return (
-    <h3 {...others} class={titleVariants({ class: local.class })} />
-  );
+  return <h3 {...others} class={titleVariants({ class: local.class })} />;
 }

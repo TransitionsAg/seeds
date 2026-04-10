@@ -1,5 +1,6 @@
 import {
   type ComponentProps,
+  type JSX,
   mergeProps,
   splitProps,
   type ValidComponent,
@@ -22,7 +23,7 @@ import { useTreeViewApi, useTreeViewNode } from "./tree-view-root.tsx";
  */
 export function TreeViewNodeCheckbox<T extends ValidComponent = "div">(
   rawProps: PolymorphicProps<T>,
-) {
+): JSX.Element {
   const api = useTreeViewApi();
   const node = useTreeViewNode();
   const merged = mergeProps({ as: "div" as T }, rawProps);
@@ -47,7 +48,9 @@ export function TreeViewNodeCheckbox<T extends ValidComponent = "div">(
  * </TreeView.Item>
  * ```
  */
-export function TreeViewNodeRenameInput(props: ComponentProps<"input">) {
+export function TreeViewNodeRenameInput(
+  props: ComponentProps<"input">,
+): JSX.Element {
   const api = useTreeViewApi();
   const node = useTreeViewNode();
   return <input {...mergeProps(api.getNodeRenameInputProps(node), props)} />;

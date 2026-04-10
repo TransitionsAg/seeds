@@ -1,5 +1,5 @@
 /// <reference lib="deno.ns" />
-import { assertEquals } from "jsr:@std/assert";
+import { assertEquals } from "@std/assert";
 import { z } from "zod";
 import { zodResolver } from "./zod.ts";
 
@@ -191,7 +191,7 @@ Deno.test("validateAll - only invalid fields have errors", async () => {
 Deno.test("validate - works with async refinement", async () => {
   const asyncSchema = z.object({
     username: z.string().refine(
-      async (val) => val !== "taken",
+      (val) => val !== "taken",
       { message: "Username is taken" },
     ),
   });
@@ -205,7 +205,7 @@ Deno.test("validate - works with async refinement", async () => {
 Deno.test("validateAll - works with async refinement", async () => {
   const asyncSchema = z.object({
     username: z.string().refine(
-      async (val) => val !== "taken",
+      (val) => val !== "taken",
       { message: "Username is taken" },
     ),
   });

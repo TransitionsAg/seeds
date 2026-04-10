@@ -4438,6 +4438,9 @@
         }
       },
       "packages/form": {
+        "dependencies": [
+          "jsr:@std/assert@^1.0.8"
+        ],
         "packageJson": {
           "dependencies": [
             "npm:@solidjs/testing-library@~0.8.10",

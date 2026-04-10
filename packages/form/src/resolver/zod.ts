@@ -8,7 +8,6 @@ import type { FormErrors } from "../errors/mod.ts";
  * Handles ZodOptional, ZodNullable, ZodDefault, ZodCatch,
  * ZodBranded, ZodPipeline, ZodLazy, and ZodEffects (refinements).
  */
-// deno-lint-ignore no-explicit-any
 function unwrap(schema: z.ZodTypeAny): z.ZodTypeAny {
   // deno-lint-ignore no-explicit-any
   const def = schema._def as any;

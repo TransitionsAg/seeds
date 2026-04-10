@@ -54,7 +54,13 @@ const Item = Object.assign(TreeViewItemRoot, {
   Indicator: TreeViewItemIndicator,
   Checkbox: TreeViewNodeCheckbox,
   RenameInput: TreeViewNodeRenameInput,
-});
+}) as typeof TreeViewItemRoot & {
+  Root: typeof TreeViewItemRoot;
+  Text: typeof TreeViewItemText;
+  Indicator: typeof TreeViewItemIndicator;
+  Checkbox: typeof TreeViewNodeCheckbox;
+  RenameInput: typeof TreeViewNodeRenameInput;
+};
 
 const Branch = Object.assign(TreeViewBranchRoot, {
   Root: TreeViewBranchRoot,
@@ -66,7 +72,17 @@ const Branch = Object.assign(TreeViewBranchRoot, {
   IndentGuide: TreeViewBranchIndentGuide,
   Checkbox: TreeViewNodeCheckbox,
   RenameInput: TreeViewNodeRenameInput,
-});
+}) as typeof TreeViewBranchRoot & {
+  Root: typeof TreeViewBranchRoot;
+  Control: typeof TreeViewBranchControl;
+  Content: typeof TreeViewBranchContent;
+  Text: typeof TreeViewBranchText;
+  Trigger: typeof TreeViewBranchTrigger;
+  Indicator: typeof TreeViewBranchIndicator;
+  IndentGuide: typeof TreeViewBranchIndentGuide;
+  Checkbox: typeof TreeViewNodeCheckbox;
+  RenameInput: typeof TreeViewNodeRenameInput;
+};
 
 const Node = {
   Checkbox: TreeViewNodeCheckbox,
@@ -113,4 +129,11 @@ export const TreeView = Object.assign(TreeViewRoot, {
   Item,
   Branch,
   Node,
-});
+}) as typeof TreeViewRoot & {
+  Root: typeof TreeViewRoot;
+  Label: typeof TreeViewLabel;
+  Tree: typeof TreeViewTree;
+  Item: typeof Item;
+  Branch: typeof Branch;
+  Node: typeof Node;
+};

@@ -1,5 +1,5 @@
 /// <reference lib="deno.ns" />
-import { assertEquals } from "jsr:@std/assert";
+import { assertEquals } from "@std/assert";
 import { Window } from "happy-dom";
 import { cleanup, renderHook } from "@solidjs/testing-library";
 import { createFormCore } from "./form.ts";
@@ -360,7 +360,7 @@ Deno.test(
     let called = false;
     const resolver: Resolver<FormValues> = {
       attrs: () => ({}),
-      async validateAll() {
+      validateAll() {
         return {
           email: ["Required"],
           password: null,
@@ -390,7 +390,7 @@ Deno.test(
     let called = false;
     const resolver: Resolver<FormValues> = {
       attrs: () => ({}),
-      async validateAll() {
+      validateAll() {
         return { email: null, password: null, address: { city: null } };
       },
     };
@@ -480,7 +480,7 @@ Deno.test(
   async () => {
     const resolver: Resolver = {
       attrs: () => ({}),
-      async validate(_path, value) {
+      validate(_path, value) {
         return value === "" ? ["Required"] : null;
       },
     };

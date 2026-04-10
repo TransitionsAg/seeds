@@ -1,5 +1,5 @@
 import { For, Show } from "solid-js";
-import { TreeView, collection } from "@transitionsag/primitives/tree-view";
+import { collection, TreeView } from "@transitionsag/primitives/tree-view";
 
 type TreeNode = { name: string; children?: TreeNode[] };
 
@@ -7,7 +7,10 @@ const sampleCollection = collection({
   rootNode: {
     name: "",
     children: [
-      { name: "Components", children: [{ name: "Button" }, { name: "Checkbox" }] },
+      {
+        name: "Components",
+        children: [{ name: "Button" }, { name: "Checkbox" }],
+      },
       { name: "Forms" },
     ],
   } satisfies TreeNode,
@@ -17,11 +20,14 @@ const sampleCollection = collection({
 
 function TreeNodeEl(props: { node: TreeNode; indexPath: number[] }) {
   return (
-    <Show when={props.node.children?.length} fallback={
-      <TreeView.Item node={props.node} indexPath={props.indexPath}>
-        <TreeView.Item.Text>{props.node.name}</TreeView.Item.Text>
-      </TreeView.Item>
-    }>
+    <Show
+      when={props.node.children?.length}
+      fallback={
+        <TreeView.Item node={props.node} indexPath={props.indexPath}>
+          <TreeView.Item.Text>{props.node.name}</TreeView.Item.Text>
+        </TreeView.Item>
+      }
+    >
       <TreeView.Branch node={props.node} indexPath={props.indexPath}>
         <TreeView.Branch.Control>
           <TreeView.Branch.Trigger />

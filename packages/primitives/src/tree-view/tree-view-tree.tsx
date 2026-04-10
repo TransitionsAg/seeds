@@ -1,4 +1,9 @@
-import { mergeProps, splitProps, type ValidComponent } from "solid-js";
+import {
+  type JSX,
+  mergeProps,
+  splitProps,
+  type ValidComponent,
+} from "solid-js";
 import { Dynamic } from "solid-js/web";
 import type { PolymorphicProps } from "../polymorphic/mod.tsx";
 import { useTreeViewApi } from "./tree-view-root.tsx";
@@ -15,7 +20,7 @@ import { useTreeViewApi } from "./tree-view-root.tsx";
  */
 export function TreeViewTree<T extends ValidComponent = "div">(
   rawProps: PolymorphicProps<T>,
-) {
+): JSX.Element {
   const api = useTreeViewApi();
   const merged = mergeProps({ as: "div" as T }, rawProps);
   const [local, others] = splitProps(merged, ["as"]);

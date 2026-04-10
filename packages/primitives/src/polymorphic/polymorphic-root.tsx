@@ -1,5 +1,6 @@
 import {
   type ComponentProps,
+  type JSX,
   mergeProps,
   splitProps,
   type ValidComponent,
@@ -34,7 +35,7 @@ export type PolymorphicProps<T extends ValidComponent> = {
  */
 function PolymorphicRoot<T extends ValidComponent = "div">(
   rawProps: PolymorphicProps<T>,
-) {
+): JSX.Element {
   const merged = mergeProps({ as: "div" as T }, rawProps);
   const [local, others] = splitProps(merged, ["as"]);
 
@@ -44,4 +45,4 @@ function PolymorphicRoot<T extends ValidComponent = "div">(
 
 export const Polymorphic = Object.assign(PolymorphicRoot, {
   Root: PolymorphicRoot,
-});
+}) as typeof PolymorphicRoot & { Root: typeof PolymorphicRoot };

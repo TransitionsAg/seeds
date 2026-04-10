@@ -9,7 +9,5 @@ type CardDescriptionProps = ComponentProps<"p">;
 
 export function CardDescription(props: CardDescriptionProps) {
   const [local, others] = splitProps(props, ["class"]);
-  return (
-    <p {...others} class={descriptionVariants({ class: local.class })} />
-  );
+  return <p {...others} class={descriptionVariants({ class: local.class })} />;
 }

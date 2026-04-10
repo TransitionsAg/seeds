@@ -1,4 +1,4 @@
-import { type ComponentProps, mergeProps } from "solid-js";
+import { type ComponentProps, type JSX, mergeProps } from "solid-js";
 import { useCheckboxApi } from "./checkbox-root.tsx";
 
 /**
@@ -9,8 +9,10 @@ import { useCheckboxApi } from "./checkbox-root.tsx";
  * <Checkbox.HiddenInput />
  * ```
  */
-export function CheckboxHiddenInput(props: ComponentProps<"input">) {
+export function CheckboxHiddenInput(
+  props: ComponentProps<"input">,
+): JSX.Element {
   const api = useCheckboxApi();
-  const inputProps = api().getHiddenInputProps();
+  const inputProps = api.getHiddenInputProps();
   return <input {...mergeProps(inputProps, props)} />;
 }
