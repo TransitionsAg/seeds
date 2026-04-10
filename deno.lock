@@ -1,6 +1,8 @@
 {
   "version": "5",
   "specifiers": {
+    "jsr:@std/assert@^1.0.8": "1.0.19",
+    "jsr:@std/internal@^1.0.12": "1.0.12",
     "jsr:@transitionsag/phosphor-solid@*": "0.2.0",
     "jsr:@transitionsag/phosphor-solid@0.2.0": "0.2.0",
     "npm:@deno/vite-plugin@^2.0.2": "2.0.2_vite@8.0.3__@emnapi+core@1.9.1__@emnapi+runtime@1.9.1_@emnapi+core@1.9.1_@emnapi+runtime@1.9.1",
@@ -25,10 +27,20 @@
     "npm:tailwindcss@4": "4.2.2",
     "npm:vinxi@~0.5.11": "0.5.11",
     "npm:vite-plugin-solid@^2.11.6": "2.11.11_solid-js@1.9.12_vite@8.0.3__@emnapi+core@1.9.1__@emnapi+runtime@1.9.1_@emnapi+core@1.9.1_@emnapi+runtime@1.9.1",
+    "npm:vitest@*": "3.2.4_happy-dom@17.6.3",
     "npm:vitest@^3.2.1": "3.2.4_happy-dom@17.6.3",
     "npm:zod@^3.24.0": "3.25.76"
   },
   "jsr": {
+    "@std/assert@1.0.19": {
+      "integrity": "eaada96ee120cb980bc47e040f82814d786fe8162ecc53c91d8df60b8755991e",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/internal@1.0.12": {
+      "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
+    },
     "@transitionsag/phosphor-solid@0.2.0": {
       "integrity": "713441e81273af73efa4eb4c5be5b5bfcaccade16bff7745053ffb2600c32906"
     }
