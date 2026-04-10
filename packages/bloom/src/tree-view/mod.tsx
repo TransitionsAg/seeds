@@ -21,12 +21,25 @@ import {
 export { collection };
 export type { TreeViewApi, TreeViewNodeProps };
 
-const Node = {
+type NodeType = {
+  Checkbox: typeof TreeViewPrimitive.Node.Checkbox;
+  RenameInput: typeof TreeViewPrimitive.Node.RenameInput;
+};
+
+const Node: NodeType = {
   Checkbox: TreeViewPrimitive.Node.Checkbox,
   RenameInput: TreeViewPrimitive.Node.RenameInput,
 };
 
-const Item = Object.assign(TreeViewItemRoot, {
+type ItemType = typeof TreeViewItemRoot & {
+  Root: typeof TreeViewItemRoot;
+  Text: typeof TreeViewItemText;
+  Indicator: typeof TreeViewItemIndicator;
+  Checkbox: typeof TreeViewPrimitive.Node.Checkbox;
+  RenameInput: typeof TreeViewPrimitive.Node.RenameInput;
+};
+
+const Item: ItemType = Object.assign(TreeViewItemRoot, {
   Root: TreeViewItemRoot,
   Text: TreeViewItemText,
   Indicator: TreeViewItemIndicator,
@@ -34,7 +47,19 @@ const Item = Object.assign(TreeViewItemRoot, {
   RenameInput: Node.RenameInput,
 });
 
-const Branch = Object.assign(TreeViewBranchRoot, {
+type BranchType = typeof TreeViewBranchRoot & {
+  Root: typeof TreeViewBranchRoot;
+  Control: typeof TreeViewBranchControl;
+  Content: typeof TreeViewBranchContent;
+  Text: typeof TreeViewBranchText;
+  Trigger: typeof TreeViewBranchTrigger;
+  Indicator: typeof TreeViewBranchIndicator;
+  IndentGuide: typeof TreeViewBranchIndentGuide;
+  Checkbox: typeof TreeViewPrimitive.Node.Checkbox;
+  RenameInput: typeof TreeViewPrimitive.Node.RenameInput;
+};
+
+const Branch: BranchType = Object.assign(TreeViewBranchRoot, {
   Root: TreeViewBranchRoot,
   Control: TreeViewBranchControl,
   Content: TreeViewBranchContent,
@@ -46,7 +71,16 @@ const Branch = Object.assign(TreeViewBranchRoot, {
   RenameInput: Node.RenameInput,
 });
 
-export const TreeView = Object.assign(TreeViewRoot, {
+type TreeViewType = typeof TreeViewRoot & {
+  Root: typeof TreeViewRoot;
+  Label: typeof TreeViewLabel;
+  Tree: typeof TreeViewTree;
+  Item: ItemType;
+  Branch: BranchType;
+  Node: NodeType;
+};
+
+export const TreeView: TreeViewType = Object.assign(TreeViewRoot, {
   Root: TreeViewRoot,
   Label: TreeViewLabel,
   Tree: TreeViewTree,

@@ -1,5 +1,4 @@
 import { Input } from "@transitionsag/bloom";
-import "@transitionsag/bloom/styles.css";
 
 export default function BloomInputDocs() {
   return (

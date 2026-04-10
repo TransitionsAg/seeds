@@ -1,7 +1,10 @@
 import { collection, TreeView } from "@transitionsag/bloom";
 
-const sampleCollection = collection({
+type TreeNode = { name: string; children?: TreeNode[] };
+
+const sampleCollection = collection<TreeNode>({
   rootNode: {
+    name: "",
     children: [
       {
         name: "Components",

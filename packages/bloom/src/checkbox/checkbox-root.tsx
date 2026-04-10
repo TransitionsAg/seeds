@@ -3,7 +3,7 @@ import { Checkbox as CheckboxPrimitive } from "@transitionsag/primitives/checkbo
 import { cva, type VariantProps } from "../cva.ts";
 import { CheckIcon } from "@transitionsag/phosphor-solid/check";
 
-export const checkboxVariants = cva({
+export const checkboxVariants: (props?: { class?: string }) => string = cva({
   base: "inline-flex items-center gap-2 cursor-pointer select-none",
 });
 

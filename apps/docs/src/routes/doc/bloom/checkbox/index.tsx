@@ -1,5 +1,4 @@
 import { Checkbox } from "@transitionsag/bloom/checkbox";
-import "@transitionsag/bloom/styles.css";
 
 export default function BloomCheckboxDocs() {
   return (
@@ -12,7 +11,7 @@ export default function BloomCheckboxDocs() {
 
       <h2 class="typo-h3 mb-4">Usage</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-{`import { Checkbox } from "@transitionsag/bloom/checkbox";
+        {`import { Checkbox } from "@transitionsag/bloom/checkbox";
 import "@transitionsag/bloom/styles.css";
 
 <Checkbox id="terms" name="terms" value="yes">Accept terms</Checkbox>
@@ -57,12 +56,7 @@ import "@transitionsag/bloom/styles.css";
 
         <div>
           <h3 class="typo-h4 mb-3">Invalid</h3>
-          <Checkbox
-            id="bloom-invalid"
-            name="state"
-            value="invalid"
-            invalid
-          >
+          <Checkbox id="bloom-invalid" name="state" value="invalid" invalid>
             Invalid
           </Checkbox>
         </div>
@@ -71,10 +65,7 @@ import "@transitionsag/bloom/styles.css";
       <h2 class="typo-h3 mb-4">Props</h2>
       <p class="typo-p mb-4">
         Accepts all{" "}
-        <a
-          href="/doc/primitives/checkbox"
-          class="text-primary hover:underline"
-        >
+        <a href="/doc/primitives/checkbox" class="text-primary hover:underline">
           primitive checkbox root props
         </a>{" "}
         plus hidden input props directly on the same component.

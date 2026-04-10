@@ -5,7 +5,10 @@ import {
 } from "@transitionsag/primitives/polymorphic";
 import { cva, type VariantProps } from "../cva.ts";
 
-export const cardVariants = cva({
+export const cardVariants: (props?: {
+  size?: "normal" | "sm" | "fit";
+  class?: string;
+}) => string = cva({
   base: "rounded-lg ring-2 ring-border bg-background! flex flex-col gap-4",
   variants: {
     size: {

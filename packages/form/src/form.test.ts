@@ -31,7 +31,7 @@ const defaults: FormValues = {
 const noop = () => {};
 
 function setup(opts?: {
-  resolver?: Resolver;
+  resolver?: Resolver<FormValues>;
   initialValues?: FormValues;
   onSubmit?: (v: FormValues) => void | Promise<void>;
 }) {
@@ -187,7 +187,7 @@ Deno.test("binding - attrs defaults to empty object without resolver", () => {
 });
 
 Deno.test("binding - attrs populated from resolver", () => {
-  const resolver: Resolver = {
+  const resolver: Resolver<FormValues> = {
     attrs(path) {
       const key = path.join(".");
       const map: Record<string, Record<string, unknown>> = {
@@ -207,14 +207,14 @@ Deno.test("binding - attrs populated from resolver", () => {
 });
 
 Deno.test("binding - attrs empty for unknown path with resolver", () => {
-  const resolver: Resolver = { attrs: () => ({}) };
+  const resolver: Resolver<FormValues> = { attrs: () => ({}) };
   const { f } = setup({ resolver });
   assertEquals(f.binding("password").attrs, {});
   cleanup();
 });
 
 Deno.test("binding - setValue triggers resolver validation", () => {
-  const resolver: Resolver = {
+  const resolver: Resolver<FormValues> = {
     attrs: () => ({}),
     validate(_path, value) {
       return value === "" ? ["Required"] : null;
@@ -228,7 +228,7 @@ Deno.test("binding - setValue triggers resolver validation", () => {
 });
 
 Deno.test("binding - setValue clears errors on valid input", () => {
-  const resolver: Resolver = {
+  const resolver: Resolver<FormValues> = {
     attrs: () => ({}),
     validate(_path, value) {
       return value === "" ? ["Required"] : null;
@@ -243,7 +243,7 @@ Deno.test("binding - setValue clears errors on valid input", () => {
 });
 
 Deno.test("binding - setValue without validate does not crash", () => {
-  const resolver: Resolver = { attrs: () => ({}) };
+  const resolver: Resolver<FormValues> = { attrs: () => ({}) };
   const { f } = setup({ resolver });
   const b = f.binding("email");
   b.setValue("test@example.com");
@@ -410,7 +410,7 @@ Deno.test(
   "binding - async validate sets errors after resolve",
   { sanitizeOps: false },
   async () => {
-    const resolver: Resolver = {
+    const resolver: Resolver<FormValues> = {
       attrs: () => ({}),
       validate(_path, value) {
         return value === "" ? ["Required"] : null;
@@ -430,7 +430,7 @@ Deno.test(
   { sanitizeOps: false },
   async () => {
     let callCount = 0;
-    const resolver: Resolver = {
+    const resolver: Resolver<FormValues> = {
       attrs: () => ({}),
       validate(_path, value) {
         callCount++;
@@ -573,7 +573,7 @@ Deno.test("aria - invalid reacts to error clearing", () => {
 });
 
 Deno.test("aria - required mirrors resolver attrs", () => {
-  const resolver: Resolver = {
+  const resolver: Resolver<FormValues> = {
     attrs: (path) => (path[0] === "email" ? { required: true } : {}),
   };
   const { f } = setup({ resolver });

@@ -5,7 +5,16 @@ import { CardDescription } from "./card-description.tsx";
 import { CardContent } from "./card-content.tsx";
 import { CardFooter } from "./card-footer.tsx";
 
-export const Card = Object.assign(CardRoot, {
+type CardType = typeof CardRoot & {
+  Root: typeof CardRoot;
+  Header: typeof CardHeader;
+  Title: typeof CardTitle;
+  Description: typeof CardDescription;
+  Content: typeof CardContent;
+  Footer: typeof CardFooter;
+};
+
+export const Card: CardType = Object.assign(CardRoot, {
   Root: CardRoot,
   Header: CardHeader,
   Title: CardTitle,

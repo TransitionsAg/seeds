@@ -2,7 +2,11 @@ import { type JSX, splitProps, type ValidComponent } from "solid-js";
 import { Button as ButtonPrimitive } from "@transitionsag/primitives/button";
 import { cva, type VariantProps } from "../cva.ts";
 
-export const buttonVariants = cva({
+export const buttonVariants: (props?: {
+  intent?: "primary" | "secondary" | "destructive" | "link";
+  size?: "sm" | "md" | "lg" | "square" | "fit";
+  class?: string;
+}) => string = cva({
   base:
     "inline-flex items-center justify-center rounded font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
   variants: {

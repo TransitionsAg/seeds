@@ -1,6 +1,11 @@
 import { CheckboxRoot, checkboxVariants } from "./checkbox-root.tsx";
 
-export const Checkbox = Object.assign(CheckboxRoot, {
+type CheckboxType = typeof CheckboxRoot & {
+  Root: typeof CheckboxRoot;
+  variants: typeof checkboxVariants;
+};
+
+export const Checkbox: CheckboxType = Object.assign(CheckboxRoot, {
   Root: CheckboxRoot,
   variants: checkboxVariants,
 });

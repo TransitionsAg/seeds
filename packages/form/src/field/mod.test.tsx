@@ -12,7 +12,7 @@ const noop = () => {};
 
 function setup(
   opts?: {
-    resolver?: Resolver;
+    resolver?: Resolver<FormValues>;
     onSubmit?: (v: FormValues) => void | Promise<void>;
   },
 ) {
@@ -83,7 +83,9 @@ describe("Field.Input", () => {
   });
 
   it("aria-required is true when resolver requires it", () => {
-    const resolver: Resolver = { attrs: () => ({ required: true }) };
+    const resolver: Resolver<FormValues> = {
+      attrs: () => ({ required: true }),
+    };
     const { Field } = setup({ resolver });
     const { container } = render(() => (
       <Field name="email">
@@ -106,7 +108,7 @@ describe("Field.Input", () => {
   });
 
   it("spreads HTML constraint attrs from resolver", () => {
-    const resolver: Resolver = {
+    const resolver: Resolver<FormValues> = {
       attrs: () => ({ required: true, maxLength: 255 }),
     };
     const { Field } = setup({ resolver });
