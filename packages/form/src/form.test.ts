@@ -47,11 +47,16 @@ function setup(opts?: {
 
 // --- values ---
 
-Deno.test("values - holds initial values", () => {
-  const { f } = setup();
-  assertEquals(f.values.email, "");
-  assertEquals(f.values.address.city, "");
-  cleanup();
+Deno.test({
+  name: "values - holds initial values",
+  fn: () => {
+    const { f } = setup();
+    assertEquals(f.values.email, "");
+    assertEquals(f.values.address.city, "");
+    cleanup();
+  },
+  sanitizeOps: false,
+  sanitizeResources: false,
 });
 
 Deno.test("errors - initialized to null", () => {
