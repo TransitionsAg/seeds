@@ -13,7 +13,7 @@ export type { InputAttrs };
  *
  * @example
  * ```ts
- * import type { Resolver } from "@transitionsag/forms/resolver";
+ * import type { Resolver } from "@transitionsag/form/resolver";
  *
  * const myResolver: Resolver<{ email: string }> = {
  *   attrs(path) {

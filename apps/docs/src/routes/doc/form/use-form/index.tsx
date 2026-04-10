@@ -10,7 +10,7 @@ export default function UseFormDocs() {
 
       <h2 class="typo-h3 mb-4">Usage</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-{`import { useForm } from "@transitionsag/forms";
+{`import { useForm } from "@transitionsag/form";
 
 const { Form, Field, submit, reset, values, errors, state } = useForm({
   initialValues: { email: "", password: "" },

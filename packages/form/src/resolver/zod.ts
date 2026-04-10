@@ -180,8 +180,8 @@ function errorsTemplate(schema: z.ZodTypeAny): any {
  * @example
  * ```ts
  * import { z } from "zod";
- * import { zodResolver } from "@transitionsag/forms/resolver/zod";
- * import { useForm } from "@transitionsag/forms";
+ * import { zodResolver } from "@transitionsag/form/resolver/zod";
+ * import { useForm } from "@transitionsag/form";
  *
  * const schema = z.object({
  *   email: z.string().email(),

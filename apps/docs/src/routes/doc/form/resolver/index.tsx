@@ -9,8 +9,8 @@ export default function ResolverDocs() {
 
       <h2 class="typo-h3 mb-4">Zod Resolver</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-{`import { useForm } from "@transitionsag/forms";
-import { zodResolver } from "@transitionsag/forms/resolver/zod";
+{`import { useForm } from "@transitionsag/form";
+import { zodResolver } from "@transitionsag/form/resolver/zod";
 import { z } from "zod";
 
 const schema = z.object({

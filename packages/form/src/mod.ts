@@ -7,7 +7,7 @@
  *
  * @example
  * ```tsx
- * import { useForm } from "@transitionsag/forms";
+ * import { useForm } from "@transitionsag/form";
  *
  * type Login = { email: string; password: string };
  *
