@@ -1,6 +1,7 @@
 {
   "name": "@transitionsag/primitives",
   "version": "0.0.1",
+  "license": "MIT",
   "exports": {
     "./button": "./src/button/mod.tsx",
     "./checkbox": "./src/checkbox/mod.tsx",
@@ -9,7 +10,7 @@
     "./tree-view": "./src/tree-view/mod.tsx"
   },
   "publish": {
-    "include": ["src/", "deno.json"],
+    "include": ["src/", "deno.json", "LICENSE"],
     "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
   },
   "compilerOptions": {
