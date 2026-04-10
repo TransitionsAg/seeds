@@ -1,0 +1,14 @@
+{
+  "name": "@transitionsag/seeds-docs",
+  "version": "0.0.1",
+  "exports": "./src/app.tsx",
+  "tasks": {
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "solid-js"
+  }
+}
