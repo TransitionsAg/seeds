@@ -1,0 +1,70 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  id-token: write
+  contents: write
+  pages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: cachix/install-nix-action@v30
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: nix-community/cache-nix-action@v5
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
+          gc-max-store-size-linux: 1073741824
+          purge: true
+          purge-prefixes: nix-${{ runner.os }}-
+          purge-created: 0
+          purge-primary-key: never
+
+      - name: Install dependencies
+        run: nix develop --command deno install
+
+      - name: Check
+        run: nix develop --command deno task check
+
+      - name: Test
+        run: nix develop --command deno task test
+
+      - name: Publish primitives
+        working-directory: packages/primitives
+        run: nix develop --command deno publish
+
+      - name: Publish form
+        working-directory: packages/form
+        run: nix develop --command deno publish
+
+      - name: Publish bloom
+        working-directory: packages/bloom
+        run: nix develop --command deno publish
+
+      - name: Build docs
+        run: nix develop --command deno task docs:build
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/docs/.output/public
+
+      - uses: actions/deploy-pages@v4

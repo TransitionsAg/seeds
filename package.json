@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "workspaces": ["packages/*", "apps/*"],
+  "dependencies": {
+    "@zag-js/tree-view": "^1.39.1"
+  }
+}
