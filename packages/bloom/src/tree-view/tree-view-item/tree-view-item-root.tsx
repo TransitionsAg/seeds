@@ -1,4 +1,4 @@
-import { splitProps } from "solid-js";
+import { type JSX, splitProps } from "solid-js";
 import { TreeView as TreeViewPrimitive } from "@transitionsag/primitives/tree-view";
 import { cva } from "../../cva.ts";
 
@@ -9,7 +9,7 @@ const itemVariants = cva({
 
 type ItemRootProps = Parameters<typeof TreeViewPrimitive.Item.Root>[0];
 
-export function TreeViewItemRoot(rawProps: ItemRootProps) {
+export function TreeViewItemRoot(rawProps: ItemRootProps): JSX.Element {
   const [local, others] = splitProps(rawProps, ["class"]);
   return (
     <TreeViewPrimitive.Item.Root

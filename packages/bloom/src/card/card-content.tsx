@@ -1,4 +1,4 @@
-import { type ComponentProps, splitProps } from "solid-js";
+import { type ComponentProps, type JSX, splitProps } from "solid-js";
 import { cva } from "../cva.ts";
 
 const contentVariants = cva({
@@ -7,7 +7,7 @@ const contentVariants = cva({
 
 type CardContentProps = ComponentProps<"div">;
 
-export function CardContent(props: CardContentProps) {
+export function CardContent(props: CardContentProps): JSX.Element {
   const [local, others] = splitProps(props, ["class"]);
   return <div {...others} class={contentVariants({ class: local.class })} />;
 }

@@ -1,5 +1,4 @@
 import { Button } from "@transitionsag/bloom";
-import "@transitionsag/bloom/styles.css";
 
 export default function BloomButtonDocs() {
   return (
@@ -11,7 +10,7 @@ export default function BloomButtonDocs() {
 
       <h2 class="typo-h3 mb-4">Usage</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-{`import { Button } from "@transitionsag/bloom";
+        {`import { Button } from "@transitionsag/bloom";
 import "@transitionsag/bloom/styles.css";
 
 <Button>Default</Button>
@@ -43,8 +42,12 @@ import "@transitionsag/bloom/styles.css";
           <h3 class="typo-h4 mb-3">Disabled</h3>
           <div class="flex gap-4">
             <Button disabled>Primary</Button>
-            <Button intent="secondary" disabled>Secondary</Button>
-            <Button intent="destructive" disabled>Destructive</Button>
+            <Button intent="secondary" disabled>
+              Secondary
+            </Button>
+            <Button intent="destructive" disabled>
+              Destructive
+            </Button>
           </div>
         </div>
       </div>

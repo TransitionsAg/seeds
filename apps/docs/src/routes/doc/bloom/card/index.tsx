@@ -1,6 +1,5 @@
 import { Card } from "@transitionsag/bloom";
 import { Button } from "@transitionsag/bloom";
-import "@transitionsag/bloom/styles.css";
 
 export default function BloomCardDocs() {
   return (
@@ -195,22 +194,18 @@ import "@transitionsag/bloom/styles.css";
         </tbody>
       </table>
       <p class="typo-p mb-8">
-        All other parts
-        (<code class="font-mono text-sm bg-secondary px-1 rounded">
-          Header
-        </code>,{" "}
-        <code class="font-mono text-sm bg-secondary px-1 rounded">Title</code>,
-        {" "}
+        All other parts (
+        <code class="font-mono text-sm bg-secondary px-1 rounded">Header</code>,{" "}
+        <code class="font-mono text-sm bg-secondary px-1 rounded">Title</code>,{" "}
         <code class="font-mono text-sm bg-secondary px-1 rounded">
           Description
-        </code>,{" "}
-        <code class="font-mono text-sm bg-secondary px-1 rounded">
-          Content
-        </code>,{" "}
+        </code>
+        ,{" "}
+        <code class="font-mono text-sm bg-secondary px-1 rounded">Content</code>
+        ,{" "}
         <code class="font-mono text-sm bg-secondary px-1 rounded">Footer</code>)
         accept native props for their respective elements plus a{" "}
-        <code class="font-mono text-sm bg-secondary px-1 rounded">class</code>
-        {" "}
+        <code class="font-mono text-sm bg-secondary px-1 rounded">class</code>{" "}
         prop.
       </p>
     </div>

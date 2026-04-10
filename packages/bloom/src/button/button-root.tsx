@@ -1,4 +1,4 @@
-import { splitProps, type ValidComponent } from "solid-js";
+import { type JSX, splitProps, type ValidComponent } from "solid-js";
 import { Button as ButtonPrimitive } from "@transitionsag/primitives/button";
 import { cva, type VariantProps } from "../cva.ts";
 
@@ -38,7 +38,7 @@ export type ButtonProps<T extends ValidComponent = "button"> =
 
 export function ButtonRoot<T extends ValidComponent = "button">(
   rawProps: ButtonProps<T>,
-) {
+): JSX.Element {
   const [local, others] = splitProps(rawProps as ButtonProps, [
     "intent",
     "size",

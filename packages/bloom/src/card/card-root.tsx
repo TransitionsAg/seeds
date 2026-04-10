@@ -1,4 +1,4 @@
-import { splitProps, type ValidComponent } from "solid-js";
+import { type JSX, splitProps, type ValidComponent } from "solid-js";
 import {
   Polymorphic,
   type PolymorphicProps,
@@ -25,7 +25,7 @@ type CardRootProps<T extends ValidComponent = "div"> =
 
 export function CardRoot<T extends ValidComponent = "div">(
   rawProps: CardRootProps<T>,
-) {
+): JSX.Element {
   const [local, others] = splitProps(rawProps as CardRootProps, [
     "size",
     "class",

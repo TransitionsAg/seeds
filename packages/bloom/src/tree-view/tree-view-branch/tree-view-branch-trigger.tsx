@@ -1,4 +1,4 @@
-import { splitProps } from "solid-js";
+import { type JSX, splitProps } from "solid-js";
 import { TreeView as TreeViewPrimitive } from "@transitionsag/primitives/tree-view";
 import { CaretRightIcon } from "@transitionsag/phosphor-solid/caret-right";
 
@@ -6,7 +6,9 @@ type BranchTriggerProps = Parameters<
   typeof TreeViewPrimitive.Branch.Trigger
 >[0];
 
-export function TreeViewBranchTrigger(rawProps: BranchTriggerProps) {
+export function TreeViewBranchTrigger(
+  rawProps: BranchTriggerProps,
+): JSX.Element {
   const [local, others] = splitProps(rawProps, ["class"]);
   return (
     <TreeViewPrimitive.Branch.Trigger

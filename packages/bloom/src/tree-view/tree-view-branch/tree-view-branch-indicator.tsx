@@ -1,4 +1,4 @@
-import { splitProps } from "solid-js";
+import { type JSX, splitProps } from "solid-js";
 import { TreeView as TreeViewPrimitive } from "@transitionsag/primitives/tree-view";
 import { cva } from "../../cva.ts";
 
@@ -11,7 +11,9 @@ type BranchIndicatorProps = Parameters<
   typeof TreeViewPrimitive.Branch.Indicator
 >[0];
 
-export function TreeViewBranchIndicator(rawProps: BranchIndicatorProps) {
+export function TreeViewBranchIndicator(
+  rawProps: BranchIndicatorProps,
+): JSX.Element {
   const [local, others] = splitProps(rawProps, ["class"]);
   return (
     <TreeViewPrimitive.Branch.Indicator

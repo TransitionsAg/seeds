@@ -36,7 +36,7 @@ type BrandingProps = ParentProps<{
   theme?: Theme;
 }>;
 
-export function Root(props: BrandingProps) {
+export function Root(props: BrandingProps): JSX.Element {
   const cssVars = createMemo(() => themeToCSSVars(props.theme ?? {}));
 
   return (

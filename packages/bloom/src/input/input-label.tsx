@@ -1,4 +1,4 @@
-import { type ComponentProps, splitProps } from "solid-js";
+import { type ComponentProps, type JSX, splitProps } from "solid-js";
 import { cva } from "../cva.ts";
 
 const labelVariants = cva({
@@ -12,7 +12,7 @@ const labelVariants = cva({
 
 type InputLabelProps = ComponentProps<"label">;
 
-export function InputLabel(props: InputLabelProps) {
+export function InputLabel(props: InputLabelProps): JSX.Element {
   const [local, inputProps] = splitProps(props, ["class"]);
   return (
     <label

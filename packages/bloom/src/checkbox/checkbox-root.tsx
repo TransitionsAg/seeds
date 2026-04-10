@@ -30,7 +30,7 @@ type CheckboxRootProps =
     form?: string;
   };
 
-export function CheckboxRoot(rawProps: CheckboxRootProps) {
+export function CheckboxRoot(rawProps: CheckboxRootProps): JSX.Element {
   const [local, rootRest] = splitProps(rawProps, [
     "class",
     "children",

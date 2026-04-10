@@ -1,4 +1,4 @@
-import { type ComponentProps, splitProps } from "solid-js";
+import { type ComponentProps, type JSX, splitProps } from "solid-js";
 import { cva } from "../cva.ts";
 
 const inputVariants = cva({
@@ -13,7 +13,7 @@ const inputVariants = cva({
 
 type InputRootProps = ComponentProps<"input">;
 
-export function InputRoot(props: InputRootProps) {
+export function InputRoot(props: InputRootProps): JSX.Element {
   const [local, inputProps] = splitProps(props, ["class", "children"]);
 
   return (
