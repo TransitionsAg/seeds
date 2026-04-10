@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500;600;700;800&display=swap");
+@import "tailwindcss" source("../../");
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
+  --color-primary: #74b24c;
+  --color-primary-accent: #5d8f3d;
+  --color-primary-foreground: #fbfbfe;
+  --color-primary-accent-foreground: #fbfbfe;
+  --color-secondary: #f7f7f7;
+  --color-secondary-accent: #ebebeb;
+  --color-secondary-foreground: #222222;
+  --color-border: #ececfd;
+  --color-background: #fbfbfe;
+  --color-foreground: #222222;
+  --color-caption: #737373;
+  --color-destructive: #a91101;
+  --color-destructive-accent: #7f0d01;
+  --color-destructive-foreground: #fdbbb4;
+}
+
+:root {
+  @apply bg-background text-foreground font-sans font-medium overflow-x-hidden
+    antialiased tracking-[-2%];
+}
+
+h1,
+.typo-h1 {
+  @apply text-4xl font-extrabold;
+}
+
+h2,
+.typo-h2 {
+  @apply text-3xl font-extrabold;
+}
+
+h3,
+.typo-h3 {
+  @apply text-2xl font-extrabold;
+}
+
+h4,
+.typo-h4 {
+  @apply text-xl font-extrabold;
+}
+
+.typo-sm {
+  @apply text-sm font-semibold;
+}
+
+.typo-xs {
+  @apply text-xs font-semibold;
+}
+
+.typo-p {
+  @apply text-base font-medium;
+}
+
+.typo-caption {
+  @apply text-sm text-caption font-medium;
+}

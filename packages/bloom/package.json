@@ -1,0 +1,19 @@
+{
+  "name": "@transitionsag/bloom",
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    ".": "./src/mod.ts",
+    "./styles.css": "./src/styles.css",
+    "./checkbox": "./src/checkbox/mod.tsx"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "@transitionsag/phosphor-solid": "npm:@jsr/transitionsag__phosphor-solid@^0.4.1",
+    "@transitionsag/primitives": "workspace:*",
+    "cva": "1.0.0-beta.4",
+    "solid-js": "^1.9.12",
+    "tailwind-merge": "^3.0.0",
+    "tailwindcss": "^4.0.0"
+  }
+}

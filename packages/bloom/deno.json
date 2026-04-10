@@ -1,0 +1,17 @@
+{
+  "name": "@transitionsag/bloom",
+  "version": "0.0.1",
+  "exports": {
+    ".": "./src/mod.ts",
+    "./styles.css": "./src/styles.css",
+    "./checkbox": "./src/checkbox/mod.tsx"
+  },
+  "publish": {
+    "include": ["src/", "deno.json"],
+    "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "solid-js"
+  }
+}
