@@ -1,0 +1,21 @@
+{
+  "name": "@transitionsag/forms",
+  "version": "0.0.1",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/mod.ts",
+    "./resolver": "./src/resolver/mod.ts",
+    "./resolver/zod": "./src/resolver/zod.ts"
+  },
+  "dependencies": {
+    "solid-js": "^1.9.12"
+  },
+  "devDependencies": {
+    "@solidjs/testing-library": "^0.8.10",
+    "happy-dom": "^17.4.4",
+    "vite-plugin-solid": "^2.11.6",
+    "vitest": "^3.2.1",
+    "zod": "^3.24.0"
+  }
+}

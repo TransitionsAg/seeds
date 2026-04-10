@@ -1,0 +1,24 @@
+{
+  "name": "@transitionsag/forms",
+  "version": "0.0.1",
+  "license": "MIT",
+  "tasks": {
+    "test": "deno test --no-check --allow-env --conditions=browser --ignore=src/**/*.test.tsx src/ && deno run -A npm:vitest run",
+    "test:unit": "deno test --no-check --allow-env --conditions=browser --ignore=src/**/*.test.tsx src/",
+    "test:component": "deno run -A npm:vitest run"
+  },
+  "exports": {
+    ".": "./src/mod.ts",
+    "./resolver": "./src/resolver/mod.ts",
+    "./resolver/zod": "./src/resolver/zod.ts"
+  },
+  "publish": {
+    "include": ["src/", "deno.json", "README.md", "LICENSE"],
+    "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/jsx.ts"]
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "solid-js",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"]
+  }
+}
