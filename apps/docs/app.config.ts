@@ -1,16 +1,16 @@
 import { defineConfig } from "@solidjs/start/config";
 import tailwindcss from "@tailwindcss/vite";
-import type { Plugin } from "vite";
 
-function denoNpmRewrite(): Plugin {
+function denoNpmRewrite() {
   return {
     name: "deno-npm-rewrite",
     enforce: "pre",
-    transform(code, id) {
+    transform(code: string, id: string) {
       if (!id.includes("@jsr/transitionsag__phosphor-solid")) return;
       return code.replace(
         /npm:[\w@/-]+@[\^~]?[\d.]+/g,
-        (match) => match.replace("npm:", "").replace(/@[\^~]?[\d.]+/, ""),
+        (match: string) =>
+          match.replace("npm:", "").replace(/@[\^~]?[\d.]+/, ""),
       );
     },
   };
