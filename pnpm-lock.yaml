@@ -45,8 +45,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/form
       '@transitionsag/phosphor-solid':
-        specifier: npm:@jsr/transitionsag__phosphor-solid@^0.4.1
-        version: '@jsr/transitionsag__phosphor-solid@0.4.1'
+        specifier: ^0.0.1
+        version: 0.0.1(solid-js@1.9.12)
       '@transitionsag/primitives':
         specifier: workspace:*
         version: link:../../packages/primitives
@@ -647,9 +647,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
-
-  '@jsr/transitionsag__phosphor-solid@0.4.1':
-    resolution: {integrity: sha512-60n8wK1pbW6B5h+pKdR6nBhJQJ0s7xym0TTBjif0lnub48E3r1VHXdA6HAT3NE8LYD8i8xB9aMd3W40WDCNNtQ==, tarball: https://npm.jsr.io/~/11/@jsr/transitionsag__phosphor-solid/0.4.1.tgz}
 
   '@mapbox/node-pre-gyp@2.0.3':
     resolution: {integrity: sha512-uwPAhccfFJlsfCxMYTwOdVfOz3xqyj8xYL3zJj8f0pb30tLohnnFPhLuqp4/qoEz8sNxe4SESZedcBojRefIzg==}
@@ -4092,10 +4089,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
-
-  '@jsr/transitionsag__phosphor-solid@0.4.1':
-    dependencies:
-      solid-js: 1.9.12
 
   '@mapbox/node-pre-gyp@2.0.3':
     dependencies:

@@ -14,7 +14,7 @@
     "@tailwindcss/vite": "^4.0.0",
     "@transitionsag/bloom": "workspace:*",
     "@transitionsag/form": "workspace:*",
-    "@transitionsag/phosphor-solid": "npm:@jsr/transitionsag__phosphor-solid@^0.4.1",
+    "@transitionsag/phosphor-solid": "^0.0.1",
     "@transitionsag/primitives": "workspace:*",
     "solid-js": "^1.9.12",
     "vinxi": "^0.5.11",
