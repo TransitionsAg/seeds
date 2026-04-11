@@ -12,9 +12,11 @@
     "docs:start": "pnpm --filter @transitionsag/seeds-docs run start"
   },
   "devDependencies": {
+    "esbuild-plugin-solid": "^0.6.0",
     "oxfmt": "^0.44.0",
     "oxlint": "^1.59.0",
     "tsup": "^8.4.0",
+    "tsup-preset-solid": "^2.2.0",
     "typescript": "^5.8.3"
   },
   "pnpm": {

@@ -2,30 +2,92 @@
   "name": "@transitionsag/primitives",
   "version": "0.0.5",
   "license": "MIT",
+  "sideEffects": false,
   "files": [
     "dist"
   ],
   "type": "module",
+  "browser": {},
   "exports": {
     "./button": {
-      "import": "./dist/button/index.js",
-      "types": "./dist/button/index.d.ts"
+      "solid": {
+        "development": "./dist/button/dev.jsx",
+        "import": "./dist/button/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/button/index.d.ts",
+          "default": "./dist/button/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/button/index.d.ts",
+        "default": "./dist/button/index.js"
+      }
     },
     "./checkbox": {
-      "import": "./dist/checkbox/index.js",
-      "types": "./dist/checkbox/index.d.ts"
+      "solid": {
+        "development": "./dist/checkbox/dev.jsx",
+        "import": "./dist/checkbox/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/checkbox/index.d.ts",
+          "default": "./dist/checkbox/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/checkbox/index.d.ts",
+        "default": "./dist/checkbox/index.js"
+      }
     },
     "./polymorphic": {
-      "import": "./dist/polymorphic/index.js",
-      "types": "./dist/polymorphic/index.d.ts"
+      "solid": {
+        "development": "./dist/polymorphic/dev.jsx",
+        "import": "./dist/polymorphic/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/polymorphic/index.d.ts",
+          "default": "./dist/polymorphic/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/polymorphic/index.d.ts",
+        "default": "./dist/polymorphic/index.js"
+      }
     },
     "./input": {
-      "import": "./dist/input/index.js",
-      "types": "./dist/input/index.d.ts"
+      "solid": {
+        "development": "./dist/input/dev.jsx",
+        "import": "./dist/input/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/input/index.d.ts",
+          "default": "./dist/input/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/input/index.d.ts",
+        "default": "./dist/input/index.js"
+      }
     },
     "./tree-view": {
-      "import": "./dist/tree-view/index.js",
-      "types": "./dist/tree-view/index.d.ts"
+      "solid": {
+        "development": "./dist/tree-view/dev.jsx",
+        "import": "./dist/tree-view/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/tree-view/index.d.ts",
+          "default": "./dist/tree-view/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/tree-view/index.d.ts",
+        "default": "./dist/tree-view/index.js"
+      }
     }
   },
   "scripts": {

@@ -2,40 +2,119 @@
   "name": "@transitionsag/bloom",
   "version": "0.0.5",
   "license": "MIT",
+  "sideEffects": false,
   "files": [
     "dist",
     "src/styles.css"
   ],
   "type": "module",
+  "main": "./dist/index/index.js",
+  "module": "./dist/index/index.js",
+  "types": "./dist/index/index.d.ts",
+  "browser": {},
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/index/index.d.ts",
+        "default": "./dist/index/index.js"
+      }
     },
     "./styles.css": "./src/styles.css",
     "./branding": {
-      "import": "./dist/branding/index.js",
-      "types": "./dist/branding/index.d.ts"
+      "solid": {
+        "development": "./dist/branding/dev.jsx",
+        "import": "./dist/branding/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/branding/index.d.ts",
+          "default": "./dist/branding/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/branding/index.d.ts",
+        "default": "./dist/branding/index.js"
+      }
     },
     "./button": {
-      "import": "./dist/button/index.js",
-      "types": "./dist/button/index.d.ts"
+      "solid": {
+        "development": "./dist/button/dev.jsx",
+        "import": "./dist/button/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/button/index.d.ts",
+          "default": "./dist/button/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/button/index.d.ts",
+        "default": "./dist/button/index.js"
+      }
     },
     "./card": {
-      "import": "./dist/card/index.js",
-      "types": "./dist/card/index.d.ts"
+      "solid": {
+        "development": "./dist/card/dev.jsx",
+        "import": "./dist/card/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/card/index.d.ts",
+          "default": "./dist/card/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/card/index.d.ts",
+        "default": "./dist/card/index.js"
+      }
     },
     "./checkbox": {
-      "import": "./dist/checkbox/index.js",
-      "types": "./dist/checkbox/index.d.ts"
+      "solid": {
+        "development": "./dist/checkbox/dev.jsx",
+        "import": "./dist/checkbox/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/checkbox/index.d.ts",
+          "default": "./dist/checkbox/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/checkbox/index.d.ts",
+        "default": "./dist/checkbox/index.js"
+      }
     },
     "./input": {
-      "import": "./dist/input/index.js",
-      "types": "./dist/input/index.d.ts"
+      "solid": {
+        "development": "./dist/input/dev.jsx",
+        "import": "./dist/input/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/input/index.d.ts",
+          "default": "./dist/input/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/input/index.d.ts",
+        "default": "./dist/input/index.js"
+      }
     },
     "./tree-view": {
-      "import": "./dist/tree-view/index.js",
-      "types": "./dist/tree-view/index.d.ts"
+      "solid": {
+        "development": "./dist/tree-view/dev.jsx",
+        "import": "./dist/tree-view/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/tree-view/index.d.ts",
+          "default": "./dist/tree-view/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/tree-view/index.d.ts",
+        "default": "./dist/tree-view/index.js"
+      }
     }
   },
   "scripts": {
@@ -44,7 +123,7 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.16",
-    "@transitionsag/phosphor-solid": "npm:@jsr/transitionsag__phosphor-solid@^0.4.1",
+    "@transitionsag/phosphor-solid": "^0.0.1",
     "@transitionsag/primitives": "workspace:*",
     "cva": "1.0.0-beta.4",
     "solid-js": "^1.9.12",
