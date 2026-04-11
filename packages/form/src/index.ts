@@ -43,6 +43,6 @@ export {
   type SubmitHandler,
   type SubmitOptions,
 } from "./form.ts";
-export { type InputAttrs } from "./input/mod.ts";
-export { type FormErrors } from "./errors/mod.ts";
-export { type FieldComponent, type Path } from "./field/mod.ts";
+export { type InputAttrs } from "./input/index.ts";
+export { type FormErrors } from "./errors/index.ts";
+export { type FieldComponent, type Path } from "./field/index.ts";

@@ -11,25 +11,23 @@ import {
 import { Dynamic } from "solid-js/web";
 import { normalizeProps, useMachine } from "@zag-js/solid";
 import * as treeView from "@zag-js/tree-view";
-import type { PolymorphicProps } from "../polymorphic/mod.tsx";
+import type { PolymorphicProps } from "../polymorphic/index.tsx";
 
 export type TreeViewApi = ReturnType<typeof treeView.connect>;
 export type TreeViewNodeProps = treeView.NodeProps;
 
-export const TreeViewApiContext: Context<TreeViewApi | undefined> =
-  createContext<TreeViewApi | undefined>();
-export const useTreeViewApi = (): TreeViewApi =>
-  useContext(TreeViewApiContext)!;
+export const TreeViewApiContext: Context<TreeViewApi | undefined> = createContext<
+  TreeViewApi | undefined
+>();
+export const useTreeViewApi = (): TreeViewApi => useContext(TreeViewApiContext)!;
 
-export const TreeViewNodeContext: Context<TreeViewNodeProps | undefined> =
-  createContext<TreeViewNodeProps | undefined>();
-export const useTreeViewNode = (): TreeViewNodeProps =>
-  useContext(TreeViewNodeContext)!;
+export const TreeViewNodeContext: Context<TreeViewNodeProps | undefined> = createContext<
+  TreeViewNodeProps | undefined
+>();
+export const useTreeViewNode = (): TreeViewNodeProps => useContext(TreeViewNodeContext)!;
 
-type TreeViewRootProps<T extends ValidComponent = "div"> =
-  & PolymorphicProps<T>
-  & treeView.Props
-  & { children: JSX.Element };
+type TreeViewRootProps<T extends ValidComponent = "div"> = PolymorphicProps<T> &
+  treeView.Props & { children: JSX.Element };
 
 /**
  * Root component for the tree view. Provides the zag-js tree view machine context
@@ -61,9 +59,5 @@ export function TreeViewRoot<T extends ValidComponent = "div">(
       {local.children}
     </Dynamic>
   );
-  return (
-    <TreeViewApiContext.Provider value={api()}>
-      {root}
-    </TreeViewApiContext.Provider>
-  );
+  return <TreeViewApiContext.Provider value={api()}>{root}</TreeViewApiContext.Provider>;
 }

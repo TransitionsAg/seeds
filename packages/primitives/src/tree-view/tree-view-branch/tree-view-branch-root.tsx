@@ -1,20 +1,10 @@
-import {
-  type JSX,
-  mergeProps,
-  splitProps,
-  type ValidComponent,
-} from "solid-js";
+import { type JSX, mergeProps, splitProps, type ValidComponent } from "solid-js";
 import { Dynamic } from "solid-js/web";
-import type { PolymorphicProps } from "../../polymorphic/mod.tsx";
-import {
-  TreeViewNodeContext,
-  type TreeViewNodeProps,
-  useTreeViewApi,
-} from "../tree-view-root.tsx";
+import type { PolymorphicProps } from "../../polymorphic/index.tsx";
+import { TreeViewNodeContext, type TreeViewNodeProps, useTreeViewApi } from "../tree-view-root.tsx";
 
-type TreeViewBranchRootProps<T extends ValidComponent = "div"> =
-  & PolymorphicProps<T>
-  & TreeViewNodeProps;
+type TreeViewBranchRootProps<T extends ValidComponent = "div"> = PolymorphicProps<T> &
+  TreeViewNodeProps;
 
 /**
  * A branch (folder) node in the tree. Can be expanded to reveal nested content.
@@ -38,21 +28,11 @@ export function TreeViewBranchRoot<T extends ValidComponent = "div">(
 ): JSX.Element {
   const api = useTreeViewApi();
   const merged = mergeProps({ as: "div" as T }, rawProps);
-  const [local, nodeLocal, others] = splitProps(merged, ["as"], [
-    "node",
-    "indexPath",
-  ]);
+  const [local, nodeLocal, others] = splitProps(merged, ["as"], ["node", "indexPath"]);
 
   const branch = (
     // @ts-ignore: polymorphic spread props are valid but too complex for TS
-    <Dynamic
-      {...mergeProps(api.getBranchProps(nodeLocal), others)}
-      component={local.as}
-    />
+    <Dynamic {...mergeProps(api.getBranchProps(nodeLocal), others)} component={local.as} />
   );
-  return (
-    <TreeViewNodeContext.Provider value={nodeLocal}>
-      {branch}
-    </TreeViewNodeContext.Provider>
-  );
+  return <TreeViewNodeContext.Provider value={nodeLocal}>{branch}</TreeViewNodeContext.Provider>;
 }

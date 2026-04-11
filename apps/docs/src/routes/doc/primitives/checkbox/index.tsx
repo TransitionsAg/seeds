@@ -5,9 +5,8 @@ export default function CheckboxDocs() {
     <div>
       <h1 class="typo-h1 mb-6">Checkbox</h1>
       <p class="typo-p mb-8">
-        An unstyled checkbox primitive wrapping{" "}
-        <code>@zag-js/checkbox</code>. Supports checked, unchecked, and
-        indeterminate states with full keyboard and screen-reader accessibility.
+        An unstyled checkbox primitive wrapping <code>@zag-js/checkbox</code>. Supports checked,
+        unchecked, and indeterminate states with full keyboard and screen-reader accessibility.
       </p>
 
       <h2 class="typo-h3 mb-4">Installation</h2>
@@ -210,11 +209,9 @@ export default function CheckboxDocs() {
 
       <h3 class="typo-h3 mb-4">Data Attributes</h3>
       <p class="typo-p mb-4">
-        <code>Root</code> and <code>Control</code> expose a{" "}
-        <code>data-state</code> attribute with values <code>"checked"</code>,
-        {" "}
-        <code>"unchecked"</code>, or <code>"indeterminate"</code>{" "}
-        for conditional styling.
+        <code>Root</code> and <code>Control</code> expose a <code>data-state</code> attribute with
+        values <code>"checked"</code>, <code>"unchecked"</code>, or <code>"indeterminate"</code> for
+        conditional styling.
       </p>
 
       <h2 class="typo-h3 mb-4">Preview</h2>
@@ -236,9 +233,7 @@ export default function CheckboxDocs() {
               </svg>
             </Checkbox.Indicator>
           </Checkbox.Control>
-          <Checkbox.Label class="ml-2 typo-p select-none">
-            Unchecked
-          </Checkbox.Label>
+          <Checkbox.Label class="ml-2 typo-p select-none">Unchecked</Checkbox.Label>
           <Checkbox.HiddenInput />
         </Checkbox>
 
@@ -258,9 +253,7 @@ export default function CheckboxDocs() {
               </svg>
             </Checkbox.Indicator>
           </Checkbox.Control>
-          <Checkbox.Label class="ml-2 typo-p select-none">
-            Checked
-          </Checkbox.Label>
+          <Checkbox.Label class="ml-2 typo-p select-none">Checked</Checkbox.Label>
           <Checkbox.HiddenInput />
         </Checkbox>
 
@@ -283,9 +276,7 @@ export default function CheckboxDocs() {
               </svg>
             </Checkbox.Indicator>
           </Checkbox.Control>
-          <Checkbox.Label class="ml-2 typo-p select-none">
-            Indeterminate
-          </Checkbox.Label>
+          <Checkbox.Label class="ml-2 typo-p select-none">Indeterminate</Checkbox.Label>
           <Checkbox.HiddenInput />
         </Checkbox>
 

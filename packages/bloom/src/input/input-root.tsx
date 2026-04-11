@@ -18,11 +18,7 @@ export function InputRoot(props: InputRootProps): JSX.Element {
 
   return (
     <div class="relative">
-      <input
-        {...inputProps}
-        placeholder=" "
-        class={inputVariants({ class: local.class })}
-      />
+      <input {...inputProps} placeholder=" " class={inputVariants({ class: local.class })} />
       {local.children}
     </div>
   );

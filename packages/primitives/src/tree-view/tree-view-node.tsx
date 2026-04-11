@@ -6,7 +6,7 @@ import {
   type ValidComponent,
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
-import type { PolymorphicProps } from "../polymorphic/mod.tsx";
+import type { PolymorphicProps } from "../polymorphic/index.tsx";
 import { useTreeViewApi, useTreeViewNode } from "./tree-view-root.tsx";
 
 /**
@@ -30,10 +30,7 @@ export function TreeViewNodeCheckbox<T extends ValidComponent = "div">(
   const [local, others] = splitProps(merged, ["as"]);
   return (
     // @ts-ignore: polymorphic spread props are valid but too complex for TS
-    <Dynamic
-      {...mergeProps(api.getNodeCheckboxProps(node), others)}
-      component={local.as}
-    />
+    <Dynamic {...mergeProps(api.getNodeCheckboxProps(node), others)} component={local.as} />
   );
 }
 
@@ -48,9 +45,7 @@ export function TreeViewNodeCheckbox<T extends ValidComponent = "div">(
  * </TreeView.Item>
  * ```
  */
-export function TreeViewNodeRenameInput(
-  props: ComponentProps<"input">,
-): JSX.Element {
+export function TreeViewNodeRenameInput(props: ComponentProps<"input">): JSX.Element {
   const api = useTreeViewApi();
   const node = useTreeViewNode();
   return <input {...mergeProps(api.getNodeRenameInputProps(node), props)} />;

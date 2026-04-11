@@ -11,10 +11,7 @@ import { TreeViewBranchText } from "./tree-view-branch/tree-view-branch-text.tsx
 import { TreeViewBranchTrigger } from "./tree-view-branch/tree-view-branch-trigger.tsx";
 import { TreeViewBranchIndicator } from "./tree-view-branch/tree-view-branch-indicator.tsx";
 import { TreeViewBranchIndentGuide } from "./tree-view-branch/tree-view-branch-indent-guide.tsx";
-import {
-  TreeViewNodeCheckbox,
-  TreeViewNodeRenameInput,
-} from "./tree-view-node.tsx";
+import { TreeViewNodeCheckbox, TreeViewNodeRenameInput } from "./tree-view-node.tsx";
 
 export { collection, filePathCollection } from "@zag-js/tree-view";
 export type { NodeProps } from "@zag-js/tree-view";
@@ -43,10 +40,7 @@ export { TreeViewBranchTrigger } from "./tree-view-branch/tree-view-branch-trigg
 export { TreeViewBranchIndicator } from "./tree-view-branch/tree-view-branch-indicator.tsx";
 export { TreeViewBranchIndentGuide } from "./tree-view-branch/tree-view-branch-indent-guide.tsx";
 
-export {
-  TreeViewNodeCheckbox,
-  TreeViewNodeRenameInput,
-} from "./tree-view-node.tsx";
+export { TreeViewNodeCheckbox, TreeViewNodeRenameInput } from "./tree-view-node.tsx";
 
 const Item = Object.assign(TreeViewItemRoot, {
   Root: TreeViewItemRoot,

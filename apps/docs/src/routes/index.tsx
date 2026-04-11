@@ -11,8 +11,7 @@ const packages = [
   {
     name: "Form",
     href: "/doc/form",
-    description:
-      "Reactive form library with type-safe state management and validation.",
+    description: "Reactive form library with type-safe state management and validation.",
     icon: "📋",
   },
   {
@@ -26,18 +25,15 @@ const packages = [
 const principles = [
   {
     title: "Layered by design",
-    text:
-      "Each package stands alone. Primitives ship zero styling. Form is independent of component choice. Bloom composes them both. Pick one layer or the full stack.",
+    text: "Each package stands alone. Primitives ship zero styling. Form is independent of component choice. Bloom composes them both. Pick one layer or the full stack.",
   },
   {
     title: "Reactive by nature",
-    text:
-      "Built on SolidJS fine-grained reactivity — no virtual DOM, no stale closures, no wasted renders. State updates flow exactly where they need to.",
+    text: "Built on SolidJS fine-grained reactivity — no virtual DOM, no stale closures, no wasted renders. State updates flow exactly where they need to.",
   },
   {
     title: "Accessible from the start",
-    text:
-      "Primitives wrap zag-js state machines for WAI-ARIA compliance. Accessibility isn't an afterthought or a plugin — it's the foundation every component grows from.",
+    text: "Primitives wrap zag-js state machines for WAI-ARIA compliance. Accessibility isn't an afterthought or a plugin — it's the foundation every component grows from.",
   },
 ];
 
@@ -67,8 +63,8 @@ export default function Home() {
                 reactive foundation
               </a>
             </span>
-            . Headless primitives, type-safe forms, and styled components —
-            designed to work together, ready to use independently.
+            . Headless primitives, type-safe forms, and styled components — designed to work
+            together, ready to use independently.
           </p>
           <div class="flex gap-4">
             <Button as={A} href="/doc" size="lg">
@@ -92,8 +88,8 @@ export default function Home() {
         <div class="max-w-5xl mx-auto px-8 py-20">
           <h3 class="typo-h2 mb-4">One ecosystem, three layers</h3>
           <p class="text-caption text-lg mb-10 max-w-xl">
-            Seeds grows from headless primitives through reactive forms to
-            styled components — pick what you need.
+            Seeds grows from headless primitives through reactive forms to styled components — pick
+            what you need.
           </p>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {packages.map((pkg) => (
@@ -102,9 +98,7 @@ export default function Home() {
                 class="group block p-6 border border-border rounded-xl hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all"
               >
                 <div class="text-3xl mb-3">{pkg.icon}</div>
-                <h4 class="typo-h4 mb-2 group-hover:text-primary transition-colors">
-                  {pkg.name}
-                </h4>
+                <h4 class="typo-h4 mb-2 group-hover:text-primary transition-colors">{pkg.name}</h4>
                 <p class="text-caption leading-relaxed">{pkg.description}</p>
               </A>
             ))}
@@ -119,9 +113,8 @@ export default function Home() {
             Built on <span class="text-primary">principles</span>
           </h3>
           <p class="text-caption text-lg mb-10 max-w-2xl leading-relaxed">
-            Primitives, Form, and Bloom aren't three separate libraries thrown
-            together. They share the same reactive DNA — designed so each layer
-            builds naturally on the last.
+            Primitives, Form, and Bloom aren't three separate libraries thrown together. They share
+            the same reactive DNA — designed so each layer builds naturally on the last.
           </p>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             {principles.map((p) => (
@@ -169,9 +162,7 @@ export default function Home() {
               transitions.ag
             </a>
           </span>
-          <span class="text-caption typo-sm">
-            Planted with 💚 in open source
-          </span>
+          <span class="text-caption typo-sm">Planted with 💚 in open source</span>
         </div>
       </footer>
     </div>

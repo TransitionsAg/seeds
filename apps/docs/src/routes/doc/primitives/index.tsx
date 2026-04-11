@@ -12,8 +12,7 @@ export default function PrimitivesIndex() {
     <div>
       <h1 class="typo-h1 mb-4">Primitives</h1>
       <p class="typo-p text-muted-foreground mb-8">
-        Unstyled, accessible UI primitives built on zag-js machines. Bring your
-        own styles.
+        Unstyled, accessible UI primitives built on zag-js machines. Bring your own styles.
       </p>
 
       <h2 class="typo-h3 mb-4">Components</h2>

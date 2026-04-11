@@ -5,8 +5,8 @@ export default function BloomInputDocs() {
     <div>
       <h1 class="typo-h1 mb-6">Input</h1>
       <p class="typo-p mb-8">
-        Styled input with floating label pattern. The label acts as placeholder
-        when empty, then animates above the value on input.
+        Styled input with floating label pattern. The label acts as placeholder when empty, then
+        animates above the value on input.
       </p>
 
       <h2 class="typo-h3 mb-4">Usage</h2>

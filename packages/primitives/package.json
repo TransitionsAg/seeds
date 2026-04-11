@@ -1,24 +1,53 @@
 {
   "name": "@transitionsag/primitives",
   "version": "0.0.5",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "exports": {
-    "./button": "./src/button/mod.tsx",
-    "./checkbox": "./src/checkbox/mod.tsx",
-    "./polymorphic": "./src/polymorphic/mod.tsx",
-    "./input/*": "./src/input/*.tsx",
-    "./tree-view": "./src/tree-view/mod.tsx"
+    "./button": {
+      "import": "./dist/button/index.js",
+      "types": "./dist/button/index.d.ts"
+    },
+    "./checkbox": {
+      "import": "./dist/checkbox/index.js",
+      "types": "./dist/checkbox/index.d.ts"
+    },
+    "./polymorphic": {
+      "import": "./dist/polymorphic/index.js",
+      "types": "./dist/polymorphic/index.d.ts"
+    },
+    "./input": {
+      "import": "./dist/input/index.js",
+      "types": "./dist/input/index.d.ts"
+    },
+    "./tree-view": {
+      "import": "./dist/tree-view/index.js",
+      "types": "./dist/tree-view/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "check": "tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
-    "@zag-js/checkbox": "1.39.1",
-    "@zag-js/solid": "1.39.1",
-    "@zag-js/tree-view": "1.39.1",
+    "@zag-js/checkbox": "^1.39.1",
+    "@zag-js/solid": "^1.39.1",
+    "@zag-js/tree-view": "^1.39.1",
     "solid-js": "^1.9.12"
   },
   "devDependencies": {
     "@solidjs/testing-library": "^0.8.10",
     "happy-dom": "^17.4.4",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3",
     "vite-plugin-solid": "^2.11.6",
     "vitest": "^3.2.1"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.9.12"
   }
 }

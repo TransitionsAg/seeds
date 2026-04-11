@@ -29,7 +29,9 @@ export default function BloomLayout(props: RouteSectionProps) {
             >
               Form
             </A>
-            <A href="/doc/bloom" class="text-foreground font-medium">Bloom</A>
+            <A href="/doc/bloom" class="text-foreground font-medium">
+              Bloom
+            </A>
           </div>
         </div>
         <nav class="p-4 flex-1 overflow-y-auto">

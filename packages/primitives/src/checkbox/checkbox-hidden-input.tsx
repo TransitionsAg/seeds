@@ -9,9 +9,7 @@ import { useCheckboxApi } from "./checkbox-root.tsx";
  * <Checkbox.HiddenInput />
  * ```
  */
-export function CheckboxHiddenInput(
-  props: ComponentProps<"input">,
-): JSX.Element {
+export function CheckboxHiddenInput(props: ComponentProps<"input">): JSX.Element {
   const api = useCheckboxApi();
   const inputProps = api.getHiddenInputProps();
   return <input {...mergeProps(inputProps, props)} />;

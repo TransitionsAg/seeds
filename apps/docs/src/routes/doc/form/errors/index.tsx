@@ -3,17 +3,16 @@ export default function ErrorsDocs() {
     <div>
       <h1 class="typo-h1 mb-6">Errors</h1>
       <p class="typo-p mb-8">
-        The <code>FormErrors</code>{" "}
-        type and utilities for working with per-field validation errors.
+        The <code>FormErrors</code> type and utilities for working with per-field validation errors.
       </p>
 
       <h2 class="typo-h3 mb-4">FormErrors</h2>
       <p class="typo-p mb-4">
-        Errors are represented as <code>string[] | null</code>{" "}
-        per field. Nested objects mirror the shape of your form values.
+        Errors are represented as <code>string[] | null</code> per field. Nested objects mirror the
+        shape of your form values.
       </p>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-{`type FormErrors<T> = {
+        {`type FormErrors<T> = {
   [K in keyof T]: T[K] extends object ? FormErrors<T[K]> : string[] | null;
 };`}
       </pre>
@@ -37,9 +36,7 @@ export default function ErrorsDocs() {
             <td class="py-2 pr-4">
               <code>initErrors(values)</code>
             </td>
-            <td class="py-2 pr-4">
-              Creates an empty errors object matching the shape of values
-            </td>
+            <td class="py-2 pr-4">Creates an empty errors object matching the shape of values</td>
           </tr>
         </tbody>
       </table>

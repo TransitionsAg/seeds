@@ -10,10 +10,5 @@ type TreeViewProps = Parameters<typeof TreeViewPrimitive.Root>[0];
 
 export function TreeViewRoot(rawProps: TreeViewProps): JSX.Element {
   const [local, others] = splitProps(rawProps, ["class"]);
-  return (
-    <TreeViewPrimitive.Root
-      {...others}
-      class={rootVariants({ class: local.class })}
-    />
-  );
+  return <TreeViewPrimitive.Root {...others} class={rootVariants({ class: local.class })} />;
 }

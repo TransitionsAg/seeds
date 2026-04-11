@@ -3,17 +3,12 @@ import { TreeView as TreeViewPrimitive } from "@transitionsag/primitives/tree-vi
 import { cva } from "../../cva.ts";
 
 const itemIndicatorVariants = cva({
-  base:
-    "size-2 rounded-full bg-primary opacity-0 transition-opacity [&[data-selected]]:opacity-100",
+  base: "size-2 rounded-full bg-primary opacity-0 transition-opacity [&[data-selected]]:opacity-100",
 });
 
-type ItemIndicatorProps = Parameters<
-  typeof TreeViewPrimitive.Item.Indicator
->[0];
+type ItemIndicatorProps = Parameters<typeof TreeViewPrimitive.Item.Indicator>[0];
 
-export function TreeViewItemIndicator(
-  rawProps: ItemIndicatorProps,
-): JSX.Element {
+export function TreeViewItemIndicator(rawProps: ItemIndicatorProps): JSX.Element {
   const [local, others] = splitProps(rawProps, ["class"]);
   return (
     <TreeViewPrimitive.Item.Indicator

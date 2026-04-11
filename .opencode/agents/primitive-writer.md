@@ -15,7 +15,7 @@ unstyled component library that wraps **zag-js** state machines.
 
 # Key Facts
 
-- **Runtime:** Deno (bare specifiers mapped in `deno.json`)
+- **Runtime:** Node + PNPM
 - **Framework:** SolidJS with JSX (`jsxImportSource: "solid-js"`)
 - **State machines:** `@zag-js/*` packages with `@zag-js/solid` bindings
 - **No styling** — headless/unstyled primitives
@@ -31,18 +31,18 @@ packages/primitives/src/
   polymorphic/
     polymorphic-root.tsx
     polymorphic.test.tsx
-    mod.tsx
+    index.tsx
   button/
     button-root.tsx
     button-root.test.tsx
-    mod.tsx
+    index.tsx
   checkbox/
     checkbox-root.tsx
     checkbox-control.tsx
     checkbox-indicator.tsx
     checkbox-label.tsx
     checkbox-hidden-input.tsx
-    mod.tsx
+    index.tsx
   tree-view/
     tree-view-root.tsx
     tree-view-label.tsx
@@ -59,10 +59,10 @@ packages/primitives/src/
       tree-view-branch-trigger.tsx
       tree-view-branch-indicator.tsx
       tree-view-branch-indent-guide.tsx
-    mod.tsx
+    index.tsx
 ```
 
-**`mod.tsx`** re-exports everything and assembles the compound namespace:
+**`index.tsx`** re-exports everything and assembles the compound namespace:
 
 ```tsx
 export type { OpenChangeDetails as CollapsibleOpenChangeDetails } from "@zag-js/collapsible";
@@ -93,19 +93,13 @@ export {
   type CollapsibleHiddenInputProps,
 } from "./collapsible-hidden-input.tsx";
 
-export {
-  CollapsibleContext,
-  type CollapsibleContextProps,
-} from "./collapsible-context.tsx";
+export { CollapsibleContext, type CollapsibleContextProps } from "./collapsible-context.tsx";
 export {
   useCollapsible,
   type UseCollapsibleProps,
   type UseCollapsibleReturn,
 } from "./use-collapsible.ts";
-export {
-  type UseCollapsibleContext,
-  useCollapsibleContext,
-} from "./use-collapsible-context.ts";
+export { type UseCollapsibleContext, useCollapsibleContext } from "./use-collapsible-context.ts";
 
 // Compound namespace — Root is callable AND a namespace
 export const Collapsible = Object.assign(CollapsibleRoot, {
@@ -159,7 +153,7 @@ const Item = Object.assign(ItemRoot, {
 
 ```tsx
 Visibility: {
-  Trigger, Indicator;
+  (Trigger, Indicator);
 }
 // <C.Visibility.Trigger />, <C.Visibility.Indicator />
 ```
@@ -186,7 +180,7 @@ import {
   type ValidComponent,
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
-import type { PolymorphicProps } from "../polymorphic/mod.tsx";
+import type { PolymorphicProps } from "../polymorphic/index.tsx";
 import { normalizeProps, useMachine } from "@zag-js/solid";
 import * as zagModule from "@zag-js/MACHINE_NAME";
 
@@ -197,10 +191,8 @@ const Context = createContext<Api>();
 const useApi = () => useContext(Context)!;
 
 // ---- Root (polymorphic, machine-driven) ----
-type RootProps<T extends ValidComponent = "div"> =
-  & PolymorphicProps<T>
-  & UseMachineProps
-  & { children: JSX.Element };
+type RootProps<T extends ValidComponent = "div"> = PolymorphicProps<T> &
+  UseMachineProps & { children: JSX.Element };
 
 function Root<T extends ValidComponent = "div">(rawProps: RootProps<T>) {
   const merged = mergeProps({ as: "div" as T }, rawProps);
@@ -218,19 +210,12 @@ function Root<T extends ValidComponent = "div">(rawProps: RootProps<T>) {
 }
 
 // ---- Sub-components (polymorphic) ----
-function Label<T extends ValidComponent = "label">(
-  rawProps: PolymorphicProps<T>,
-) {
+function Label<T extends ValidComponent = "label">(rawProps: PolymorphicProps<T>) {
   const api = useApi();
   const merged = mergeProps({ as: "label" as T }, rawProps);
   const [local, others] = splitProps(merged, ["as"]);
   // @ts-ignore: Props are valid but not worth calculating
-  return (
-    <Dynamic
-      {...mergeProps(api.getLabelProps(), others)}
-      component={local.as}
-    />
-  );
+  return <Dynamic {...mergeProps(api.getLabelProps(), others)} component={local.as} />;
 }
 
 // ... one file per sub-component, each calling useApi() + merging api.getXProps()
@@ -253,11 +238,9 @@ unchangeable DOM element (e.g. `<span>` labels), render it directly — skip
 **Thin wrappers without zag-js** delegate to `<Polymorphic>`:
 
 ```tsx
-import { Polymorphic } from "../polymorphic/mod.tsx";
+import { Polymorphic } from "../polymorphic/index.tsx";
 
-function ButtonRoot<T extends ValidComponent = "button">(
-  rawProps: PolymorphicProps<T>,
-) {
+function ButtonRoot<T extends ValidComponent = "button">(rawProps: PolymorphicProps<T>) {
   const merged = mergeProps({ type: "button" }, rawProps);
   const [local, others] = splitProps(merged, ["as"]);
   return <Polymorphic as={local.as ?? ("button" as T)} {...others} />;
@@ -281,7 +264,7 @@ function ButtonRoot<T extends ValidComponent = "button">(
   `style`, event handlers, `data-*`, etc.) reach the element. Never swallow user
   props into the machine.
 - `mergeProps(api.getXProps(), userProps)` for zag + user overrides
-- Polymorphic components use `PolymorphicProps<T>` from `../polymorphic/mod.tsx`
+- Polymorphic components use `PolymorphicProps<T>` from `../polymorphic/index.tsx`
 - JSDoc only when non-obvious
 - Explicit `.ts`/`.tsx` extensions in relative imports
 - `import type` for type-only imports
@@ -293,6 +276,6 @@ function ButtonRoot<T extends ValidComponent = "button">(
 1. **Check** if a `@zag-js/*` package exists
 2. **Read** the zag-js types to discover the full API surface
 3. **Write** one file per compound part — nest aggressively
-4. **Export** from `mod.tsx` with `Object.assign` compound namespace
+4. **Export** from `index.tsx` with `Object.assign` compound namespace
 5. **Add** `@zag-js/*` dep to `packages/primitives/deno.json` if missing
 6. **Run** `deno install`

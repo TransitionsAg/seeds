@@ -3,14 +3,13 @@ export default function UseFormDocs() {
     <div>
       <h1 class="typo-h1 mb-6">useForm</h1>
       <p class="typo-p mb-8">
-        Creates a reactive form backed by a single SolidJS store. Returns{" "}
-        <code>Form</code> and <code>Field</code>{" "}
-        components pre-wired to this form instance.
+        Creates a reactive form backed by a single SolidJS store. Returns <code>Form</code> and{" "}
+        <code>Field</code> components pre-wired to this form instance.
       </p>
 
       <h2 class="typo-h3 mb-4">Usage</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-{`import { useForm } from "@transitionsag/form";
+        {`import { useForm } from "@transitionsag/form";
 
 const { Form, Field, submit, reset, values, errors, state } = useForm({
   initialValues: { email: "", password: "" },
@@ -71,9 +70,7 @@ const { Form, Field, submit, reset, values, errors, state } = useForm({
             <td class="py-2 pr-4">
               <code>values</code>
             </td>
-            <td class="py-2 pr-4">
-              Current form values (reactive store proxy)
-            </td>
+            <td class="py-2 pr-4">Current form values (reactive store proxy)</td>
           </tr>
           <tr class="border-b border-border">
             <td class="py-2 pr-4">
@@ -86,8 +83,7 @@ const { Form, Field, submit, reset, values, errors, state } = useForm({
               <code>state</code>
             </td>
             <td class="py-2 pr-4">
-              Lifecycle state: isSubmitting, isDirty, isTouched, isValid,
-              submitCount
+              Lifecycle state: isSubmitting, isDirty, isTouched, isValid, submitCount
             </td>
           </tr>
           <tr class="border-b border-border">

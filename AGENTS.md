@@ -3,86 +3,110 @@
 ## Overview
 
 Seeds is a SolidJS component and form library monorepo by transitions.ag, using
-**Deno** as runtime/package manager. The workspace contains UI primitives
-(`packages/primitives`), a reactive form library (`packages/form`), a component
-composition layer (`packages/bloom`), and a docs app (`apps/docs`).
+**Node.js** with **pnpm** as the package manager. The workspace contains UI
+primitives (`packages/primitives`), a reactive form library (`packages/form`),
+a component composition layer (`packages/bloom`), and a docs app (`apps/docs`).
 
 ## Runtime & Tooling
 
-- **Runtime:** Deno (provided via `flake.nix`, also requires Node.js for npm
-  deps)
-- **Package manager:** Deno workspaces (`deno.json` at root)
-- **Node modules:** `"nodeModulesDir": "manual"` — run `deno install` to
-  populate `node_modules/`
+- **Runtime:** Node.js 22+ (provided via `flake.nix`)
+- **Package manager:** pnpm (workspaces via `pnpm-workspace.yaml`)
+- **Build tool:** tsup (ESM + DTS generation)
 - **Framework:** SolidJS with JSX (`jsxImportSource: "solid-js"`)
-- **Nix:** `nix develop` to enter the dev shell with `deno` and `nodejs`
+- **Nix:** `nix develop` to enter the dev shell with `nodejs` and `pnpm`
 
 ## Build / Test / Lint Commands
 
-### Tests
-
-Run all tests in a package:
+### Install
 
 ```sh
-cd packages/form
-deno task test
-# expands to: deno test --no-check --allow-env --conditions=browser src/
+pnpm install
+```
+
+### Build
+
+```sh
+pnpm build             # build all packages
+```
+
+Build a single package:
+
+```sh
+pnpm --filter @transitionsag/form run build
+```
+
+### Tests
+
+Run all tests:
+
+```sh
+pnpm test
+```
+
+Run tests in a single package:
+
+```sh
+pnpm --filter @transitionsag/form run test
 ```
 
 Run a single test file:
 
 ```sh
-deno test --no-check --allow-env --conditions=browser packages/form/src/errors/mod.test.ts
+pnpm --filter @transitionsag/form exec vitest run src/errors/index.test.ts
 ```
 
 Run a single test by name filter:
 
 ```sh
-deno test --no-check --allow-env --conditions=browser --filter="state - isDirty" packages/form/src/
-```
-
-### Lint & Format
-
-```sh
-deno lint
-deno fmt
-deno fmt --check   # CI check
+pnpm --filter @transitionsag/form exec vitest run --testNamePattern="state - isDirty"
 ```
 
 ### Type Check
 
 ```sh
-deno check packages/form/src/mod.ts
+pnpm check             # type check all packages
+```
+
+### Lint & Format
+
+```sh
+pnpm lint              # check formatting
+pnpm fmt               # fix formatting
 ```
 
 ### Docs App
 
 ```sh
-cd apps/docs
-deno task dev      # local dev server
-deno task build    # production build
+pnpm docs:dev          # local dev server
+pnpm docs:build        # production build
 ```
 
 ## Project Structure
 
 ```
 /
-├── deno.json                  # root workspace config
-├── flake.nix                  # nix dev shell
+├── pnpm-workspace.yaml       # pnpm workspace config
+├── tsconfig.json             # root TypeScript config
+├── tsconfig.build.json       # build-time TS config (allows .ts extensions)
+├── package.json              # root package with scripts
+├── flake.nix                 # nix dev shell (nodejs + pnpm)
 ├── packages/
-│   ├── primitives/            # unstyled UI primitives (Button, Input)
-│   │   └── src/*.tsx
-│   ├── form/                  # reactive form library (useForm, bind directive)
+│   ├── primitives/           # unstyled UI primitives (Button, Input)
+│   │   ├── src/*.tsx
+│   │   ├── tsup.config.ts
+│   │   ├── tsconfig.build.json
+│   │   └── package.json
+│   ├── form/                 # reactive form library (useForm, bind directive)
 │   │   └── src/
-│   │       ├── mod.ts         # public API barrel
-│   │       ├── form.ts        # useForm hook
-│   │       ├── input/         # bind directive, Binder/Binding types, InputAttrs
-│   │       ├── errors/        # FormErrors type, hasErrors, initErrors
-│   │       ├── resolver/      # Resolver interface for schema validation
-│   │       └── *.test.ts      # tests colocated with source
-│   └── bloom/                 # component composition layer (WIP)
+│   │       ├── index.ts       # public API barrel
+│   │       ├── form.ts       # useForm hook
+│   │       ├── input/        # bind directive, Binder/Binding types, InputAttrs
+│   │       ├── errors/       # FormErrors type, hasErrors, initErrors
+│   │       ├── resolver/     # Resolver interface for schema validation
+│   │       └── *.test.ts     # tests colocated with source
+│   └── bloom/                # component composition layer (WIP)
 └── apps/
-    └── docs/                  # SolidStart documentation app
+    └── docs/                 # SolidStart documentation app
 ```
 
 ## Code Style
@@ -93,8 +117,7 @@ deno task build    # production build
   `type Props = { ... }`)
 - Use `.ts` for logic, `.tsx` for JSX components
 - File extensions are always explicit in imports (`.ts`, `.tsx`)
-- Prefer `unknown` over `any`; when `any` is unavoidable, add
-  `// deno-lint-ignore no-explicit-any`
+- Prefer `unknown` over `any`
 - Use JSDoc comments with `@example` blocks on public APIs; use `{@linkcode X}`
   for cross-references
 - **JSDoc `@example` code blocks must NOT contain JSX comments** (`{/* ... */}`)
@@ -103,16 +126,13 @@ deno task build    # production build
 
 ### Imports
 
-- Use bare specifiers mapped in `deno.json` imports (e.g. `"solid-js"`, not
-  URLs)
-- Use `jsr:` for Deno std library (e.g. `jsr:@std/assert`)
-- Use `npm:` specifiers in `deno.json` import maps
-- Relative imports with explicit extensions: `"./utils.ts"`, `"./input/mod.ts"`
+- Source files use explicit `.ts`/`.tsx` extensions in relative imports
+  (handled by tsup during build)
 - Import types with `import type` when only used at type level
 
 ### Naming
 
-- **Files:** lowercase, kebab-case (e.g. `mod.ts`, `mod.test.ts`,
+- **Files:** lowercase, kebab-case (e.g. `index.ts`, `index.test.ts`,
   `tree-view-root.tsx`)
 - **Types:** PascalCase (e.g. `FormErrors`, `BindingAria`, `InputAttrs`)
 - **Functions:** camelCase (e.g. `useForm`, `hasErrors`, `initErrors`)
@@ -120,16 +140,16 @@ deno task build    # production build
   `TreeViewRoot`, `TreeViewBranchControl`, `ButtonRoot`). NEVER export a
   component named just `Root`, `Text`, `Control`, etc. — always prefix.
 - **Constants:** camelCase for local, UPPER_CASE only for true global constants
-- **Barrel files:** always named `mod.ts` (Deno convention)
+- **Barrel files:** always named `index.ts`
 
 ### Module Patterns
 
-- Each subdirectory exports through `mod.ts` (or `mod.tsx` for JSX)
-- **`mod.tsx` is ALWAYS a barrel file.** It imports individual components,
+- Each subdirectory exports through `index.ts` (or `index.tsx` for JSX)
+- **`index.tsx` is ALWAYS a barrel file.** It imports individual components,
   re-exports them, and assembles compound objects via `Object.assign`. It
   contains NO component logic.
 - **One component per file.** Never put multiple components in a single file
-  (except for the barrel `mod.tsx`).
+  (except for the barrel `index.tsx`).
 - **File placement decision tree:**
   - Compound with NO sub-parts → `<primitive>-<compound>.tsx` at the primitive
     root (e.g. `tree-view-root.tsx`, `tree-view-label.tsx`)
@@ -139,17 +159,17 @@ deno task build    # production build
 - **Props types live in the SAME file as their component.** Never create a
   separate file just for a single component's props. Exception: shared utility
   types used across multiple primitives (e.g. `PolymorphicProps`) get their own
-  file (e.g. `polymorphic.tsx`) and re-export from `mod.tsx`.
-- **Public API re-exported from package-level `mod.ts`**
-- `deno.json` `"exports"` field defines the package's public entry points
-- Test files are colocated: `foo.ts` → `foo.test.ts` or `mod.ts` → `mod.test.ts`
-- Files excluded from publish via `"publish.exclude"` in `deno.json`
+  file (e.g. `polymorphic.tsx`) and re-export from `index.tsx`.
+- **Public API re-exported from package-level `index.ts`**
+- `package.json` `"exports"` field defines the package's public entry points
+  (pointing to compiled `dist/` output)
+- Test files are colocated: `foo.ts` → `foo.test.ts` or `index.ts` → `index.test.ts`
 
 #### Example directory structure
 
 ```
 tree-view/
-├── mod.tsx                           # barrel + compound assembly
+├── index.tsx                           # barrel + compound assembly
 ├── tree-view-root.tsx                # single compound, no sub-parts
 ├── tree-view-label.tsx               # single compound, no sub-parts
 ├── tree-view-tree.tsx                # single compound, no sub-parts
@@ -194,12 +214,11 @@ tree-view/
 
 ### Testing
 
-- Use `Deno.test()` with descriptive names: `"category - specific behavior"`
-- Use `jsr:@std/assert` for assertions (`assertEquals`, etc.)
+- Use `vitest` with `describe`/`it`/`expect` from `vitest`
 - Use `@solidjs/testing-library` with `happy-dom` for component/hook tests
 - Set up DOM globals in test files (`Window`, `document`, `navigator`, etc.)
-- Call `cleanup()` after each test
-- Test files use `/// <reference lib="deno.ns" />` at the top
+- Call `cleanup()` after each test via `afterEach(() => cleanup())`
+- Test files colocated with source: `foo.ts` → `foo.test.ts`
 
 ### Error Handling
 
@@ -218,13 +237,25 @@ tree-view/
 
 ## Package Publishing
 
-Packages are published to JSR. The `"publish"` field in each `deno.json`
-controls included/excluded files. Tests and internal-only files (like `jsx.ts`)
-are excluded.
+Packages are published to npm. Each package builds to `dist/` via tsup.
+The `"files"` field in `package.json` controls what gets published (typically
+just `dist/`).
+
+Build before publishing:
+
+```sh
+pnpm build
+```
+
+Publish a package:
+
+```sh
+cd packages/form
+pnpm publish --access public
+```
 
 ## Workspace Dependencies
 
-- Inter-package deps use `"workspace:@transitionsag/package@^version"` in import
-  maps
-- The root `deno.json` defines shared deps (e.g. `solid-js`) inherited by all
-  packages
+- Inter-package deps use `"workspace:*"` in `package.json`
+- Run `pnpm install` after adding or changing dependencies
+- `pnpm build` must run before consuming packages can resolve workspace deps

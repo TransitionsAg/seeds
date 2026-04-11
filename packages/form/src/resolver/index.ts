@@ -1,5 +1,5 @@
-import type { InputAttrs } from "../input/mod.ts";
-import type { FormErrors } from "../errors/mod.ts";
+import type { InputAttrs } from "../input/index.ts";
+import type { FormErrors } from "../errors/index.ts";
 
 export type { InputAttrs };
 
@@ -32,10 +32,7 @@ export type Resolver<T extends object = object> = {
   /** Returns HTML constraint attributes for the field at `path`. */
   attrs(path: string[]): InputAttrs;
   /** Validates the field at `path` with the given `value`. Returns error messages or `null`. May be async. */
-  validate?(
-    path: string[],
-    value: unknown,
-  ): string[] | null | Promise<string[] | null>;
+  validate?(path: string[], value: unknown): string[] | null | Promise<string[] | null>;
   /** Validates the entire form. Returns a {@linkcode FormErrors} tree. May be async. Used by `submit()` to gate submission. */
   validateAll?(values: T): FormErrors<T> | Promise<FormErrors<T>>;
 };

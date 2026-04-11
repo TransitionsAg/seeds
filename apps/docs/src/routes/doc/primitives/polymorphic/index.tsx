@@ -5,18 +5,18 @@ export default function PolymorphicDocs() {
     <div>
       <h1 class="typo-h1 mb-6">Polymorphic</h1>
       <p class="typo-p mb-8">
-        A generic polymorphic component that renders as any HTML element or
-        custom component via the <code>as</code> prop.
+        A generic polymorphic component that renders as any HTML element or custom component via the{" "}
+        <code>as</code> prop.
       </p>
 
       <h2 class="typo-h3 mb-4">Installation</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-{`import { Polymorphic } from "@transitionsag/primitives/tree-view";`}
+        {`import { Polymorphic } from "@transitionsag/primitives/tree-view";`}
       </pre>
 
       <h2 class="typo-h3 mb-4">Usage</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-{`import { Polymorphic } from "@transitionsag/primitives/tree-view";
+        {`import { Polymorphic } from "@transitionsag/primitives/tree-view";
 
 <Polymorphic as="a" href="/home">Home</Polymorphic>
 <Polymorphic as="button" type="submit">Send</Polymorphic>
@@ -49,17 +49,10 @@ export default function PolymorphicDocs() {
 
       <h2 class="typo-h3 mb-4">Preview</h2>
       <div class="flex gap-4 flex-wrap">
-        <Polymorphic
-          as="button"
-          class="px-4 py-2 bg-foreground text-background rounded"
-        >
+        <Polymorphic as="button" class="px-4 py-2 bg-foreground text-background rounded">
           As button
         </Polymorphic>
-        <Polymorphic
-          as="a"
-          href="#"
-          class="px-4 py-2 border border-border rounded"
-        >
+        <Polymorphic as="a" href="#" class="px-4 py-2 border border-border rounded">
           As link
         </Polymorphic>
       </div>

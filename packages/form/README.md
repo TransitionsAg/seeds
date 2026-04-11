@@ -90,7 +90,9 @@ type Profile = {
 };
 
 function ProfileForm() {
-  const { Form, Field } = useForm<Profile>({/* ... */});
+  const { Form, Field } = useForm<Profile>({
+    /* ... */
+  });
 
   return (
     <Form>
@@ -217,7 +219,7 @@ Compound component for declarative field rendering.
     <option value="a">Option A</option>
   </Field.Select>
   <Field.Error />
-</Field>;
+</Field>
 ```
 
 Sub‑components:
@@ -248,7 +250,7 @@ Low‑level API for wiring custom inputs. Returns a `Binding` object with:
 Use with Solid's `use:` directive:
 
 ```tsx
-<input use:bind={f.binding("email")} />;
+<input use:bind={f.binding("email")} />
 ```
 
 ### Resolvers
@@ -258,10 +260,7 @@ A resolver implements the `Resolver<T>` interface:
 ```ts
 interface Resolver<T> {
   attrs?(path: string[]): InputAttrs;
-  validate?(
-    path: string[],
-    value: unknown,
-  ): string[] | null | Promise<string[] | null>;
+  validate?(path: string[], value: unknown): string[] | null | Promise<string[] | null>;
   validateAll?(values: T): FormErrors<T> | Promise<FormErrors<T>>;
 }
 ```

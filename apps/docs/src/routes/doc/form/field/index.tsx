@@ -3,14 +3,13 @@ export default function FieldDocs() {
     <div>
       <h1 class="typo-h1 mb-6">Field</h1>
       <p class="typo-p mb-8">
-        Compound field component returned by <code>useForm</code>. Use with{" "}
-        <code>Field.Label</code>, <code>Field.Input</code>,{" "}
-        <code>Field.Error</code>, and more.
+        Compound field component returned by <code>useForm</code>. Use with <code>Field.Label</code>
+        , <code>Field.Input</code>, <code>Field.Error</code>, and more.
       </p>
 
       <h2 class="typo-h3 mb-4">Usage</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-{`function LoginForm() {
+        {`function LoginForm() {
   const { Form, Field } = useForm({
     initialValues: { email: "" },
     onSubmit: (v) => console.log(v),
@@ -60,7 +59,7 @@ export default function FieldDocs() {
 
       <h2 class="typo-h3 mb-4">Nested Paths</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-{`<Field name="address.street">
+        {`<Field name="address.street">
   <Field.Label>Street</Field.Label>
   <Field.Input />
   <Field.Error />

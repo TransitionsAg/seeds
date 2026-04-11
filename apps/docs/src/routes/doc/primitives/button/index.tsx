@@ -4,18 +4,16 @@ export default function ButtonDocs() {
   return (
     <div>
       <h1 class="typo-h1 mb-6">Button</h1>
-      <p class="typo-p mb-8">
-        An unstyled button primitive with polymorphic support.
-      </p>
+      <p class="typo-p mb-8">An unstyled button primitive with polymorphic support.</p>
 
       <h2 class="typo-h3 mb-4">Installation</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-{`deno add @transitionsag/primitives/button`}
+        {`deno add @transitionsag/primitives/button`}
       </pre>
 
       <h2 class="typo-h3 mb-4">Usage</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-{`import { Button } from "@transitionsag/primitives/button";
+        {`import { Button } from "@transitionsag/primitives/button";
 
 <Button>Click me</Button>
 <Button as="a" href="/link">As a link</Button>`}
@@ -48,7 +46,9 @@ export default function ButtonDocs() {
       <h2 class="typo-h3 mb-4">Preview</h2>
       <div class="flex gap-4">
         <Button>Default</Button>
-        <Button as="a" href="#">As anchor</Button>
+        <Button as="a" href="#">
+          As anchor
+        </Button>
       </div>
     </div>
   );

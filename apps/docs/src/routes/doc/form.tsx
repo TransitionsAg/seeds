@@ -21,7 +21,9 @@ export default function FormLayout(props: RouteSectionProps) {
             >
               Primitives
             </A>
-            <A href="/doc/form" class="text-foreground font-medium">Form</A>
+            <A href="/doc/form" class="text-foreground font-medium">
+              Form
+            </A>
             <A
               href="/doc/bloom"
               class="text-muted-foreground hover:text-foreground transition-colors"

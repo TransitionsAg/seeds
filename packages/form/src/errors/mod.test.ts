@@ -1,32 +1,34 @@
-import { assertEquals } from "@std/assert";
-import { initErrors } from "./mod.ts";
+import { describe, expect, it } from "vitest";
+import { initErrors } from "./index.ts";
 
-Deno.test("initErrors - flat object sets all leaves to null", () => {
-  const result = initErrors({ email: "", password: "" });
-  assertEquals(result, { email: null, password: null });
-});
+describe("initErrors", () => {
+  it("flat object sets all leaves to null", () => {
+    const result = initErrors({ email: "", password: "" });
+    expect(result).toEqual({ email: null, password: null });
+  });
 
-Deno.test("initErrors - nested object recurses", () => {
-  const result = initErrors({
-    email: "",
-    address: { city: "", zip: "" },
+  it("nested object recurses", () => {
+    const result = initErrors({
+      email: "",
+      address: { city: "", zip: "" },
+    });
+    expect(result).toEqual({
+      email: null,
+      address: { city: null, zip: null },
+    });
   });
-  assertEquals(result, {
-    email: null,
-    address: { city: null, zip: null },
-  });
-});
 
-Deno.test("initErrors - deeply nested object", () => {
-  const result = initErrors({
-    user: { profile: { name: "", age: 0 } },
+  it("deeply nested object", () => {
+    const result = initErrors({
+      user: { profile: { name: "", age: 0 } },
+    });
+    expect(result).toEqual({
+      user: { profile: { name: null, age: null } },
+    });
   });
-  assertEquals(result, {
-    user: { profile: { name: null, age: null } },
-  });
-});
 
-Deno.test("initErrors - arrays are treated as leaves", () => {
-  const result = initErrors({ tags: ["a", "b"] });
-  assertEquals(result, { tags: null });
+  it("arrays are treated as leaves", () => {
+    const result = initErrors({ tags: ["a", "b"] });
+    expect(result).toEqual({ tags: null });
+  });
 });

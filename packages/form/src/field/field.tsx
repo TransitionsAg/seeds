@@ -8,7 +8,7 @@ import {
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import type { DynamicProps } from "solid-js/web";
-import type { Binding } from "../input/mod.ts";
+import type { Binding } from "../input/index.ts";
 import { FieldContext, useFieldContext } from "./context.ts";
 
 // -- Path utility type --
@@ -22,10 +22,10 @@ import { FieldContext, useFieldContext } from "./context.ts";
 export type Path<T, Depth extends number[] = []> = Depth["length"] extends 5
   ? never
   : {
-    [K in keyof T & string]: T[K] extends Record<string, unknown>
-      ? K | `${K}.${Path<T[K], [...Depth, 0]>}`
-      : K;
-  }[keyof T & string];
+      [K in keyof T & string]: T[K] extends Record<string, unknown>
+        ? K | `${K}.${Path<T[K], [...Depth, 0]>}`
+        : K;
+    }[keyof T & string];
 
 // -- Label --
 
@@ -52,9 +52,7 @@ type FieldInputProps<T extends ValidComponent = "input"> = {
  * custom component via the `as` prop. All defaults can be overridden by
  * passing props directly.
  */
-function FieldInput<T extends ValidComponent = "input">(
-  rawProps: FieldInputProps<T>,
-) {
+function FieldInput<T extends ValidComponent = "input">(rawProps: FieldInputProps<T>) {
   const ctx = useFieldContext();
   const { binding } = ctx;
 
@@ -66,23 +64,23 @@ function FieldInput<T extends ValidComponent = "input">(
     binding.attrs,
     isCheckable
       ? {
-        get checked() {
-          return binding.value;
-        },
-        onInput: (e: Event) => {
-          binding.setValue((e.currentTarget as HTMLInputElement).checked);
-        },
-        name: ctx.name,
-      }
+          get checked() {
+            return binding.value;
+          },
+          onInput: (e: Event) => {
+            binding.setValue((e.currentTarget as HTMLInputElement).checked);
+          },
+          name: ctx.name,
+        }
       : {
-        get value() {
-          return binding.value;
+          get value() {
+            return binding.value;
+          },
+          onInput: (e: Event) => {
+            binding.setValue((e.currentTarget as HTMLInputElement).value);
+          },
+          name: ctx.name,
         },
-        onInput: (e: Event) => {
-          binding.setValue((e.currentTarget as HTMLInputElement).value);
-        },
-        name: ctx.name,
-      },
     rawProps,
   );
   const [local, others] = splitProps(merged, ["as"]);
@@ -106,9 +104,7 @@ type DescriptionProps<T extends ValidComponent = "div"> = {
   as?: T;
 } & Omit<DynamicProps<T>, "component">;
 
-function FieldDescription<T extends ValidComponent = "div">(
-  rawProps: DescriptionProps<T>,
-) {
+function FieldDescription<T extends ValidComponent = "div">(rawProps: DescriptionProps<T>) {
   const ctx = useFieldContext();
   const merged = mergeProps({ as: "div" as T }, rawProps);
   const [local, others] = splitProps(merged, ["as"]);
@@ -128,9 +124,7 @@ type ErrorProps<T extends ValidComponent = "div"> = {
  * Error message container. Only renders when the field has validation errors.
  * When no children are provided, renders the error messages joined by `", "`.
  */
-function FieldError<T extends ValidComponent = "div">(
-  rawProps: ErrorProps<T>,
-) {
+function FieldError<T extends ValidComponent = "div">(rawProps: ErrorProps<T>) {
   const ctx = useFieldContext();
   const merged = mergeProps({ as: "div" as T }, rawProps);
   const [local, others] = splitProps(merged, ["as", "children"]);
@@ -139,9 +133,7 @@ function FieldError<T extends ValidComponent = "div">(
     <Show when={ctx.binding.aria.invalid}>
       {/* @ts-ignore: Props are valid but not worth calculating */}
       <Dynamic {...others} component={local.as} id={ctx.errorId}>
-        {local.children !== undefined
-          ? local.children
-          : ctx.binding.errors?.join(", ")}
+        {local.children !== undefined ? local.children : ctx.binding.errors?.join(", ")}
       </Dynamic>
     </Show>
   );
@@ -167,10 +159,7 @@ export function createField<T extends object>(
     const inputId = `${uid}-input`;
     const descriptionId = `${uid}-description`;
 
-    const [local, others] = splitProps(
-      rawProps as Record<string, unknown>,
-      ["as", "name"],
-    );
+    const [local, others] = splitProps(rawProps as Record<string, unknown>, ["as", "name"]);
 
     const keys = (local.name as string).split(".");
     const binding = binder(...keys);
@@ -192,10 +181,12 @@ export function createField<T extends object>(
 
     return (
       <FieldContext.Provider value={ctx}>
-        {local.as
+        {local.as ? (
           // @ts-ignore: Props are valid but not worth calculating
-          ? <Dynamic {...others} component={local.as} />
-          : (others as { children?: JSX.Element }).children}
+          <Dynamic {...others} component={local.as} />
+        ) : (
+          (others as { children?: JSX.Element }).children
+        )}
       </FieldContext.Provider>
     );
   }
@@ -211,30 +202,20 @@ export function createField<T extends object>(
 
 /** Type of the compound Field component returned by {@linkcode createField}. */
 export type FieldComponent<T extends object> = {
-  <C extends ValidComponent | undefined = undefined>(
-    props: FieldRootProps<T, C>,
-  ): JSX.Element;
+  <C extends ValidComponent | undefined = undefined>(props: FieldRootProps<T, C>): JSX.Element;
   Root: <C extends ValidComponent | undefined = undefined>(
     props: FieldRootProps<T, C>,
   ) => JSX.Element;
   Label: (props: LabelProps) => JSX.Element;
-  Input: <C extends ValidComponent = "input">(
-    props: FieldInputProps<C>,
-  ) => JSX.Element;
-  Description: <C extends ValidComponent = "div">(
-    props: DescriptionProps<C>,
-  ) => JSX.Element;
-  Error: <C extends ValidComponent = "div">(
-    props: ErrorProps<C>,
-  ) => JSX.Element;
+  Input: <C extends ValidComponent = "input">(props: FieldInputProps<C>) => JSX.Element;
+  Description: <C extends ValidComponent = "div">(props: DescriptionProps<C>) => JSX.Element;
+  Error: <C extends ValidComponent = "div">(props: ErrorProps<C>) => JSX.Element;
 };
 
 // -- Form factory --
 
 export function createForm(submit: () => void) {
-  return function FormComp(
-    rawProps: Omit<JSX.FormHTMLAttributes<HTMLFormElement>, "onSubmit">,
-  ) {
+  return function FormComp(rawProps: Omit<JSX.FormHTMLAttributes<HTMLFormElement>, "onSubmit">) {
     const handler = (e: SubmitEvent) => {
       e.preventDefault();
       submit();

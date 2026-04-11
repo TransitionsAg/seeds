@@ -1,12 +1,29 @@
 {
   "name": "@transitionsag/form",
   "version": "0.0.5",
-  "type": "module",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
   "exports": {
-    ".": "./src/mod.ts",
-    "./resolver": "./src/resolver/mod.ts",
-    "./resolver/zod": "./src/resolver/zod.ts"
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./resolver": {
+      "import": "./dist/resolver/index.js",
+      "types": "./dist/resolver/index.d.ts"
+    },
+    "./resolver/zod": {
+      "import": "./dist/resolver/zod.js",
+      "types": "./dist/resolver/zod.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "check": "tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
     "solid-js": "^1.9.12"
@@ -14,8 +31,13 @@
   "devDependencies": {
     "@solidjs/testing-library": "^0.8.10",
     "happy-dom": "^17.4.4",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3",
     "vite-plugin-solid": "^2.11.6",
     "vitest": "^3.2.1",
     "zod": "^3.24.0"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.9.12"
   }
 }

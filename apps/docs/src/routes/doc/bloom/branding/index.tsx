@@ -5,13 +5,13 @@ export default function BrandingDocs() {
     <div>
       <h1 class="typo-h1 mb-6">Branding</h1>
       <p class="typo-p mb-8">
-        Theme context for runtime color customization. Wraps children in a div
-        with CSS custom properties derived from the theme object.
+        Theme context for runtime color customization. Wraps children in a div with CSS custom
+        properties derived from the theme object.
       </p>
 
       <h2 class="typo-h3 mb-4">Usage</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-{`import { Branding } from "@transitionsag/bloom";
+        {`import { Branding } from "@transitionsag/bloom";
 
 <Branding theme={{
   primary: "#3b82f6",
@@ -133,7 +133,7 @@ export default function BrandingDocs() {
 
       <h2 class="typo-h3 mb-4">useBranding Hook</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-{`import { Branding } from "@transitionsag/bloom";
+        {`import { Branding } from "@transitionsag/bloom";
 
 const theme = Branding.useBranding();`}
       </pre>

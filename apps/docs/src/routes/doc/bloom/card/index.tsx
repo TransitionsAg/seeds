@@ -6,8 +6,8 @@ export default function BloomCardDocs() {
     <div>
       <h1 class="typo-h1 mb-6">Card</h1>
       <p class="typo-p mb-8">
-        A container for grouping related content. Supports polymorphism and
-        provides semantic sub-components for header, content, and footer.
+        A container for grouping related content. Supports polymorphism and provides semantic
+        sub-components for header, content, and footer.
       </p>
 
       <h2 class="typo-h3 mb-4">Usage</h2>
@@ -38,14 +38,10 @@ import "@transitionsag/bloom/styles.css";
             <Card>
               <Card.Header>
                 <Card.Title>Notification Settings</Card.Title>
-                <Card.Description>
-                  Manage how you receive notifications.
-                </Card.Description>
+                <Card.Description>Manage how you receive notifications.</Card.Description>
               </Card.Header>
               <Card.Content>
-                <p class="typo-p">
-                  You will receive email notifications for important updates.
-                </p>
+                <p class="typo-p">You will receive email notifications for important updates.</p>
               </Card.Content>
               <Card.Footer>
                 <Button intent="secondary">Cancel</Button>
@@ -61,9 +57,7 @@ import "@transitionsag/bloom/styles.css";
             <Card>
               <Card.Header>
                 <Card.Title>Team Plan</Card.Title>
-                <Card.Description>
-                  Collaborate with up to 10 team members.
-                </Card.Description>
+                <Card.Description>Collaborate with up to 10 team members.</Card.Description>
               </Card.Header>
             </Card>
           </div>
@@ -75,17 +69,12 @@ import "@transitionsag/bloom/styles.css";
             <Card as="section">
               <Card.Header>
                 <Card.Title>As Section</Card.Title>
-                <Card.Description>
-                  Rendered as a semantic &lt;section&gt; element.
-                </Card.Description>
+                <Card.Description>Rendered as a semantic &lt;section&gt; element.</Card.Description>
               </Card.Header>
               <Card.Content>
                 <p class="typo-p">
                   This card uses the{" "}
-                  <code class="font-mono text-sm bg-secondary px-1 rounded">
-                    as
-                  </code>{" "}
-                  prop.
+                  <code class="font-mono text-sm bg-secondary px-1 rounded">as</code> prop.
                 </p>
               </Card.Content>
             </Card>
@@ -131,8 +120,7 @@ import "@transitionsag/bloom/styles.css";
             <td class="py-2 pr-4 font-mono">Card.Root</td>
             <td class="py-2 pr-4 font-mono">div</td>
             <td class="py-2">
-              Polymorphic container. Ring border, background, flex column with
-              gap-4.
+              Polymorphic container. Ring border, background, flex column with gap-4.
             </td>
           </tr>
           <tr class="border-b">
@@ -158,19 +146,15 @@ import "@transitionsag/bloom/styles.css";
           <tr class="border-b">
             <td class="py-2 pr-4 font-mono">Card.Footer</td>
             <td class="py-2 pr-4 font-mono">div</td>
-            <td class="py-2">
-              Flex row, right-justified. For actions and buttons.
-            </td>
+            <td class="py-2">Flex row, right-justified. For actions and buttons.</td>
           </tr>
         </tbody>
       </table>
 
       <h2 class="typo-h3 mb-4">Props</h2>
       <p class="typo-p mb-4">
-        <code class="font-mono text-sm bg-secondary px-1 rounded">
-          Card.Root
-        </code>{" "}
-        accepts all native element props plus:
+        <code class="font-mono text-sm bg-secondary px-1 rounded">Card.Root</code> accepts all
+        native element props plus:
       </p>
       <table class="w-full text-sm mb-8">
         <thead>
@@ -194,22 +178,13 @@ import "@transitionsag/bloom/styles.css";
         </tbody>
       </table>
       <p class="typo-p mb-8">
-        All other parts (
-        <code class="font-mono text-sm bg-secondary px-1 rounded">Header</code>,
-        {" "}
-        <code class="font-mono text-sm bg-secondary px-1 rounded">Title</code>,
-        {" "}
-        <code class="font-mono text-sm bg-secondary px-1 rounded">
-          Description
-        </code>
-        ,{" "}
-        <code class="font-mono text-sm bg-secondary px-1 rounded">Content</code>
-        ,{" "}
-        <code class="font-mono text-sm bg-secondary px-1 rounded">Footer</code>)
-        accept native props for their respective elements plus a{" "}
-        <code class="font-mono text-sm bg-secondary px-1 rounded">class</code>
-        {" "}
-        prop.
+        All other parts (<code class="font-mono text-sm bg-secondary px-1 rounded">Header</code>,{" "}
+        <code class="font-mono text-sm bg-secondary px-1 rounded">Title</code>,{" "}
+        <code class="font-mono text-sm bg-secondary px-1 rounded">Description</code>,{" "}
+        <code class="font-mono text-sm bg-secondary px-1 rounded">Content</code>,{" "}
+        <code class="font-mono text-sm bg-secondary px-1 rounded">Footer</code>) accept native props
+        for their respective elements plus a{" "}
+        <code class="font-mono text-sm bg-secondary px-1 rounded">class</code> prop.
       </p>
     </div>
   );

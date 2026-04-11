@@ -1,9 +1,8 @@
-/// <reference lib="deno.ns" />
-import { assertEquals } from "@std/assert";
+import { afterEach, describe, expect, it } from "vitest";
 import { Window } from "happy-dom";
 import { cleanup, renderHook } from "@solidjs/testing-library";
 import { createFormCore } from "./form.ts";
-import type { Resolver } from "./resolver/mod.ts";
+import type { Resolver } from "./resolver/index.ts";
 
 const _win = new Window();
 Object.assign(globalThis, {
@@ -40,281 +39,257 @@ function setup(opts?: {
       initialValues: opts?.initialValues || defaults,
       resolver: opts?.resolver,
       onSubmit: opts?.onSubmit || noop,
-    })
+    }),
   );
   return { f: result, dispose };
 }
 
+afterEach(() => cleanup());
+
 // --- values ---
 
-Deno.test({
-  name: "values - holds initial values",
-  fn: () => {
+describe("values", () => {
+  it("holds initial values", () => {
     const { f } = setup();
-    assertEquals(f.values.email, "");
-    assertEquals(f.values.address.city, "");
-    cleanup();
-  },
-  sanitizeOps: false,
-  sanitizeResources: false,
+    expect(f.values.email).toBe("");
+    expect(f.values.address.city).toBe("");
+  });
 });
 
-Deno.test("errors - initialized to null", () => {
-  const { f } = setup();
-  assertEquals(f.errors.email, null);
-  assertEquals(f.errors.address.city, null);
-  cleanup();
+describe("errors", () => {
+  it("initialized to null", () => {
+    const { f } = setup();
+    expect(f.errors.email).toBe(null);
+    expect(f.errors.address.city).toBe(null);
+  });
 });
 
-Deno.test("values - is a deep clone", () => {
-  const init = { email: "", password: "", address: { city: "" } };
-  const { f } = setup({ initialValues: init });
-  f.setValues("email", "changed");
-  assertEquals(init.email, "");
-  cleanup();
+describe("values", () => {
+  it("is a deep clone", () => {
+    const init = { email: "", password: "", address: { city: "" } };
+    const { f } = setup({ initialValues: init });
+    f.setValues("email", "changed");
+    expect(init.email).toBe("");
+  });
 });
 
 // --- setValues / setErrors ---
 
-Deno.test("setValues - updates flat field", () => {
-  const { f } = setup();
-  f.setValues("email", "new@example.com");
-  assertEquals(f.values.email, "new@example.com");
-  cleanup();
+describe("setValues", () => {
+  it("updates flat field", () => {
+    const { f } = setup();
+    f.setValues("email", "new@example.com");
+    expect(f.values.email).toBe("new@example.com");
+  });
+
+  it("updates nested field", () => {
+    const { f } = setup();
+    f.setValues("address", "city", "Lyon");
+    expect(f.values.address.city).toBe("Lyon");
+  });
 });
 
-Deno.test("setValues - updates nested field", () => {
-  const { f } = setup();
-  f.setValues("address", "city", "Lyon");
-  assertEquals(f.values.address.city, "Lyon");
-  cleanup();
-});
+describe("setErrors", () => {
+  it("sets flat field errors", () => {
+    const { f } = setup();
+    f.setErrors("email", ["Required"]);
+    expect(f.errors.email).toEqual(["Required"]);
+  });
 
-Deno.test("setErrors - sets flat field errors", () => {
-  const { f } = setup();
-  f.setErrors("email", ["Required"]);
-  assertEquals(f.errors.email, ["Required"]);
-  cleanup();
-});
+  it("supports multiple errors", () => {
+    const { f } = setup();
+    f.setErrors("email", ["Required", "Must be a valid email"]);
+    expect(f.errors.email).toEqual(["Required", "Must be a valid email"]);
+  });
 
-Deno.test("setErrors - supports multiple errors", () => {
-  const { f } = setup();
-  f.setErrors("email", ["Required", "Must be a valid email"]);
-  assertEquals(f.errors.email, ["Required", "Must be a valid email"]);
-  cleanup();
-});
+  it("null clears the error", () => {
+    const { f } = setup();
+    f.setErrors("email", ["Required"]);
+    f.setErrors("email", null);
+    expect(f.errors.email).toBe(null);
+  });
 
-Deno.test("setErrors - null clears the error", () => {
-  const { f } = setup();
-  f.setErrors("email", ["Required"]);
-  f.setErrors("email", null);
-  assertEquals(f.errors.email, null);
-  cleanup();
-});
-
-Deno.test("setErrors - sets nested field errors", () => {
-  const { f } = setup();
-  f.setErrors("address", "city", ["Required"]);
-  assertEquals(f.errors.address.city, ["Required"]);
-  cleanup();
+  it("sets nested field errors", () => {
+    const { f } = setup();
+    f.setErrors("address", "city", ["Required"]);
+    expect(f.errors.address.city).toEqual(["Required"]);
+  });
 });
 
 // --- binding (internal) ---
 
-Deno.test("binding - value reads from values store", () => {
-  const { f } = setup({
-    initialValues: { ...defaults, email: "test@example.com" },
+describe("binding", () => {
+  it("value reads from values store", () => {
+    const { f } = setup({
+      initialValues: { ...defaults, email: "test@example.com" },
+    });
+    expect(f.binding("email").value).toBe("test@example.com");
   });
-  assertEquals(f.binding("email").value, "test@example.com");
-  cleanup();
-});
 
-Deno.test("binding - nested value reads correctly", () => {
-  const { f } = setup({
-    initialValues: { ...defaults, address: { city: "Paris" } },
+  it("nested value reads correctly", () => {
+    const { f } = setup({
+      initialValues: { ...defaults, address: { city: "Paris" } },
+    });
+    expect(f.binding("address", "city").value).toBe("Paris");
   });
-  assertEquals(f.binding("address", "city").value, "Paris");
-  cleanup();
-});
 
-Deno.test("binding - setValue updates the values store", () => {
-  const { f } = setup();
-  f.binding("email").setValue("new@example.com");
-  assertEquals(f.values.email, "new@example.com");
-  cleanup();
-});
-
-Deno.test("binding - nested setValue updates correctly", () => {
-  const { f } = setup();
-  f.binding("address", "city").setValue("Lyon");
-  assertEquals(f.values.address.city, "Lyon");
-  cleanup();
-});
-
-Deno.test("binding - errors starts as null", () => {
-  const { f } = setup();
-  assertEquals(f.binding("email").errors, null);
-  cleanup();
-});
-
-Deno.test("binding - setErrors updates the errors store", () => {
-  const { f } = setup();
-  f.binding("email").setErrors(["Required"]);
-  assertEquals(f.errors.email, ["Required"]);
-  cleanup();
-});
-
-Deno.test("binding - setErrors supports multiple errors", () => {
-  const { f } = setup();
-  f.binding("email").setErrors(["Required", "Must be a valid email"]);
-  assertEquals(f.errors.email, ["Required", "Must be a valid email"]);
-  cleanup();
-});
-
-Deno.test("binding - setErrors(null) clears the error", () => {
-  const { f } = setup();
-  const b = f.binding("email");
-  b.setErrors(["Required"]);
-  b.setErrors(null);
-  assertEquals(f.errors.email, null);
-  cleanup();
-});
-
-Deno.test("binding - attrs defaults to empty object without resolver", () => {
-  const { f } = setup();
-  assertEquals(f.binding("email").attrs, {});
-  cleanup();
-});
-
-Deno.test("binding - attrs populated from resolver", () => {
-  const resolver: Resolver<FormValues> = {
-    attrs(path) {
-      const key = path.join(".");
-      const map: Record<string, Record<string, unknown>> = {
-        email: { required: true, maxLength: 255 },
-        "address.city": { required: true, minLength: 1 },
-      };
-      return map[key] ?? {};
-    },
-  };
-  const { f } = setup({ resolver });
-  assertEquals(f.binding("email").attrs, { required: true, maxLength: 255 });
-  assertEquals(f.binding("address", "city").attrs, {
-    required: true,
-    minLength: 1,
+  it("setValue updates the values store", () => {
+    const { f } = setup();
+    f.binding("email").setValue("new@example.com");
+    expect(f.values.email).toBe("new@example.com");
   });
-  cleanup();
-});
 
-Deno.test("binding - attrs empty for unknown path with resolver", () => {
-  const resolver: Resolver<FormValues> = { attrs: () => ({}) };
-  const { f } = setup({ resolver });
-  assertEquals(f.binding("password").attrs, {});
-  cleanup();
-});
+  it("nested setValue updates correctly", () => {
+    const { f } = setup();
+    f.binding("address", "city").setValue("Lyon");
+    expect(f.values.address.city).toBe("Lyon");
+  });
 
-Deno.test("binding - setValue triggers resolver validation", () => {
-  const resolver: Resolver<FormValues> = {
-    attrs: () => ({}),
-    validate(_path, value) {
-      return value === "" ? ["Required"] : null;
-    },
-  };
-  const { f } = setup({ resolver });
-  const b = f.binding("email");
-  b.setValue("");
-  assertEquals(b.errors, ["Required"]);
-  cleanup();
-});
+  it("errors starts as null", () => {
+    const { f } = setup();
+    expect(f.binding("email").errors).toBe(null);
+  });
 
-Deno.test("binding - setValue clears errors on valid input", () => {
-  const resolver: Resolver<FormValues> = {
-    attrs: () => ({}),
-    validate(_path, value) {
-      return value === "" ? ["Required"] : null;
-    },
-  };
-  const { f } = setup({ resolver });
-  const b = f.binding("email");
-  b.setErrors(["Required"]);
-  b.setValue("valid@example.com");
-  assertEquals(b.errors, null);
-  cleanup();
-});
+  it("setErrors updates the errors store", () => {
+    const { f } = setup();
+    f.binding("email").setErrors(["Required"]);
+    expect(f.errors.email).toEqual(["Required"]);
+  });
 
-Deno.test("binding - setValue without validate does not crash", () => {
-  const resolver: Resolver<FormValues> = { attrs: () => ({}) };
-  const { f } = setup({ resolver });
-  const b = f.binding("email");
-  b.setValue("test@example.com");
-  assertEquals(b.errors, null);
-  cleanup();
+  it("setErrors supports multiple errors", () => {
+    const { f } = setup();
+    f.binding("email").setErrors(["Required", "Must be a valid email"]);
+    expect(f.errors.email).toEqual(["Required", "Must be a valid email"]);
+  });
+
+  it("setErrors(null) clears the error", () => {
+    const { f } = setup();
+    const b = f.binding("email");
+    b.setErrors(["Required"]);
+    b.setErrors(null);
+    expect(f.errors.email).toBe(null);
+  });
+
+  it("attrs defaults to empty object without resolver", () => {
+    const { f } = setup();
+    expect(f.binding("email").attrs).toEqual({});
+  });
+
+  it("attrs populated from resolver", () => {
+    const resolver: Resolver<FormValues> = {
+      attrs(path) {
+        const key = path.join(".");
+        const map: Record<string, Record<string, unknown>> = {
+          email: { required: true, maxLength: 255 },
+          "address.city": { required: true, minLength: 1 },
+        };
+        return map[key] ?? {};
+      },
+    };
+    const { f } = setup({ resolver });
+    expect(f.binding("email").attrs).toEqual({ required: true, maxLength: 255 });
+    expect(f.binding("address", "city").attrs).toEqual({
+      required: true,
+      minLength: 1,
+    });
+  });
+
+  it("attrs empty for unknown path with resolver", () => {
+    const resolver: Resolver<FormValues> = { attrs: () => ({}) };
+    const { f } = setup({ resolver });
+    expect(f.binding("password").attrs).toEqual({});
+  });
+
+  it("setValue triggers resolver validation", () => {
+    const resolver: Resolver<FormValues> = {
+      attrs: () => ({}),
+      validate(_path, value) {
+        return value === "" ? ["Required"] : null;
+      },
+    };
+    const { f } = setup({ resolver });
+    const b = f.binding("email");
+    b.setValue("");
+    expect(b.errors).toEqual(["Required"]);
+  });
+
+  it("setValue clears errors on valid input", () => {
+    const resolver: Resolver<FormValues> = {
+      attrs: () => ({}),
+      validate(_path, value) {
+        return value === "" ? ["Required"] : null;
+      },
+    };
+    const { f } = setup({ resolver });
+    const b = f.binding("email");
+    b.setErrors(["Required"]);
+    b.setValue("valid@example.com");
+    expect(b.errors).toBe(null);
+  });
+
+  it("setValue without validate does not crash", () => {
+    const resolver: Resolver<FormValues> = { attrs: () => ({}) };
+    const { f } = setup({ resolver });
+    const b = f.binding("email");
+    b.setValue("test@example.com");
+    expect(b.errors).toBe(null);
+  });
 });
 
 // --- submit ---
 
-Deno.test("submit - calls onSubmit with current values", () => {
-  let received: FormValues | undefined;
-  const { f } = setup({
-    onSubmit: (v) => {
-      received = v;
-    },
+describe("submit", () => {
+  it("calls onSubmit with current values", () => {
+    let received: FormValues | undefined;
+    const { f } = setup({
+      onSubmit: (v) => {
+        received = v;
+      },
+    });
+    f.setValues("email", "submitted@example.com");
+    f.submit();
+    expect(received?.email).toBe("submitted@example.com");
   });
-  f.setValues("email", "submitted@example.com");
-  f.submit();
-  assertEquals(received?.email, "submitted@example.com");
-  cleanup();
-});
 
-Deno.test("submit - calls onSubmit with override values", () => {
-  let received: FormValues | undefined;
-  const { f } = setup({
-    onSubmit: (v) => {
-      received = v;
-    },
+  it("calls onSubmit with override values", () => {
+    let received: FormValues | undefined;
+    const { f } = setup({
+      onSubmit: (v) => {
+        received = v;
+      },
+    });
+    const override = {
+      email: "override@example.com",
+      password: "123",
+      address: { city: "Paris" },
+    };
+    f.submit(override);
+    expect(received).toEqual(override);
   });
-  const override = {
-    email: "override@example.com",
-    password: "123",
-    address: { city: "Paris" },
-  };
-  f.submit(override);
-  assertEquals(received, override);
-  cleanup();
-});
 
-Deno.test("submit - increments submitCount", () => {
-  const { f } = setup();
-  f.submit();
-  assertEquals(f.state.submitCount, 1);
-  f.submit();
-  assertEquals(f.state.submitCount, 2);
-  cleanup();
-});
+  it("increments submitCount", () => {
+    const { f } = setup();
+    f.submit();
+    expect(f.state.submitCount).toBe(1);
+    f.submit();
+    expect(f.state.submitCount).toBe(2);
+  });
 
-Deno.test(
-  "submit - isSubmitting true during async handler",
-  { sanitizeOps: false },
-  async () => {
+  it("isSubmitting true during async handler", async () => {
     let resolve!: () => void;
     const promise = new Promise<void>((r) => {
       resolve = r;
     });
     const { f } = setup({ onSubmit: () => promise });
     f.submit();
-    assertEquals(f.state.isSubmitting, true);
+    expect(f.state.isSubmitting).toBe(true);
     resolve();
     await promise;
     await new Promise((r) => setTimeout(r, 10));
-    assertEquals(f.state.isSubmitting, false);
-    cleanup();
-  },
-);
+    expect(f.state.isSubmitting).toBe(false);
+  });
 
-Deno.test(
-  "submit - passes through on async validateAll (valid)",
-  { sanitizeOps: false },
-  async () => {
+  it("passes through on async validateAll (valid)", async () => {
     let called = false;
     const resolver: Resolver<FormValues> = {
       attrs: () => ({}),
@@ -334,82 +309,76 @@ Deno.test(
     });
     f.submit();
     await new Promise((r) => setTimeout(r, 10));
-    assertEquals(called, true);
-    cleanup();
-  },
-);
-
-Deno.test("submit - force bypasses validateAll", () => {
-  let called = false;
-  const resolver: Resolver<FormValues> = {
-    attrs: () => ({}),
-    validateAll() {
-      return {
-        email: ["Required"],
-        password: null,
-        address: { city: null },
-      };
-    },
-  };
-  const { f } = setup({
-    resolver,
-    onSubmit: () => {
-      called = true;
-    },
+    expect(called).toBe(true);
   });
-  f.submit(undefined, { force: true });
-  assertEquals(called, true);
-  cleanup();
-});
 
-Deno.test("submit - force with override values", () => {
-  let received: FormValues | undefined;
-  const resolver: Resolver<FormValues> = {
-    attrs: () => ({}),
-    validateAll() {
-      return {
-        email: ["Required"],
-        password: null,
-        address: { city: null },
-      };
-    },
-  };
-  const override = {
-    email: "forced@example.com",
-    password: "123",
-    address: { city: "Paris" },
-  };
-  const { f } = setup({
-    resolver,
-    onSubmit: (v) => {
-      received = v;
-    },
+  it("force bypasses validateAll", () => {
+    let called = false;
+    const resolver: Resolver<FormValues> = {
+      attrs: () => ({}),
+      validateAll() {
+        return {
+          email: ["Required"],
+          password: null,
+          address: { city: null },
+        };
+      },
+    };
+    const { f } = setup({
+      resolver,
+      onSubmit: () => {
+        called = true;
+      },
+    });
+    f.submit(undefined, { force: true });
+    expect(called).toBe(true);
   });
-  f.submit(override, { force: true });
-  assertEquals(received, override);
-  cleanup();
-});
 
-Deno.test("submit - clears errors on valid validateAll", () => {
-  const resolver: Resolver<FormValues> = {
-    attrs: () => ({}),
-    validateAll() {
-      return { email: null, password: null, address: { city: null } };
-    },
-  };
-  const { f } = setup({ resolver });
-  f.setErrors("email", ["Old error"]);
-  f.submit();
-  assertEquals(f.errors.email, null);
-  cleanup();
+  it("force with override values", () => {
+    let received: FormValues | undefined;
+    const resolver: Resolver<FormValues> = {
+      attrs: () => ({}),
+      validateAll() {
+        return {
+          email: ["Required"],
+          password: null,
+          address: { city: null },
+        };
+      },
+    };
+    const override = {
+      email: "forced@example.com",
+      password: "123",
+      address: { city: "Paris" },
+    };
+    const { f } = setup({
+      resolver,
+      onSubmit: (v) => {
+        received = v;
+      },
+    });
+    f.submit(override, { force: true });
+    expect(received).toEqual(override);
+  });
+
+  it("clears errors on valid validateAll", () => {
+    const resolver: Resolver<FormValues> = {
+      attrs: () => ({}),
+      validateAll() {
+        return { email: null, password: null, address: { city: null } };
+      },
+    };
+    const { f } = setup({ resolver });
+    f.setErrors("email", ["Old error"]);
+    f.submit();
+    expect(f.errors.email).toBe(null);
+  });
 });
 
 // --- async per-field validation ---
 
-Deno.test(
-  "binding - async validate sets errors after resolve",
-  { sanitizeOps: false },
-  async () => {
+describe("binding - async validate", () => {
+  it("async validate sets errors after resolve", async () => {
     const resolver: Resolver<FormValues> = {
       attrs: () => ({}),
       validate(_path, value) {
@@ -420,15 +389,10 @@ Deno.test(
     const b = f.binding("email");
     b.setValue("");
     await new Promise((r) => setTimeout(r, 10));
-    assertEquals(b.errors, ["Required"]);
-    cleanup();
-  },
-);
+    expect(b.errors).toEqual(["Required"]);
+  });
 
-Deno.test(
-  "binding - async validate stale result discarded",
-  { sanitizeOps: false },
-  async () => {
+  it("async validate stale result discarded", async () => {
     let callCount = 0;
     const resolver: Resolver<FormValues> = {
       attrs: () => ({}),
@@ -436,10 +400,13 @@ Deno.test(
         callCount++;
         const n = callCount;
         return new Promise((resolve) => {
-          setTimeout(() => {
-            if (n === 1) resolve(["Stale error"]);
-            else resolve(value === "final" ? null : ["Error"]);
-          }, n === 1 ? 50 : 10);
+          setTimeout(
+            () => {
+              if (n === 1) resolve(["Stale error"]);
+              else resolve(value === "final" ? null : ["Error"]);
+            },
+            n === 1 ? 50 : 10,
+          );
         });
       },
     };
@@ -448,162 +415,149 @@ Deno.test(
     b.setValue("first");
     b.setValue("final");
     await new Promise((r) => setTimeout(r, 100));
-    assertEquals(b.errors, null);
-    cleanup();
-  },
-);
+    expect(b.errors).toBe(null);
+  });
+});
 
 // --- state ---
 
-Deno.test("state - initial state", () => {
-  const { f } = setup();
-  assertEquals(f.state.isSubmitting, false);
-  assertEquals(f.state.isTouched, false);
-  assertEquals(f.state.isDirty, false);
-  assertEquals(f.state.isValid, true);
-  assertEquals(f.state.submitCount, 0);
-  cleanup();
-});
+describe("state", () => {
+  it("initial state", () => {
+    const { f } = setup();
+    expect(f.state.isSubmitting).toBe(false);
+    expect(f.state.isTouched).toBe(false);
+    expect(f.state.isDirty).toBe(false);
+    expect(f.state.isValid).toBe(true);
+    expect(f.state.submitCount).toBe(0);
+  });
 
-Deno.test("state - isTouched set after binding setValue", () => {
-  const { f } = setup();
-  f.binding("email").setValue("a@b.com");
-  assertEquals(f.state.isTouched, true);
-  cleanup();
-});
+  it("isTouched set after binding setValue", () => {
+    const { f } = setup();
+    f.binding("email").setValue("a@b.com");
+    expect(f.state.isTouched).toBe(true);
+  });
 
-Deno.test("state - isDirty true after value change", () => {
-  const { f } = setup();
-  f.setValues("email", "changed");
-  assertEquals(f.state.isDirty, true);
-  cleanup();
-});
+  it("isDirty true after value change", () => {
+    const { f } = setup();
+    f.setValues("email", "changed");
+    expect(f.state.isDirty).toBe(true);
+  });
 
-Deno.test("state - isDirty false after reverting value", () => {
-  const { f } = setup();
-  f.setValues("email", "changed");
-  f.setValues("email", "");
-  assertEquals(f.state.isDirty, false);
-  cleanup();
-});
+  it("isDirty false after reverting value", () => {
+    const { f } = setup();
+    f.setValues("email", "changed");
+    f.setValues("email", "");
+    expect(f.state.isDirty).toBe(false);
+  });
 
-Deno.test("state - isDirty detects nested changes", () => {
-  const { f } = setup();
-  f.setValues("address", "city", "Lyon");
-  assertEquals(f.state.isDirty, true);
-  cleanup();
-});
+  it("isDirty detects nested changes", () => {
+    const { f } = setup();
+    f.setValues("address", "city", "Lyon");
+    expect(f.state.isDirty).toBe(true);
+  });
 
-Deno.test("state - isValid false when errors present", () => {
-  const { f } = setup();
-  f.setErrors("email", ["Required"]);
-  assertEquals(f.state.isValid, false);
-  cleanup();
-});
+  it("isValid false when errors present", () => {
+    const { f } = setup();
+    f.setErrors("email", ["Required"]);
+    expect(f.state.isValid).toBe(false);
+  });
 
-Deno.test("state - isValid true after clearing errors", () => {
-  const { f } = setup();
-  f.setErrors("email", ["Required"]);
-  f.setErrors("email", null);
-  assertEquals(f.state.isValid, true);
-  cleanup();
-});
+  it("isValid true after clearing errors", () => {
+    const { f } = setup();
+    f.setErrors("email", ["Required"]);
+    f.setErrors("email", null);
+    expect(f.state.isValid).toBe(true);
+  });
 
-Deno.test("state - isValid detects nested errors", () => {
-  const { f } = setup();
-  f.setErrors("address", "city", ["Required"]);
-  assertEquals(f.state.isValid, false);
-  cleanup();
+  it("isValid detects nested errors", () => {
+    const { f } = setup();
+    f.setErrors("address", "city", ["Required"]);
+    expect(f.state.isValid).toBe(false);
+  });
 });
 
 // --- reset ---
 
-Deno.test("reset - restores values to initial", () => {
-  const { f } = setup();
-  f.setValues("email", "dirty");
-  f.reset();
-  assertEquals(f.values.email, "");
-  cleanup();
-});
+describe("reset", () => {
+  it("restores values to initial", () => {
+    const { f } = setup();
+    f.setValues("email", "dirty");
+    f.reset();
+    expect(f.values.email).toBe("");
+  });
 
-Deno.test("reset - clears errors", () => {
-  const { f } = setup();
-  f.setErrors("email", ["Required"]);
-  f.reset();
-  assertEquals(f.errors.email, null);
-  cleanup();
-});
+  it("clears errors", () => {
+    const { f } = setup();
+    f.setErrors("email", ["Required"]);
+    f.reset();
+    expect(f.errors.email).toBe(null);
+  });
 
-Deno.test("reset - resets state", () => {
-  const { f } = setup();
-  f.binding("email").setValue("x");
-  f.submit();
-  f.reset();
-  assertEquals(f.state.isTouched, false);
-  assertEquals(f.state.submitCount, 0);
-  assertEquals(f.state.isSubmitting, false);
-  assertEquals(f.state.isDirty, false);
-  cleanup();
+  it("resets state", () => {
+    const { f } = setup();
+    f.binding("email").setValue("x");
+    f.submit();
+    f.reset();
+    expect(f.state.isTouched).toBe(false);
+    expect(f.state.submitCount).toBe(0);
+    expect(f.state.isSubmitting).toBe(false);
+    expect(f.state.isDirty).toBe(false);
+  });
 });
 
 // --- aria (binding getters) ---
 
-Deno.test("aria - invalid is false when no errors", () => {
-  const { f } = setup();
-  assertEquals(f.binding("email").aria.invalid, false);
-  cleanup();
-});
+describe("aria", () => {
+  it("invalid is false when no errors", () => {
+    const { f } = setup();
+    expect(f.binding("email").aria.invalid).toBe(false);
+  });
 
-Deno.test("aria - invalid is true when errors present", () => {
-  const { f } = setup();
-  const b = f.binding("email");
-  b.setErrors(["Required"]);
-  assertEquals(b.aria.invalid, true);
-  cleanup();
-});
+  it("invalid is true when errors present", () => {
+    const { f } = setup();
+    const b = f.binding("email");
+    b.setErrors(["Required"]);
+    expect(b.aria.invalid).toBe(true);
+  });
 
-Deno.test("aria - invalid reacts to error clearing", () => {
-  const { f } = setup();
-  const b = f.binding("email");
-  b.setErrors(["Required"]);
-  assertEquals(b.aria.invalid, true);
-  b.setErrors(null);
-  assertEquals(b.aria.invalid, false);
-  cleanup();
-});
+  it("invalid reacts to error clearing", () => {
+    const { f } = setup();
+    const b = f.binding("email");
+    b.setErrors(["Required"]);
+    expect(b.aria.invalid).toBe(true);
+    b.setErrors(null);
+    expect(b.aria.invalid).toBe(false);
+  });
 
-Deno.test("aria - required mirrors resolver attrs", () => {
-  const resolver: Resolver<FormValues> = {
-    attrs: (path) => (path[0] === "email" ? { required: true } : {}),
-  };
-  const { f } = setup({ resolver });
-  assertEquals(f.binding("email").aria.required, true);
-  assertEquals(f.binding("password").aria.required, false);
-  cleanup();
-});
+  it("required mirrors resolver attrs", () => {
+    const resolver: Resolver<FormValues> = {
+      attrs: (path) => (path[0] === "email" ? { required: true } : {}),
+    };
+    const { f } = setup({ resolver });
+    expect(f.binding("email").aria.required).toBe(true);
+    expect(f.binding("password").aria.required).toBe(false);
+  });
 
-Deno.test("aria - describedby is a deterministic string", () => {
-  const { f } = setup();
-  const id = f.binding("email").aria.describedby;
-  assertEquals(typeof id, "string");
-  assertEquals(id.length > 0, true);
-  assertEquals(id.includes("email"), true);
-  cleanup();
-});
+  it("describedby is a deterministic string", () => {
+    const { f } = setup();
+    const id = f.binding("email").aria.describedby;
+    expect(typeof id).toBe("string");
+    expect(id.length).toBeGreaterThan(0);
+    expect(id.includes("email")).toBe(true);
+  });
 
-Deno.test("aria - describedby includes nested keys", () => {
-  const { f } = setup();
-  const id = f.binding("address", "city").aria.describedby;
-  assertEquals(id.includes("address"), true);
-  assertEquals(id.includes("city"), true);
-  cleanup();
-});
+  it("describedby includes nested keys", () => {
+    const { f } = setup();
+    const id = f.binding("address", "city").aria.describedby;
+    expect(id.includes("address")).toBe(true);
+    expect(id.includes("city")).toBe(true);
+  });
 
-Deno.test("aria - different forms get different describedby ids", () => {
-  const { f: f1 } = setup();
-  const { f: f2 } = setup();
-  const id1 = f1.binding("email").aria.describedby;
-  const id2 = f2.binding("email").aria.describedby;
-  assertEquals(id1 !== id2, true);
-  cleanup();
+  it("different forms get different describedby ids", () => {
+    const { f: f1 } = setup();
+    const { f: f2 } = setup();
+    const id1 = f1.binding("email").aria.describedby;
+    const id2 = f2.binding("email").aria.describedby;
+    expect(id1).not.toBe(id2);
+  });
 });

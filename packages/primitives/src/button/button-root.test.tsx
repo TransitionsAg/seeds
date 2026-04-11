@@ -7,14 +7,14 @@ afterEach(() => cleanup());
 describe("Button", () => {
   it("has type='button' by default", () => {
     const { container } = render(() => <ButtonRoot>Click</ButtonRoot>);
-    expect(container.querySelector("button")!.getAttribute("type")).toBe(
-      "button",
-    );
+    expect(container.querySelector("button")!.getAttribute("type")).toBe("button");
   });
 
   it("spreads extra props", () => {
     const { container } = render(() => (
-      <ButtonRoot class="primary" disabled data-testid="btn">Go</ButtonRoot>
+      <ButtonRoot class="primary" disabled data-testid="btn">
+        Go
+      </ButtonRoot>
     ));
     const el = container.querySelector("button")!;
     expect(el.getAttribute("class")).toBe("primary");
@@ -24,7 +24,9 @@ describe("Button", () => {
 
   it("as='a' renders an <a> element", () => {
     const { container } = render(() => (
-      <ButtonRoot as="a" href="/link">Link</ButtonRoot>
+      <ButtonRoot as="a" href="/link">
+        Link
+      </ButtonRoot>
     ));
     const el = container.querySelector("a");
     expect(el).not.toBeNull();

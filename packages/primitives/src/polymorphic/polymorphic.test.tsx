@@ -36,9 +36,7 @@ describe("Polymorphic", () => {
   });
 
   it("renders as <span>", () => {
-    const { container } = render(() => (
-      <Polymorphic as="span">Inline</Polymorphic>
-    ));
+    const { container } = render(() => <Polymorphic as="span">Inline</Polymorphic>);
     expect(container.querySelector("span")).not.toBeNull();
   });
 

@@ -4,9 +4,11 @@
  */
 export type FormErrors<T> = {
   // deno-lint-ignore no-explicit-any
-  [K in keyof T]: T[K] extends any[] ? string[] | null
-    : T[K] extends object ? FormErrors<T[K]>
-    : string[] | null;
+  [K in keyof T]: T[K] extends any[]
+    ? string[] | null
+    : T[K] extends object
+      ? FormErrors<T[K]>
+      : string[] | null;
 };
 
 /** Returns `true` if any field in the error map contains a non-empty error array. */

@@ -14,10 +14,5 @@ type InputLabelProps = ComponentProps<"label">;
 
 export function InputLabel(props: InputLabelProps): JSX.Element {
   const [local, inputProps] = splitProps(props, ["class"]);
-  return (
-    <label
-      {...inputProps}
-      class={labelVariants({ class: local.class })}
-    />
-  );
+  return <label {...inputProps} class={labelVariants({ class: local.class })} />;
 }

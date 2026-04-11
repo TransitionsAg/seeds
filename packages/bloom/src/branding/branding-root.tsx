@@ -1,10 +1,4 @@
-import {
-  createContext,
-  createMemo,
-  type JSX,
-  type ParentProps,
-  useContext,
-} from "solid-js";
+import { createContext, createMemo, type JSX, type ParentProps, useContext } from "solid-js";
 
 export type Theme = Partial<{
   primary: string;

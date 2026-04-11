@@ -35,9 +35,7 @@ function TreeNodeEl(props: { node: TreeNode; indexPath: number[] }) {
         </TreeView.Branch.Control>
         <TreeView.Branch.Content>
           <For each={props.node.children}>
-            {(child, i) => (
-              <TreeNodeEl node={child} indexPath={[...props.indexPath, i()]} />
-            )}
+            {(child, i) => <TreeNodeEl node={child} indexPath={[...props.indexPath, i()]} />}
           </For>
         </TreeView.Branch.Content>
       </TreeView.Branch>
@@ -49,9 +47,7 @@ export default function TreeViewDocs() {
   return (
     <div>
       <h1 class="typo-h1 mb-6">Tree View</h1>
-      <p class="typo-p mb-8">
-        A tree view primitive for hierarchical navigation, built on zag-js.
-      </p>
+      <p class="typo-p mb-8">A tree view primitive for hierarchical navigation, built on zag-js.</p>
 
       <h2 class="typo-h3 mb-4">Installation</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">

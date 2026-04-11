@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { cleanup, render, renderHook } from "@solidjs/testing-library";
 import { useForm } from "../use-form.tsx";
-import type { Resolver } from "../resolver/mod.ts";
+import type { Resolver } from "../resolver/index.ts";
 
 afterEach(() => cleanup());
 
@@ -10,18 +10,16 @@ const defaults: FormValues = { email: "" };
 
 const noop = () => {};
 
-function setup(
-  opts?: {
-    resolver?: Resolver<FormValues>;
-    onSubmit?: (v: FormValues) => void | Promise<void>;
-  },
-) {
+function setup(opts?: {
+  resolver?: Resolver<FormValues>;
+  onSubmit?: (v: FormValues) => void | Promise<void>;
+}) {
   const { result } = renderHook(() =>
     useForm<FormValues>({
       initialValues: defaults,
       resolver: opts?.resolver,
       onSubmit: opts?.onSubmit ?? noop,
-    })
+    }),
   );
   return result;
 }
@@ -51,9 +49,7 @@ describe("Field.Input", () => {
       </Field>
     ));
     expect(
-      container.querySelector("input")!.getAttribute("aria-describedby")!.split(
-        " ",
-      ).length,
+      container.querySelector("input")!.getAttribute("aria-describedby")!.split(" ").length,
     ).toBe(2);
   });
 
@@ -65,9 +61,7 @@ describe("Field.Input", () => {
         <form.Field.Input />
       </form.Field>
     ));
-    expect(container.querySelector("input")!.getAttribute("aria-invalid")).toBe(
-      "true",
-    );
+    expect(container.querySelector("input")!.getAttribute("aria-invalid")).toBe("true");
   });
 
   it("aria-invalid absent when no errors", () => {
@@ -77,9 +71,7 @@ describe("Field.Input", () => {
         <Field.Input />
       </Field>
     ));
-    expect(container.querySelector("input")!.hasAttribute("aria-invalid")).toBe(
-      false,
-    );
+    expect(container.querySelector("input")!.hasAttribute("aria-invalid")).toBe(false);
   });
 
   it("aria-required is true when resolver requires it", () => {
@@ -92,8 +84,7 @@ describe("Field.Input", () => {
         <Field.Input />
       </Field>
     ));
-    expect(container.querySelector("input")!.getAttribute("aria-required"))
-      .toBe("true");
+    expect(container.querySelector("input")!.getAttribute("aria-required")).toBe("true");
   });
 
   it("aria-required absent when not required", () => {
@@ -103,8 +94,7 @@ describe("Field.Input", () => {
         <Field.Input />
       </Field>
     ));
-    expect(container.querySelector("input")!.hasAttribute("aria-required"))
-      .toBe(false);
+    expect(container.querySelector("input")!.hasAttribute("aria-required")).toBe(false);
   });
 
   it("spreads HTML constraint attrs from resolver", () => {
@@ -141,9 +131,7 @@ describe("Field.Input", () => {
         <Field.Input />
       </Field>
     ));
-    expect(container.querySelector("input")!.getAttribute("name")).toBe(
-      "email",
-    );
+    expect(container.querySelector("input")!.getAttribute("name")).toBe("email");
   });
 
   it("wires value from store", () => {
@@ -154,9 +142,7 @@ describe("Field.Input", () => {
         <form.Field.Input />
       </form.Field>
     ));
-    expect((container.querySelector("input")! as HTMLInputElement).value).toBe(
-      "test@example.com",
-    );
+    expect((container.querySelector("input")! as HTMLInputElement).value).toBe("test@example.com");
   });
 });
 
@@ -264,9 +250,7 @@ describe("Form", () => {
         <button type="submit">Go</button>
       </form.Form>
     ));
-    container.querySelector("form")!.dispatchEvent(
-      new Event("submit", { cancelable: true }),
-    );
+    container.querySelector("form")!.dispatchEvent(new Event("submit", { cancelable: true }));
     expect(received?.email).toBe("test@example.com");
   });
 
@@ -301,9 +285,7 @@ describe("Form", () => {
         <button type="submit">Go</button>
       </form.Form>
     ));
-    container.querySelector("form")!.dispatchEvent(
-      new Event("submit", { cancelable: true }),
-    );
+    container.querySelector("form")!.dispatchEvent(new Event("submit", { cancelable: true }));
     expect(form.state.submitCount).toBe(1);
   });
 

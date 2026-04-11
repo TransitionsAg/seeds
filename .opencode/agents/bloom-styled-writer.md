@@ -15,7 +15,7 @@ component library that wraps **primitives** with `cva`/tailwind variants.
 
 # Key Facts
 
-- **Runtime:** Deno (bare specifiers mapped in `deno.json`)
+- **Runtime:** Node + PNPM
 - **Framework:** SolidJS with JSX (`jsxImportSource: "solid-js"`)
 - **Primitives:** imports from `@transitionsag/primitives/*`
 - **Styling:** `cva` + `tailwind-merge` via shared `cva.ts` utility
@@ -32,17 +32,17 @@ folders (plus `cva.ts`, `styles.css`).
 packages/bloom/src/
   cva.ts
   styles.css
-  mod.ts
+  index.ts
   branding/
     branding-root.tsx
-    mod.tsx
+    index.tsx
   button/
     button-root.tsx
-    mod.tsx
+    index.tsx
   input/
     input-root.tsx
     input-label.tsx
-    mod.tsx
+    index.tsx
   tree-view/
     tree-view-root.tsx
     tree-view-label.tsx
@@ -59,10 +59,10 @@ packages/bloom/src/
       tree-view-branch-trigger.tsx
       tree-view-branch-indicator.tsx
       tree-view-branch-indent-guide.tsx
-    mod.tsx
+    index.tsx
 ```
 
-**`mod.tsx`** re-exports everything and assembles the compound namespace:
+**`index.tsx`** re-exports everything and assembles the compound namespace:
 
 ```tsx
 import { ButtonRoot, buttonVariants } from "./button-root.tsx";
@@ -101,20 +101,11 @@ const buttonVariants = cva({
   },
 });
 
-type ButtonProps<T extends ValidComponent = "button"> =
-  & VariantProps<
-    typeof buttonVariants
-  >
-  & Parameters<typeof ButtonPrimitive.Root<T>>[0];
+type ButtonProps<T extends ValidComponent = "button"> = VariantProps<typeof buttonVariants> &
+  Parameters<typeof ButtonPrimitive.Root<T>>[0];
 
-export function ButtonRoot<T extends ValidComponent = "button">(
-  rawProps: ButtonProps<T>,
-) {
-  const [local, others] = splitProps(rawProps as ButtonProps, [
-    "intent",
-    "size",
-    "class",
-  ]);
+export function ButtonRoot<T extends ValidComponent = "button">(rawProps: ButtonProps<T>) {
+  const [local, others] = splitProps(rawProps as ButtonProps, ["intent", "size", "class"]);
 
   return (
     // @ts-ignore: Props are valid but not worth calculating
@@ -145,12 +136,7 @@ type TreeViewProps = Parameters<typeof TreeViewPrimitive.Root>[0];
 
 export function TreeViewRoot(rawProps: TreeViewProps) {
   const [local, others] = splitProps(rawProps, ["class"]);
-  return (
-    <TreeViewPrimitive.Root
-      {...others}
-      class={rootVariants({ class: local.class })}
-    />
-  );
+  return <TreeViewPrimitive.Root {...others} class={rootVariants({ class: local.class })} />;
 }
 ```
 
@@ -160,7 +146,7 @@ Same as primitives — every bloom component is exported as a compound object vi
 `Object.assign`. The namespace mirrors the primitive's compound structure.
 
 ```tsx
-// tree-view/mod.tsx
+// tree-view/index.tsx
 const Item = Object.assign(TreeViewItemRoot, {
   Root: TreeViewItemRoot,
   Text: TreeViewItemText,
@@ -193,7 +179,7 @@ directly — don't create a wrapper file.
 - Pass computed class via `cva({ ...variants, class: local.class })`
 - Export `variants` (the cva config) from the compound file so consumers can
   inspect or extend it
-- Barrel `mod.tsx` files contain NO component logic — only imports, re-exports,
+- Barrel `index.tsx` files contain NO component logic — only imports, re-exports,
   and `Object.assign` assembly
 - JSDoc only when non-obvious
 - No `any`, no `interface`
@@ -203,6 +189,6 @@ directly — don't create a wrapper file.
 
 1. **Read** the primitive component to understand its compound structure
 2. **Write** one file per styled compound part
-3. **Export** from `mod.tsx` with `Object.assign` compound namespace mirroring
+3. **Export** from `index.tsx` with `Object.assign` compound namespace mirroring
    the primitive
-4. **Add** the component to `packages/bloom/src/mod.ts` barrel
+4. **Add** the component to `packages/bloom/src/index.ts` barrel

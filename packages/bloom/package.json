@@ -1,11 +1,46 @@
 {
   "name": "@transitionsag/bloom",
   "version": "0.0.5",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "src/styles.css"
+  ],
   "type": "module",
   "exports": {
-    ".": "./src/mod.ts",
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
     "./styles.css": "./src/styles.css",
-    "./checkbox": "./src/checkbox/mod.tsx"
+    "./branding": {
+      "import": "./dist/branding/index.js",
+      "types": "./dist/branding/index.d.ts"
+    },
+    "./button": {
+      "import": "./dist/button/index.js",
+      "types": "./dist/button/index.d.ts"
+    },
+    "./card": {
+      "import": "./dist/card/index.js",
+      "types": "./dist/card/index.d.ts"
+    },
+    "./checkbox": {
+      "import": "./dist/checkbox/index.js",
+      "types": "./dist/checkbox/index.d.ts"
+    },
+    "./input": {
+      "import": "./dist/input/index.js",
+      "types": "./dist/input/index.d.ts"
+    },
+    "./tree-view": {
+      "import": "./dist/tree-view/index.js",
+      "types": "./dist/tree-view/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "check": "tsc --noEmit"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.16",
@@ -15,5 +50,12 @@
     "solid-js": "^1.9.12",
     "tailwind-merge": "^3.0.0",
     "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.9.12"
   }
 }

@@ -3,17 +3,12 @@ import { TreeView as TreeViewPrimitive } from "@transitionsag/primitives/tree-vi
 import { cva } from "../../cva.ts";
 
 const branchIndicatorVariants = cva({
-  base:
-    "size-4 shrink-0 transition-transform duration-200 [&[data-expanded]]:rotate-90",
+  base: "size-4 shrink-0 transition-transform duration-200 [&[data-expanded]]:rotate-90",
 });
 
-type BranchIndicatorProps = Parameters<
-  typeof TreeViewPrimitive.Branch.Indicator
->[0];
+type BranchIndicatorProps = Parameters<typeof TreeViewPrimitive.Branch.Indicator>[0];
 
-export function TreeViewBranchIndicator(
-  rawProps: BranchIndicatorProps,
-): JSX.Element {
+export function TreeViewBranchIndicator(rawProps: BranchIndicatorProps): JSX.Element {
   const [local, others] = splitProps(rawProps, ["class"]);
   return (
     <TreeViewPrimitive.Branch.Indicator

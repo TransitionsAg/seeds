@@ -5,8 +5,8 @@ export default function BloomCheckboxDocs() {
     <div>
       <h1 class="typo-h1 mb-6">Checkbox</h1>
       <p class="typo-p mb-8">
-        A self-contained styled checkbox. Wraps all primitive parts (control,
-        indicator, label, hidden input) into a single callable component.
+        A self-contained styled checkbox. Wraps all primitive parts (control, indicator, label,
+        hidden input) into a single callable component.
       </p>
 
       <h2 class="typo-h3 mb-4">Usage</h2>
@@ -27,12 +27,7 @@ import "@transitionsag/bloom/styles.css";
             <Checkbox id="bloom-unchecked" name="state" value="unchecked">
               Unchecked
             </Checkbox>
-            <Checkbox
-              id="bloom-checked"
-              name="state"
-              value="checked"
-              defaultChecked
-            >
+            <Checkbox id="bloom-checked" name="state" value="checked" defaultChecked>
               Checked
             </Checkbox>
             <Checkbox
@@ -43,12 +38,7 @@ import "@transitionsag/bloom/styles.css";
             >
               Indeterminate
             </Checkbox>
-            <Checkbox
-              id="bloom-disabled"
-              name="state"
-              value="disabled"
-              disabled
-            >
+            <Checkbox id="bloom-disabled" name="state" value="disabled" disabled>
               Disabled
             </Checkbox>
           </div>

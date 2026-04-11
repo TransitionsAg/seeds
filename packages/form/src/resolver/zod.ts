@@ -1,7 +1,7 @@
 import type { z } from "zod";
-import type { Resolver } from "./mod.ts";
+import type { Resolver } from "./index.ts";
 import type { InputAttrs } from "../input/attrs.ts";
-import type { FormErrors } from "../errors/mod.ts";
+import type { FormErrors } from "../errors/index.ts";
 
 /**
  * Unwrap Zod wrapper types to reach the inner schema.
@@ -64,8 +64,7 @@ function extractAttrs(schema: z.ZodTypeAny): InputAttrs {
   const inner = unwrap(schema);
   // deno-lint-ignore no-explicit-any
   const def = inner._def as any;
-  const checks: { kind: string; value?: number; regex?: RegExp }[] =
-    def.checks ?? [];
+  const checks: { kind: string; value?: number; regex?: RegExp }[] = def.checks ?? [];
 
   switch (def.typeName) {
     case "ZodString":
@@ -97,10 +96,7 @@ function extractAttrs(schema: z.ZodTypeAny): InputAttrs {
  * Walk a Zod object schema by key path and return the sub-schema at that path.
  * Returns `undefined` if the path doesn't resolve to a schema.
  */
-function schemaAtPath(
-  root: z.ZodTypeAny,
-  path: string[],
-): z.ZodTypeAny | undefined {
+function schemaAtPath(root: z.ZodTypeAny, path: string[]): z.ZodTypeAny | undefined {
   // deno-lint-ignore no-explicit-any
   let current: any = root;
   for (const key of path) {
@@ -195,9 +191,7 @@ function errorsTemplate(schema: z.ZodTypeAny): any {
  * });
  * ```
  */
-export function zodResolver<
-  S extends z.ZodObject<z.ZodRawShape>,
->(schema: S): Resolver<z.infer<S>> {
+export function zodResolver<S extends z.ZodObject<z.ZodRawShape>>(schema: S): Resolver<z.infer<S>> {
   type T = z.infer<S>;
   const template = errorsTemplate(schema) as FormErrors<T>;
 

@@ -1,8 +1,8 @@
 import { createUniqueId } from "solid-js";
 import { createStore, reconcile, type SetStoreFunction } from "solid-js/store";
-import type { Binder, Binding } from "./input/mod.ts";
-import { type FormErrors, hasErrors, initErrors } from "./errors/mod.ts";
-import type { Resolver } from "./resolver/mod.ts";
+import type { Binder, Binding } from "./input/index.ts";
+import { type FormErrors, hasErrors, initErrors } from "./errors/index.ts";
+import type { Resolver } from "./resolver/index.ts";
 import { deepEqual } from "./utils.ts";
 
 /** Options passed to {@linkcode useForm}. */
@@ -16,9 +16,7 @@ export type FormParameters<T extends object> = {
 };
 
 /** Callback invoked on valid form submission. May be async — the form tracks the pending state via {@linkcode FormState.isSubmitting}. */
-export type SubmitHandler<T extends object> = (
-  values: T,
-) => void | Promise<void>;
+export type SubmitHandler<T extends object> = (values: T) => void | Promise<void>;
 
 /** Options for {@linkcode FormCore.submit}. */
 export type SubmitOptions = {

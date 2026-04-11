@@ -1,14 +1,9 @@
 import type { JSX } from "solid-js";
 import type { SetStoreFunction } from "solid-js/store";
-import type { Binding } from "./input/mod.ts";
-import type { FormErrors } from "./errors/mod.ts";
-import {
-  createFormCore,
-  type FormParameters,
-  type FormState,
-  type SubmitOptions,
-} from "./form.ts";
-import { createField, createForm, type FieldComponent } from "./field/mod.ts";
+import type { Binding } from "./input/index.ts";
+import type { FormErrors } from "./errors/index.ts";
+import { createFormCore, type FormParameters, type FormState, type SubmitOptions } from "./form.ts";
+import { createField, createForm, type FieldComponent } from "./field/index.ts";
 
 /** Everything returned by {@linkcode useForm}. */
 export type FormReturn<T extends object> = {
@@ -27,9 +22,7 @@ export type FormReturn<T extends object> = {
   /** Restores values, errors, and meta state back to their initial values. */
   reset(): void;
   /** Typed `<form>` wrapper that calls `preventDefault` and invokes `submit()`. */
-  Form: (
-    props: Omit<JSX.FormHTMLAttributes<HTMLFormElement>, "onSubmit">,
-  ) => JSX.Element;
+  Form: (props: Omit<JSX.FormHTMLAttributes<HTMLFormElement>, "onSubmit">) => JSX.Element;
   /** Compound field component. Use `<Field name="path.to.field">` with `Field.Label`, `Field.Input`, `Field.Error` etc. */
   Field: FieldComponent<T>;
 };
@@ -62,9 +55,7 @@ export type FormReturn<T extends object> = {
  * submit({ email: "override@example.com" });
  * ```
  */
-export function useForm<T extends object>(
-  params: FormParameters<T>,
-): FormReturn<T> {
+export function useForm<T extends object>(params: FormParameters<T>): FormReturn<T> {
   const core = createFormCore(params);
   return {
     values: core.values,
