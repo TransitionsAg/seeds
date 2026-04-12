@@ -82,6 +82,8 @@ jobs:
 
       - name: Build docs (CSR)
         run: pnpm run docs:build:csr
+        env:
+          BASE_URL: /seeds/
 
       - name: Add 404.html for SPA routing
         run: cp apps/docs/.output/public/index.html apps/docs/.output/public/404.html
