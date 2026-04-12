@@ -10,7 +10,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     ssr: {
-      noExternal: ["@solidjs/router"],
+      noExternal: ["@solidjs/router", /^@transitionsag/],
     },
   },
 });
