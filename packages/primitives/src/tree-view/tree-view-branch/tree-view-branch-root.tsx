@@ -30,9 +30,10 @@ export function TreeViewBranchRoot<T extends ValidComponent = "div">(
   const merged = mergeProps({ as: "div" as T }, rawProps);
   const [local, nodeLocal, others] = splitProps(merged, ["as"], ["node", "indexPath"]);
 
-  const branch = (
-    // @ts-ignore: polymorphic spread props are valid but too complex for TS
-    <Dynamic {...mergeProps(api.getBranchProps(nodeLocal), others)} component={local.as} />
+  return (
+    <TreeViewNodeContext.Provider value={nodeLocal}>
+      {/* @ts-ignore: polymorphic spread props are valid but too complex for TS */}
+      <Dynamic {...mergeProps(api.getBranchProps(nodeLocal), others)} component={local.as} />
+    </TreeViewNodeContext.Provider>
   );
-  return <TreeViewNodeContext.Provider value={nodeLocal}>{branch}</TreeViewNodeContext.Provider>;
 }
