@@ -10,16 +10,16 @@
   "browser": {},
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index/index.js",
+      "types": "./dist/index/index.d.ts"
     },
     "./resolver": {
-      "import": "./dist/resolver/index.js",
-      "types": "./dist/resolver/index.d.ts"
+      "import": "./dist/resolver/index/index.js",
+      "types": "./dist/resolver/index/index.d.ts"
     },
     "./resolver/zod": {
-      "import": "./dist/resolver/zod.js",
-      "types": "./dist/resolver/zod.d.ts"
+      "import": "./dist/resolver/zod/index/index.js",
+      "types": "./dist/resolver/zod/index.d.ts"
     }
   },
   "scripts": {
@@ -35,6 +35,7 @@
     "@solidjs/testing-library": "^0.8.10",
     "happy-dom": "^17.4.4",
     "tsup": "^8.4.0",
+    "tsup-preset-solid": "^2.2.0",
     "typescript": "^5.8.3",
     "vite-plugin-solid": "^2.11.6",
     "vitest": "^3.2.1",

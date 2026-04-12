@@ -109,6 +109,9 @@ importers:
       tsup:
         specifier: ^8.4.0
         version: 8.5.1(jiti@2.6.1)(postcss@8.5.9)(typescript@5.9.3)
+      tsup-preset-solid:
+        specifier: ^2.2.0
+        version: 2.2.0(esbuild@0.27.7)(solid-js@1.9.12)(tsup@8.5.1(jiti@2.6.1)(postcss@8.5.9)(typescript@5.9.3))
       typescript:
         specifier: ^5.8.3
         version: 5.9.3

@@ -9,7 +9,7 @@ export const cardVariants: (props?: { size?: "normal" | "sm" | "fit"; class?: st
       size: {
         normal: "px-5 py-4",
         sm: "px-4 py-3",
-        fit: "px-3 py-2",
+        fit: "",
       },
     },
     defaultVariants: {

@@ -1,17 +1,23 @@
 import { defineConfig } from "tsup";
+import * as preset from "tsup-preset-solid";
 
-export default defineConfig({
-  entry: {
-    index: "src/index.ts",
-    "resolver/index": "src/resolver/index.ts",
-    "resolver/zod": "src/resolver/zod.ts",
-  },
-  format: ["esm"],
-  target: "esnext",
-  dts: true,
-  clean: true,
-  sourcemap: true,
-  external: ["solid-js", "zod"],
-  tsconfig: "tsconfig.build.json",
-  outDir: "dist",
+const preset_options: preset.PresetOptions = {
+  entries: [
+    { entry: "src/index.ts", dev_entry: true },
+    { name: "resolver/index", entry: "src/resolver/index.ts" },
+    { name: "resolver/zod", entry: "src/resolver/zod.ts" },
+  ],
+};
+
+export default defineConfig((config) => {
+  const watching = !!config.watch;
+  const parsed_options = preset.parsePresetOptions(preset_options, watching);
+  const tsup_options = preset.generateTsupOptions(parsed_options);
+
+  return tsup_options.map((options) => ({
+    ...options,
+    external: ["solid-js", "zod"],
+    sourcemap: true,
+    tsconfig: "tsconfig.build.json",
+  }));
 });
