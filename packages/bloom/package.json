@@ -6,7 +6,9 @@
     "dist"
   ],
   "type": "module",
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "main": "./dist/index/index.js",
   "module": "./dist/index/index.js",
   "browser": {},
