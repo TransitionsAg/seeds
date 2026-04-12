@@ -18,7 +18,7 @@
       "types": "./dist/resolver/index/index.d.ts"
     },
     "./resolver/zod": {
-      "import": "./dist/resolver/zod/index/index.js",
+      "import": "./dist/resolver/zod/index.js",
       "types": "./dist/resolver/zod/index.d.ts"
     }
   },
