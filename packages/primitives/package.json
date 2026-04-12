@@ -10,6 +10,7 @@
   "browser": {},
   "exports": {
     "./button": {
+      "types": "./src/button/index.tsx",
       "solid": {
         "development": "./dist/button/dev.jsx",
         "import": "./dist/button/index.jsx"
@@ -26,6 +27,7 @@
       }
     },
     "./checkbox": {
+      "types": "./src/checkbox/index.tsx",
       "solid": {
         "development": "./dist/checkbox/dev.jsx",
         "import": "./dist/checkbox/index.jsx"
@@ -42,6 +44,7 @@
       }
     },
     "./polymorphic": {
+      "types": "./src/polymorphic/index.tsx",
       "solid": {
         "development": "./dist/polymorphic/dev.jsx",
         "import": "./dist/polymorphic/index.jsx"
@@ -58,6 +61,7 @@
       }
     },
     "./input": {
+      "types": "./src/input/index.tsx",
       "solid": {
         "development": "./dist/input/dev.jsx",
         "import": "./dist/input/index.jsx"
@@ -74,6 +78,7 @@
       }
     },
     "./tree-view": {
+      "types": "./src/tree-view/index.tsx",
       "solid": {
         "development": "./dist/tree-view/dev.jsx",
         "import": "./dist/tree-view/index.jsx"
