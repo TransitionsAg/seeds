@@ -5,7 +5,6 @@ export default defineConfig({
   ssr: process.env.SSR !== "false",
   server: process.env.SSR === "false" ? { preset: "static" } : undefined,
   vite: {
-    base: process.env.BASE_URL || "/",
     plugins: [tailwindcss()],
     ssr: {
       noExternal: ["@solidjs/router"],

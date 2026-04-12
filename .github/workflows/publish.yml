@@ -82,8 +82,11 @@ jobs:
 
       - name: Build docs (CSR)
         run: pnpm run docs:build:csr
-        env:
-          BASE_URL: /seeds/
+
+      - name: Rewrite asset paths for GitHub Pages
+        run: |
+          cd apps/docs/.output/public
+          find . -type f \( -name "*.html" -o -name "*.js" \) -exec sed -i 's|/_build|/seeds/_build|g' {} +
 
       - name: Add 404.html for SPA routing
         run: cp apps/docs/.output/public/index.html apps/docs/.output/public/404.html
