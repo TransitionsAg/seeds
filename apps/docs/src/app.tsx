@@ -9,6 +9,7 @@ import "./styles.css";
 export default function App(): JSX.Element {
   return (
     <Router
+      base={import.meta.env.SERVER_BASE_URL || undefined}
       root={(props) => (
         <div class="min-h-screen flex flex-col">
           <header class="border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-10">
