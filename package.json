@@ -10,6 +10,7 @@
     "fmt": "oxfmt .",
     "docs:dev": "pnpm --filter @transitionsag/seeds-docs run dev",
     "docs:build": "pnpm --filter @transitionsag/seeds-docs run build",
+    "docs:build:csr": "pnpm --filter @transitionsag/seeds-docs run build:csr",
     "docs:start": "pnpm --filter @transitionsag/seeds-docs run start"
   },
   "devDependencies": {
