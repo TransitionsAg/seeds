@@ -1,6 +1,13 @@
+import { Title, Meta } from "@solidjs/meta";
+
 export default function ResolverDocs() {
   return (
     <div>
+      <Title>Resolver — Seeds</Title>
+      <Meta
+        name="description"
+        content="Schema validation adapters. The form package ships with a Zod resolver out of the box."
+      />
       <h1 class="typo-h1 mb-6">Resolver</h1>
       <p class="typo-p mb-8">
         Schema validation adapters. The form package ships with a Zod resolver out of the box.

@@ -1,6 +1,13 @@
+import { Title, Meta } from "@solidjs/meta";
+
 export default function UseFormDocs() {
   return (
     <div>
+      <Title>useForm — Seeds</Title>
+      <Meta
+        name="description"
+        content="Creates a reactive form backed by a single SolidJS store. Returns Form and Field components pre-wired to this form instance."
+      />
       <h1 class="typo-h1 mb-6">useForm</h1>
       <p class="typo-p mb-8">
         Creates a reactive form backed by a single SolidJS store. Returns <code>Form</code> and{" "}

@@ -1,8 +1,14 @@
 import { Button } from "@transitionsag/primitives/button";
+import { Title, Meta } from "@solidjs/meta";
 
 export default function ButtonDocs() {
   return (
     <div>
+      <Title>Button Primitive — Seeds</Title>
+      <Meta
+        name="description"
+        content="An unstyled button primitive with polymorphic support for SolidJS."
+      />
       <h1 class="typo-h1 mb-6">Button</h1>
       <p class="typo-p mb-8">An unstyled button primitive with polymorphic support.</p>
 

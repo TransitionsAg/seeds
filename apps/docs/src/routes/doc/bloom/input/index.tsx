@@ -1,8 +1,11 @@
 import { Input } from "@transitionsag/bloom";
+import { Title, Meta } from "@solidjs/meta";
 
 export default function BloomInputDocs() {
   return (
     <div>
+      <Title>Input — Seeds Bloom</Title>
+      <Meta name="description" content="Styled input with floating label pattern for SolidJS." />
       <h1 class="typo-h1 mb-6">Input</h1>
       <p class="typo-p mb-8">
         Styled input with floating label pattern. The label acts as placeholder when empty, then

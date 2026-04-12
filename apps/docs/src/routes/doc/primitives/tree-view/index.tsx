@@ -1,5 +1,6 @@
 import { For, Show } from "solid-js";
 import { collection, TreeView } from "@transitionsag/primitives/tree-view";
+import { Title, Meta } from "@solidjs/meta";
 
 type TreeNode = { name: string; children?: TreeNode[] };
 
@@ -46,6 +47,11 @@ function TreeNodeEl(props: { node: TreeNode; indexPath: number[] }) {
 export default function TreeViewDocs() {
   return (
     <div>
+      <Title>Tree View Primitive — Seeds</Title>
+      <Meta
+        name="description"
+        content="A tree view primitive for hierarchical navigation, built on zag-js."
+      />
       <h1 class="typo-h1 mb-6">Tree View</h1>
       <p class="typo-p mb-8">A tree view primitive for hierarchical navigation, built on zag-js.</p>
 

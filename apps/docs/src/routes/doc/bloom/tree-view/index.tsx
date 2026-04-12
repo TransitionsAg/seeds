@@ -1,4 +1,5 @@
 import { collection, TreeView } from "@transitionsag/bloom";
+import { Title, Meta } from "@solidjs/meta";
 
 type TreeNode = { name: string; children?: TreeNode[] };
 
@@ -20,6 +21,11 @@ const sampleCollection = collection<TreeNode>({
 export default function BloomTreeViewDocs() {
   return (
     <div>
+      <Title>Tree View — Seeds Bloom</Title>
+      <Meta
+        name="description"
+        content="Styled tree view with CVA-based theming, built on the primitives layer for SolidJS."
+      />
       <h1 class="typo-h1 mb-6">Tree View</h1>
       <p class="typo-p mb-8">
         Styled tree view with CVA-based theming, built on the primitives layer.

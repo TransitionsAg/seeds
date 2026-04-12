@@ -1,8 +1,14 @@
 import { Polymorphic } from "@transitionsag/primitives/polymorphic";
+import { Title, Meta } from "@solidjs/meta";
 
 export default function PolymorphicDocs() {
   return (
     <div>
+      <Title>Polymorphic Primitive — Seeds</Title>
+      <Meta
+        name="description"
+        content="A generic polymorphic component that renders as any HTML element or custom component via the as prop."
+      />
       <h1 class="typo-h1 mb-6">Polymorphic</h1>
       <p class="typo-p mb-8">
         A generic polymorphic component that renders as any HTML element or custom component via the{" "}

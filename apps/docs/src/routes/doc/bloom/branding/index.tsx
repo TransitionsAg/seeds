@@ -1,8 +1,14 @@
 import { Branding } from "@transitionsag/bloom";
+import { Title, Meta } from "@solidjs/meta";
 
 export default function BrandingDocs() {
   return (
     <div>
+      <Title>Branding — Seeds Bloom</Title>
+      <Meta
+        name="description"
+        content="Theme context for runtime color customization using CSS custom properties in SolidJS."
+      />
       <h1 class="typo-h1 mb-6">Branding</h1>
       <p class="typo-p mb-8">
         Theme context for runtime color customization. Wraps children in a div with CSS custom

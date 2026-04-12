@@ -2,6 +2,7 @@ import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { type JSX, Suspense } from "solid-js";
 import { A } from "@solidjs/router";
+import { Title, Meta } from "@solidjs/meta";
 import { Button } from "@transitionsag/bloom";
 import { GithubLogoIcon } from "@transitionsag/phosphor-solid/github-logo";
 import "./styles.css";
@@ -12,6 +13,11 @@ export default function App(): JSX.Element {
       base={import.meta.env.SERVER_BASE_URL || undefined}
       root={(props) => (
         <div class="min-h-screen flex flex-col">
+          <Title>Seeds — SolidJS UI</Title>
+          <Meta
+            name="description"
+            content="SolidJS UI from seed to bloom. Headless primitives, type-safe forms, and styled components."
+          />
           <header class="border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-10">
             <div class="max-w-[1400px] mx-auto px-8 py-4 flex items-center justify-between">
               <A href="/" class="flex items-center gap-2">

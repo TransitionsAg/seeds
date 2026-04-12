@@ -1,4 +1,5 @@
 import { A } from "@solidjs/router";
+import { Title, Meta } from "@solidjs/meta";
 import { Button } from "@transitionsag/bloom";
 
 const packages = [
@@ -40,6 +41,11 @@ const principles = [
 export default function Home() {
   return (
     <div class="min-h-screen">
+      <Title>Seeds — SolidJS UI, from seed to bloom</Title>
+      <Meta
+        name="description"
+        content="Three layers on one reactive foundation. Headless primitives, type-safe forms, and styled components for SolidJS."
+      />
       <section class="relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent" />
         <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/8 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />

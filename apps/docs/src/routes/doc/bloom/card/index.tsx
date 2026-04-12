@@ -1,9 +1,15 @@
 import { Card } from "@transitionsag/bloom";
 import { Button } from "@transitionsag/bloom";
+import { Title, Meta } from "@solidjs/meta";
 
 export default function BloomCardDocs() {
   return (
     <div>
+      <Title>Card — Seeds Bloom</Title>
+      <Meta
+        name="description"
+        content="A container for grouping related content. Supports polymorphism with header, content, and footer sub-components."
+      />
       <h1 class="typo-h1 mb-6">Card</h1>
       <p class="typo-p mb-8">
         A container for grouping related content. Supports polymorphism and provides semantic

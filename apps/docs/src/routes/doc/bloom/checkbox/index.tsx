@@ -1,8 +1,14 @@
 import { Checkbox } from "@transitionsag/bloom/checkbox";
+import { Title, Meta } from "@solidjs/meta";
 
 export default function BloomCheckboxDocs() {
   return (
     <div>
+      <Title>Checkbox — Seeds Bloom</Title>
+      <Meta
+        name="description"
+        content="A self-contained styled checkbox wrapping all primitive parts into a single callable component."
+      />
       <h1 class="typo-h1 mb-6">Checkbox</h1>
       <p class="typo-p mb-8">
         A self-contained styled checkbox. Wraps all primitive parts (control, indicator, label,

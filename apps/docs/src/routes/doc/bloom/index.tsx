@@ -1,6 +1,13 @@
+import { Title, Meta } from "@solidjs/meta";
+
 export default function BloomIndex() {
   return (
     <div>
+      <Title>Bloom — Seeds</Title>
+      <Meta
+        name="description"
+        content="Styled component composition layer. Pre-styled variants of primitives with CVA-based theming and Branding context."
+      />
       <h1 class="typo-h1 mb-4">Bloom</h1>
       <p class="typo-p text-muted-foreground mb-8">
         Styled component composition layer. Pre-styled variants of primitives with CVA-based theming

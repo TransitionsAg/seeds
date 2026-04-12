@@ -1,6 +1,13 @@
+import { Title, Meta } from "@solidjs/meta";
+
 export default function FieldDocs() {
   return (
     <div>
+      <Title>Field — Seeds</Title>
+      <Meta
+        name="description"
+        content="Compound field component returned by useForm. Use with Field.Label, Field.Input, Field.Error, and more."
+      />
       <h1 class="typo-h1 mb-6">Field</h1>
       <p class="typo-p mb-8">
         Compound field component returned by <code>useForm</code>. Use with <code>Field.Label</code>

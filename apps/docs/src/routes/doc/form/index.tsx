@@ -1,6 +1,13 @@
+import { Title, Meta } from "@solidjs/meta";
+
 export default function FormIndex() {
   return (
     <div>
+      <Title>Form — Seeds</Title>
+      <Meta
+        name="description"
+        content="A reactive form library for SolidJS with type-safe state management, validation, and compound field components."
+      />
       <h1 class="typo-h1 mb-4">Form</h1>
       <p class="typo-p text-muted-foreground mb-8">
         A reactive form library for SolidJS with type-safe state management, validation, and

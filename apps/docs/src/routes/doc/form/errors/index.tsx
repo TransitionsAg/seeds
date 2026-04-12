@@ -1,6 +1,13 @@
+import { Title, Meta } from "@solidjs/meta";
+
 export default function ErrorsDocs() {
   return (
     <div>
+      <Title>Errors — Seeds</Title>
+      <Meta
+        name="description"
+        content="The FormErrors type and utilities for working with per-field validation errors."
+      />
       <h1 class="typo-h1 mb-6">Errors</h1>
       <p class="typo-p mb-8">
         The <code>FormErrors</code> type and utilities for working with per-field validation errors.

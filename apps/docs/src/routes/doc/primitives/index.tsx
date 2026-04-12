@@ -1,4 +1,5 @@
 import { A } from "@solidjs/router";
+import { Title, Meta } from "@solidjs/meta";
 
 const components = [
   { name: "Button", href: "/doc/primitives/button" },
@@ -10,6 +11,11 @@ const components = [
 export default function PrimitivesIndex() {
   return (
     <div>
+      <Title>Primitives — Seeds</Title>
+      <Meta
+        name="description"
+        content="Unstyled, accessible UI primitives built on zag-js machines. Bring your own styles."
+      />
       <h1 class="typo-h1 mb-4">Primitives</h1>
       <p class="typo-p text-muted-foreground mb-8">
         Unstyled, accessible UI primitives built on zag-js machines. Bring your own styles.

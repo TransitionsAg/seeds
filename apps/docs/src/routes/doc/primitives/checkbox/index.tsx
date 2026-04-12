@@ -1,8 +1,14 @@
 import { Checkbox } from "@transitionsag/primitives/checkbox";
+import { Title, Meta } from "@solidjs/meta";
 
 export default function CheckboxDocs() {
   return (
     <div>
+      <Title>Checkbox Primitive — Seeds</Title>
+      <Meta
+        name="description"
+        content="An unstyled checkbox primitive wrapping zag-js. Supports checked, unchecked, and indeterminate states."
+      />
       <h1 class="typo-h1 mb-6">Checkbox</h1>
       <p class="typo-p mb-8">
         An unstyled checkbox primitive wrapping <code>@zag-js/checkbox</code>. Supports checked,

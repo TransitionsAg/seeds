@@ -1,8 +1,14 @@
 import { Button } from "@transitionsag/bloom";
+import { Title, Meta } from "@solidjs/meta";
 
 export default function BloomButtonDocs() {
   return (
     <div>
+      <Title>Button — Seeds Bloom</Title>
+      <Meta
+        name="description"
+        content="Styled button variants built on the primitives layer with CVA theming for SolidJS."
+      />
       <h1 class="typo-h1 mb-6">Button</h1>
       <p class="typo-p mb-8">
         Styled button variants built on the primitives layer with CVA theming.
