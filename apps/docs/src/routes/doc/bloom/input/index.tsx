@@ -57,6 +57,14 @@ import "@transitionsag/bloom/styles.css";
         </div>
 
         <div>
+          <h3 class="typo-h4 mb-3">With Error</h3>
+          <Input type="email" value="not-an-email" aria-invalid="true">
+            <Input.Label>E-mail address</Input.Label>
+            <Input.Error>Please enter a valid e-mail address</Input.Error>
+          </Input>
+        </div>
+
+        <div>
           <h3 class="typo-h4 mb-3">Textarea-style (large)</h3>
           <Input type="text" class="min-h-[100px]">
             <Input.Label>Bio</Input.Label>
