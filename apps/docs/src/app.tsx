@@ -36,7 +36,7 @@ export default function App(): JSX.Element {
                   intent="secondary"
                   size="sm"
                 >
-                  <GithubLogoIcon weight="bold" class="size-4 pr-2" />
+                  <GithubLogoIcon weight="bold" class="size-6 pr-2" />
                   GitHub
                 </Button>
               </nav>
