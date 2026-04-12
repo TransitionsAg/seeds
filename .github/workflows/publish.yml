@@ -7,6 +7,12 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
   publish:
@@ -74,8 +80,11 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Build docs
-        run: pnpm run docs:build
+      - name: Build docs (CSR)
+        run: pnpm run docs:build:csr
+
+      - name: Add 404.html for SPA routing
+        run: cp apps/docs/.output/public/index.html apps/docs/.output/public/404.html
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -88,4 +97,12 @@ jobs:
         with:
           path: apps/docs/.output/public
 
+  deploy-pages:
+    needs: publish
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - uses: actions/deploy-pages@v4
+        id: deployment

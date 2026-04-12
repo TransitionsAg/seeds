@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",
+    "build:csr": "SSR=false vinxi build",
     "start": "vinxi start",
     "clean": "rm -rf .output .vinxi"
   },
