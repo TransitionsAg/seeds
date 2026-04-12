@@ -13,12 +13,14 @@
   "dependencies": {
     "@solidjs/router": "^0.15.4",
     "@solidjs/start": "^1.3.2",
+    "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.0.0",
     "@transitionsag/bloom": "workspace:*",
     "@transitionsag/form": "workspace:*",
     "@transitionsag/phosphor-solid": "^0.0.1",
     "@transitionsag/primitives": "workspace:*",
     "solid-js": "^1.9.12",
+    "tailwindcss": "^4.2.2",
     "vinxi": "^0.5.11",
     "zod": "^3.24.0"
   }
