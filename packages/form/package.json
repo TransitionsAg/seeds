@@ -29,6 +29,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@transitionsag/primitives": "workspace:*",
     "solid-js": "^1.9.12"
   },
   "devDependencies": {

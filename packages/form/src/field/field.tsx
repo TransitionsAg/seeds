@@ -7,7 +7,7 @@ import {
   type ValidComponent,
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
-import type { DynamicProps } from "solid-js/web";
+import type { PolymorphicProps } from "@transitionsag/primitives/polymorphic";
 import type { Binding } from "../input/index.ts";
 import { FieldContext, useFieldContext } from "./context.ts";
 
@@ -29,18 +29,22 @@ export type Path<T, Depth extends number[] = []> = Depth["length"] extends 5
 
 // -- Label --
 
-type LabelProps = Omit<JSX.LabelHTMLAttributes<HTMLLabelElement>, "for">;
+type LabelProps<T extends ValidComponent = "label"> = PolymorphicProps<T>;
 
-function FieldLabel(props: LabelProps) {
+function FieldLabel<T extends ValidComponent = "label">(rawProps: LabelProps<T>) {
   const ctx = useFieldContext();
-  return <label {...props} for={ctx.inputId} />;
+  const merged = mergeProps({ as: "label" as T }, rawProps);
+  const [local, others] = splitProps(merged, ["as"]);
+
+  return (
+    // @ts-ignore: Props are valid but not worth calculating
+    <Dynamic {...others} component={local.as} for={ctx.inputId} />
+  );
 }
 
 // -- Input --
 
-type FieldInputProps<T extends ValidComponent = "input"> = {
-  as?: T;
-} & Omit<DynamicProps<T>, "component">;
+type FieldInputProps<T extends ValidComponent = "input"> = PolymorphicProps<T>;
 
 /**
  * Polymorphic input wired to the parent `Field` binding.
@@ -100,9 +104,7 @@ function FieldInput<T extends ValidComponent = "input">(rawProps: FieldInputProp
 
 // -- Description --
 
-type DescriptionProps<T extends ValidComponent = "div"> = {
-  as?: T;
-} & Omit<DynamicProps<T>, "component">;
+type DescriptionProps<T extends ValidComponent = "div"> = PolymorphicProps<T>;
 
 function FieldDescription<T extends ValidComponent = "div">(rawProps: DescriptionProps<T>) {
   const ctx = useFieldContext();
@@ -115,10 +117,9 @@ function FieldDescription<T extends ValidComponent = "div">(rawProps: Descriptio
 
 // -- Error --
 
-type ErrorProps<T extends ValidComponent = "div"> = {
-  as?: T;
+type ErrorProps<T extends ValidComponent = "div"> = Omit<PolymorphicProps<T>, "children"> & {
   children?: JSX.Element;
-} & Omit<DynamicProps<T>, "component" | "children">;
+};
 
 /**
  * Error message container. Only renders when the field has validation errors.
@@ -145,7 +146,7 @@ type FieldRootProps<
   T extends object,
   C extends ValidComponent | undefined = undefined,
 > = C extends ValidComponent
-  ? { name: Path<T>; as: C } & Omit<DynamicProps<C>, "component">
+  ? { name: Path<T>; as: C } & Omit<PolymorphicProps<C>, "as">
   : { name: Path<T>; as?: undefined; children?: JSX.Element };
 
 export function createField<T extends object>(
@@ -206,7 +207,7 @@ export type FieldComponent<T extends object> = {
   Root: <C extends ValidComponent | undefined = undefined>(
     props: FieldRootProps<T, C>,
   ) => JSX.Element;
-  Label: (props: LabelProps) => JSX.Element;
+  Label: <C extends ValidComponent = "label">(props: LabelProps<C>) => JSX.Element;
   Input: <C extends ValidComponent = "input">(props: FieldInputProps<C>) => JSX.Element;
   Description: <C extends ValidComponent = "div">(props: DescriptionProps<C>) => JSX.Element;
   Error: <C extends ValidComponent = "div">(props: ErrorProps<C>) => JSX.Element;
