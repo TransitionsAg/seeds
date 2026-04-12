@@ -93,6 +93,7 @@
   "scripts": {
     "build": "tsup",
     "check": "tsc --noEmit",
+    "clean": "rm -rf dist",
     "test": "vitest run"
   },
   "dependencies": {

@@ -2,6 +2,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "clean": "pnpm -r run clean",
     "build": "pnpm -r --filter='./packages/*' run build",
     "test": "pnpm -r --filter='./packages/*' run test",
     "check": "pnpm -r run check",

@@ -3,7 +3,7 @@ import * as preset from "tsup-preset-solid";
 
 const preset_options: preset.PresetOptions = {
   entries: [
-    { entry: "src/index.ts" },
+    { entry: "src/index.tsx", dev_entry: true },
     { name: "branding", entry: "src/branding/index.tsx", dev_entry: true },
     { name: "button", entry: "src/button/index.tsx", dev_entry: true },
     { name: "card", entry: "src/card/index.tsx", dev_entry: true },
