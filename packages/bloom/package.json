@@ -31,6 +31,7 @@
       }
     },
     "./styles.css": "./dist/styles.css",
+    "./theme.css": "./dist/theme.css",
     "./branding": {
       "solid": {
         "development": "./dist/branding/dev.jsx",
@@ -129,7 +130,7 @@
     }
   },
   "scripts": {
-    "build": "tsup && tailwindcss --input src/styles.css --output dist/styles.css --minify",
+    "build": "tsup && tailwindcss --input src/styles.css --output dist/styles.css --minify && cp src/theme.css dist/theme.css",
     "check": "tsc --noEmit",
     "clean": "rm -rf dist"
   },

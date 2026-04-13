@@ -256,13 +256,15 @@ function ButtonRoot<T extends ValidComponent = "button">(rawProps: PolymorphicPr
   reactivity — sub-components will never re-render on state changes. All
   sub-components call `useApi()` to get the accessor, then call it (`api()`) at
   each usage site to maintain fine-grained reactivity.
+
   ```tsx
   // ✅ CORRECT — pass the accessor
   <Context.Provider value={api}>
-  
+
   // ❌ WRONG — passes a static snapshot
   <Context.Provider value={api()}>
   ```
+
 - `type` not `interface`
 - **Always re-use props from zag-js.** Extract via
   `Parameters<typeof zagModule.machine>[0]`. Every compound part accepts and

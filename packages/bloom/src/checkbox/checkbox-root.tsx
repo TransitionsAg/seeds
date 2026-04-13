@@ -8,7 +8,7 @@ export const checkboxVariants: (props?: { class?: string }) => string = cva({
 });
 
 const controlVariants = cva({
-  base: "size-5 rounded flex items-center justify-center transition-colors ring-2 ring-border [&[data-state=checked]]:bg-primary [&[data-state=checked]]:ring-primary [&[data-state=indeterminate]]:bg-primary [&[data-state=indeterminate]]:ring-primary invalid:ring-destructive disabled:opacity-50 disabled:cursor-not-allowed",
+  base: "size-5 rounded flex items-center justify-center transition-colors ring-2 ring-border data-[state=checked]:bg-primary data-[state=checked]:ring-primary data-[state=indeterminate]:bg-primary data-[state=indeterminate]:ring-primary invalid:ring-destructive disabled:opacity-50 disabled:cursor-not-allowed",
 });
 
 const indicatorVariants = cva({
