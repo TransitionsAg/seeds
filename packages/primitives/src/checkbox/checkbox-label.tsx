@@ -15,10 +15,13 @@ export function CheckboxLabel<T extends ValidComponent = "span">(
   rawProps: PolymorphicProps<T>,
 ): JSX.Element {
   const api = useCheckboxApi();
+  if (!api) {
+    throw Error("Checkbox.Label component should be used inside of a Checkbox");
+  }
   const merged = mergeProps({ as: "span" as T }, rawProps);
   const [local, others] = splitProps(merged, ["as"]);
   return (
     // @ts-ignore: Props are valid but not worth calculating
-    <Dynamic {...mergeProps(api.getLabelProps(), others)} component={local.as} />
+    <Dynamic {...mergeProps(api().getLabelProps(), others)} component={local.as} />
   );
 }

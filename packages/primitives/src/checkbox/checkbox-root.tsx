@@ -7,18 +7,19 @@ import {
   splitProps,
   useContext,
   type ValidComponent,
+  Accessor,
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
-import { normalizeProps, useMachine } from "@zag-js/solid";
+import { normalizeProps, PropTypes, useMachine } from "@zag-js/solid";
 import * as checkbox from "@zag-js/checkbox";
 import type { PolymorphicProps } from "../polymorphic/index.tsx";
 
-export type CheckboxApi = ReturnType<typeof checkbox.connect>;
+export type CheckboxApi = checkbox.Api<PropTypes>;
 
-export const CheckboxApiContext: Context<CheckboxApi | undefined> = createContext<
-  CheckboxApi | undefined
->();
-export const useCheckboxApi = (): CheckboxApi => useContext(CheckboxApiContext)!;
+export const CheckboxApiContext: Context<Accessor<checkbox.Api<PropTypes>> | undefined> =
+  createContext<Accessor<checkbox.Api<PropTypes>> | undefined>();
+export const useCheckboxApi = (): Accessor<checkbox.Api<PropTypes>> | undefined =>
+  useContext(CheckboxApiContext)!;
 
 type CheckboxRootProps<T extends ValidComponent = "label"> = PolymorphicProps<T> &
   checkbox.Props & { children: JSX.Element };
@@ -47,7 +48,7 @@ export function CheckboxRoot<T extends ValidComponent = "label">(
   const api = createMemo(() => checkbox.connect(service, normalizeProps));
 
   return (
-    <CheckboxApiContext.Provider value={api()}>
+    <CheckboxApiContext.Provider value={api}>
       {/* @ts-ignore: Props are valid but not worth calculating */}
       <Dynamic {...mergeProps(api().getRootProps(), rest)} component={local.as}>
         {local.children}

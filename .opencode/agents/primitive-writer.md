@@ -200,7 +200,7 @@ function Root<T extends ValidComponent = "div">(rawProps: RootProps<T>) {
   const service = useMachine(zagModule.machine, rest);
   const api = createMemo(() => zagModule.connect(service, normalizeProps));
   return (
-    <Context.Provider value={api()}>
+    <Context.Provider value={api}>
       {/* @ts-ignore: Props are valid but not worth calculating */}
       <Dynamic {...mergeProps(api().getRootProps(), rest)} component={local.as}>
         {local.children}
@@ -249,6 +249,20 @@ function ButtonRoot<T extends ValidComponent = "button">(rawProps: PolymorphicPr
 
 # Rules
 
+- **CRITICAL: Context providers must pass the ACCESSOR, not the value.** When
+  creating a `createMemo` for the zag-js API (`const api = createMemo(() => zagModule.connect(service, normalizeProps))`),
+  the `Context.Provider` MUST receive `api` (the accessor function), NOT `api()`
+  (the called value). Passing `api()` captures a static snapshot and breaks
+  reactivity — sub-components will never re-render on state changes. All
+  sub-components call `useApi()` to get the accessor, then call it (`api()`) at
+  each usage site to maintain fine-grained reactivity.
+  ```tsx
+  // ✅ CORRECT — pass the accessor
+  <Context.Provider value={api}>
+  
+  // ❌ WRONG — passes a static snapshot
+  <Context.Provider value={api()}>
+  ```
 - `type` not `interface`
 - **Always re-use props from zag-js.** Extract via
   `Parameters<typeof zagModule.machine>[0]`. Every compound part accepts and

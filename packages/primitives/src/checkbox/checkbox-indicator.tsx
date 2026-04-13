@@ -16,12 +16,15 @@ export function CheckboxIndicator<T extends ValidComponent = "div">(
   rawProps: PolymorphicProps<T>,
 ): JSX.Element {
   const api = useCheckboxApi();
+  if (!api) {
+    throw Error("Checkbox.Indicator component should be used inside of a Checkbox");
+  }
   const merged = mergeProps({ as: "div" as T }, rawProps);
   const [local, others] = splitProps(merged, ["as"]);
   return (
     // @ts-ignore: Props are valid but not worth calculating
     <Dynamic
-      {...mergeProps({ style: { "pointer-events": "none" } }, api.getIndicatorProps(), others)}
+      {...mergeProps({ style: { "pointer-events": "none" } }, api().getIndicatorProps(), others)}
       component={local.as}
     />
   );

@@ -23,6 +23,6 @@ export function TreeViewBranchControl<T extends ValidComponent = "div">(
   const [local, others] = splitProps(merged, ["as"]);
   return (
     // @ts-ignore: polymorphic spread props are valid but too complex for TS
-    <Dynamic {...mergeProps(api.getBranchControlProps(node), others)} component={local.as} />
+    <Dynamic {...mergeProps(api().getBranchControlProps(node), others)} component={local.as} />
   );
 }

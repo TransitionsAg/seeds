@@ -11,6 +11,9 @@ import { useCheckboxApi } from "./checkbox-root.tsx";
  */
 export function CheckboxHiddenInput(props: ComponentProps<"input">): JSX.Element {
   const api = useCheckboxApi();
-  const inputProps = api.getHiddenInputProps();
+  if (!api) {
+    throw Error("Checkbox.Control component should be used inside of a Checkbox");
+  }
+  const inputProps = api().getHiddenInputProps();
   return <input {...mergeProps(inputProps, props)} />;
 }

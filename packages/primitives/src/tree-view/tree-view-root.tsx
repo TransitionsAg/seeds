@@ -1,4 +1,5 @@
 import {
+  type Accessor,
   type Context,
   createContext,
   createMemo,
@@ -16,10 +17,10 @@ import type { PolymorphicProps } from "../polymorphic/index.tsx";
 export type TreeViewApi = ReturnType<typeof treeView.connect>;
 export type TreeViewNodeProps = treeView.NodeProps;
 
-export const TreeViewApiContext: Context<TreeViewApi | undefined> = createContext<
-  TreeViewApi | undefined
+export const TreeViewApiContext: Context<Accessor<TreeViewApi> | undefined> = createContext<
+  Accessor<TreeViewApi> | undefined
 >();
-export const useTreeViewApi = (): TreeViewApi => useContext(TreeViewApiContext)!;
+export const useTreeViewApi = (): Accessor<TreeViewApi> => useContext(TreeViewApiContext)!;
 
 export const TreeViewNodeContext: Context<TreeViewNodeProps | undefined> = createContext<
   TreeViewNodeProps | undefined
@@ -54,7 +55,7 @@ export function TreeViewRoot<T extends ValidComponent = "div">(
   const api = createMemo(() => treeView.connect(service, normalizeProps));
 
   return (
-    <TreeViewApiContext.Provider value={api()}>
+    <TreeViewApiContext.Provider value={api}>
       {/* @ts-ignore: polymorphic spread props are valid but too complex for TS */}
       <Dynamic {...mergeProps(api().getRootProps(), rest)} component={local.as}>
         {local.children}
