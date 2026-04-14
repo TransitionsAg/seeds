@@ -17,11 +17,11 @@ export default function ResolverDocs() {
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
         {`import { useForm } from "@transitionsag/form";
 import { zodResolver } from "@transitionsag/form/resolver/zod";
-import { z } from "zod";
+import * as z from "zod/v4/mini";
 
 const schema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
+  email: z.email(),
+  password: z.string().check(z.minLength(8)),
 });
 
 const { Form, Field } = useForm({

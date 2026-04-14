@@ -1,14 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { z } from "zod";
+import * as z from "zod/v4/mini";
+import { z as z3 } from "zod";
 import { zodResolver } from "./zod.ts";
 
 const schema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-  age: z.number().min(18).optional(),
+  email: z.email(),
+  password: z.string().check(z.minLength(8)),
+  age: z.optional(z.number().check(z.gte(18))),
   address: z.object({
-    city: z.string().min(1),
-    zip: z.string().optional(),
+    city: z.string().check(z.minLength(1)),
+    zip: z.optional(z.string()),
   }),
 });
 
@@ -27,34 +28,34 @@ describe("attrs", () => {
     expect(resolver.attrs(["age"]).required).toBeUndefined();
   });
 
-  it("minLength from string().min()", () => {
-    const s = z.object({ name: z.string().min(3) });
+  it("minLength from string().check(z.minLength())", () => {
+    const s = z.object({ name: z.string().check(z.minLength(3)) });
     const r = zodResolver(s);
     expect(r.attrs(["name"]).minLength).toBe(3);
   });
 
-  it("maxLength from string().max()", () => {
-    const s = z.object({ bio: z.string().max(200) });
+  it("maxLength from string().check(z.maxLength())", () => {
+    const s = z.object({ bio: z.string().check(z.maxLength(200)) });
     const r = zodResolver(s);
     expect(r.attrs(["bio"]).maxLength).toBe(200);
   });
 
-  it("pattern from string().regex()", () => {
-    const s = z.object({ code: z.string().regex(/^[A-Z]{3}$/) });
+  it("pattern from string().check(z.regex())", () => {
+    const s = z.object({ code: z.string().check(z.regex(/^[A-Z]{3}$/)) });
     const r = zodResolver(s);
     expect(r.attrs(["code"]).pattern).toBe("^[A-Z]{3}$");
   });
 
-  it("min/max from number().min().max()", () => {
-    const s = z.object({ score: z.number().min(0).max(100) });
+  it("min/max from number().check(z.gte()).check(z.lte())", () => {
+    const s = z.object({ score: z.number().check(z.gte(0), z.lte(100)) });
     const r = zodResolver(s);
     const a = r.attrs(["score"]);
     expect(a.min).toBe(0);
     expect(a.max).toBe(100);
   });
 
-  it("step from number().multipleOf()", () => {
-    const s = z.object({ quantity: z.number().multipleOf(5) });
+  it("step from number().check(z.multipleOf())", () => {
+    const s = z.object({ quantity: z.number().check(z.multipleOf(5)) });
     const r = zodResolver(s);
     expect(r.attrs(["quantity"]).step).toBe(5);
   });
@@ -70,27 +71,23 @@ describe("attrs", () => {
     expect(a.required).toBeUndefined();
   });
 
-  it("unwraps ZodDefault for checks", () => {
-    const s = z.object({ role: z.string().min(2).default("user") });
+  it("unwraps ZodMiniDefault for checks", () => {
+    const s = z.object({ role: z._default(z.string().check(z.minLength(2)), "user") });
     const r = zodResolver(s);
     const a = r.attrs(["role"]);
     expect(a.minLength).toBe(2);
     expect(a.required).toBeUndefined();
   });
 
-  it("unwraps ZodNullable", () => {
-    const s = z.object({ name: z.string().min(2).nullable() });
+  it("unwraps ZodMiniNullable", () => {
+    const s = z.object({ name: z.nullable(z.string().check(z.minLength(2))) });
     const r = zodResolver(s);
     expect(r.attrs(["name"]).minLength).toBe(2);
   });
 
   it("combined string checks", () => {
     const s = z.object({
-      handle: z
-        .string()
-        .min(3)
-        .max(20)
-        .regex(/^[a-z]+$/),
+      handle: z.string().check(z.minLength(3), z.maxLength(20), z.regex(/^[a-z]+$/)),
     });
     const r = zodResolver(s);
     const a = r.attrs(["handle"]);
@@ -166,7 +163,7 @@ describe("validateAll", () => {
     const errors = await resolver.validateAll!(values);
     expect(errors.email).toBe(null);
     expect(errors.password).toBe(null);
-    expect(errors.address.city).toBe(null);
+    expect(errors.address!.city).toBe(null);
   });
 
   it("returns errors for invalid form", async () => {
@@ -178,7 +175,7 @@ describe("validateAll", () => {
     const errors = await resolver.validateAll!(values);
     expect(Array.isArray(errors.email)).toBe(true);
     expect(Array.isArray(errors.password)).toBe(true);
-    expect(Array.isArray(errors.address.city)).toBe(true);
+    expect(Array.isArray(errors.address!.city)).toBe(true);
   });
 
   it("only invalid fields have errors", async () => {
@@ -190,7 +187,7 @@ describe("validateAll", () => {
     const errors = await resolver.validateAll!(values);
     expect(Array.isArray(errors.email)).toBe(true);
     expect(errors.password).toBe(null);
-    expect(errors.address.city).toBe(null);
+    expect(errors.address!.city).toBe(null);
   });
 });
 
@@ -199,7 +196,9 @@ describe("validateAll", () => {
 describe("async refinements", () => {
   it("works with async refinement", async () => {
     const asyncSchema = z.object({
-      username: z.string().refine((val) => val !== "taken", { message: "Username is taken" }),
+      username: z
+        .string()
+        .check(z.refine((val) => val !== "taken", { message: "Username is taken" })),
     });
     const r = zodResolver(asyncSchema);
     const taken = await r.validate!(["username"], "taken");
@@ -210,7 +209,9 @@ describe("async refinements", () => {
 
   it("validateAll works with async refinement", async () => {
     const asyncSchema = z.object({
-      username: z.string().refine((val) => val !== "taken", { message: "Username is taken" }),
+      username: z
+        .string()
+        .check(z.refine((val) => val !== "taken", { message: "Username is taken" })),
     });
     const r = zodResolver(asyncSchema);
     const errors = await r.validateAll!({ username: "taken" });
@@ -222,18 +223,18 @@ describe("async refinements", () => {
 // --- unwrapping ---
 
 describe("unwrapping", () => {
-  it("unwraps ZodDefault", async () => {
+  it("unwraps ZodMiniDefault", async () => {
     const s = z.object({
-      role: z.string().min(1).default("user"),
+      role: z._default(z.string().check(z.minLength(1)), "user"),
     });
     const r = zodResolver(s);
     const result = await r.validate!(["role"], "");
     expect(Array.isArray(result)).toBe(true);
   });
 
-  it("unwraps ZodNullable", async () => {
+  it("unwraps ZodMiniNullable", async () => {
     const s = z.object({
-      name: z.string().min(2).nullable(),
+      name: z.nullable(z.string().check(z.minLength(2))),
     });
     const r = zodResolver(s);
     const result = await r.validate!(["name"], null);
@@ -244,16 +245,29 @@ describe("unwrapping", () => {
 
   it("unwraps nested optional object", async () => {
     const s = z.object({
-      profile: z
-        .object({
-          bio: z.string().min(1),
-        })
-        .optional(),
+      profile: z.optional(
+        z.object({
+          bio: z.string().check(z.minLength(1)),
+        }),
+      ),
     });
     const r = zodResolver(s);
     const result = await r.validate!(["profile", "bio"], "");
     expect(Array.isArray(result)).toBe(true);
     const valid = await r.validate!(["profile", "bio"], "hello");
     expect(valid).toBe(null);
+  });
+});
+
+// --- zod v3 detection ---
+
+describe("zod v3 detection", () => {
+  it("throws when given a Zod v3 schema", () => {
+    const v3Schema = z3.object({
+      email: z3.string().email(),
+    });
+    expect(() => zodResolver(v3Schema as never)).toThrow(
+      /zodResolver.*Zod v3 schema detected.*zod\/v4\/mini/,
+    );
   });
 });

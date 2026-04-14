@@ -2,12 +2,12 @@ import { useForm } from "@transitionsag/form";
 import { zodResolver } from "@transitionsag/form/resolver/zod";
 import { Card, Input, Button } from "@transitionsag/bloom";
 import { Title, Meta } from "@solidjs/meta";
-import { z } from "zod";
+import * as z from "zod/v4/mini";
 
 const schema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Enter a valid email"),
-  password: z.string().min(8, "Must be at least 8 characters"),
+  name: z.string().check(z.minLength(1, "Name is required")),
+  email: z.email("Enter a valid email"),
+  password: z.string().check(z.minLength(8, "Must be at least 8 characters")),
 });
 
 type Registration = z.infer<typeof schema>;
@@ -78,12 +78,12 @@ export default function FormExample() {
         {`import { useForm } from "@transitionsag/form";
 import { zodResolver } from "@transitionsag/form/resolver/zod";
 import { Card, Input, Button } from "@transitionsag/bloom";
-import { z } from "zod";
+import * as z from "zod/v4/mini";
 
 const schema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Enter a valid email"),
-  password: z.string().min(8, "Must be at least 8 characters"),
+  name: z.string().check(z.minLength(1, "Name is required")),
+  email: z.email("Enter a valid email"),
+  password: z.string().check(z.minLength(8, "Must be at least 8 characters")),
 });
 
 function RegistrationForm() {
