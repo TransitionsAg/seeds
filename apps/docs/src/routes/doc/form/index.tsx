@@ -74,6 +74,13 @@ function LoginForm() {
           <h3 class="typo-h4 mb-1">Errors</h3>
           <p class="text-muted-foreground">FormErrors type and error utilities.</p>
         </a>
+        <a
+          href="/doc/form/example"
+          class="block p-4 border border-border rounded-lg hover:border-secondary-accent hover:bg-secondary/50 transition-colors"
+        >
+          <h3 class="typo-h4 mb-1">Example</h3>
+          <p class="text-muted-foreground">Working registration form with Zod validation.</p>
+        </a>
       </div>
     </div>
   );

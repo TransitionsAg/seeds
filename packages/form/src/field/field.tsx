@@ -221,6 +221,9 @@ export function createForm(submit: () => void) {
       e.preventDefault();
       submit();
     };
-    return <form {...rawProps} on:submit={handler} />;
+    return (
+      // @ts-ignore: valid form props
+      <Dynamic component="form" {...rawProps} onsubmit={handler} />
+    );
   };
 }

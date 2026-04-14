@@ -6,7 +6,7 @@ const labelVariants = cva({
     "absolute left-5 top-6 -translate-y-1/2 text-caption pointer-events-none transition-all",
     "peer-focus:text-xs/[8px] peer-focus:top-4 peer-focus:font-medium",
     "peer-[:not(:placeholder-shown)]:text-xs/[8px] peer-[:not(:placeholder-shown)]:top-4 peer-[:not(:placeholder-shown)]:font-medium",
-    "peer-invalid:text-destructive-accent",
+    "peer-aria-invalid:text-destructive-accent",
   ],
 });
 

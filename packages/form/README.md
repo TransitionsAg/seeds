@@ -66,7 +66,7 @@ function Login() {
   });
 
   return (
-    <form on:submit={f.handler((values) => console.log(values))}>
+    <form onsubmit={f.handler((values) => console.log(values))}>
       <input use:bind={f.binding("email")} />
       <input use:bind={f.binding("password")} />
       <button type="submit">Submit</button>

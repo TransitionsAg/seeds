@@ -2,7 +2,7 @@ import { type ComponentProps, type JSX, splitProps } from "solid-js";
 import { cva } from "../cva.ts";
 
 const errorVariants = cva({
-  base: ["text-destructive text-xs mt-1"],
+  base: ["text-destructive text-xs mt-1 leading-0"],
 });
 
 type InputErrorProps = ComponentProps<"span">;

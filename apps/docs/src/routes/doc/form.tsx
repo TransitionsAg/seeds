@@ -6,6 +6,7 @@ const items = [
   { name: "Field", href: "/doc/form/field" },
   { name: "Resolver", href: "/doc/form/resolver" },
   { name: "Errors", href: "/doc/form/errors" },
+  { name: "Example", href: "/doc/form/example" },
 ];
 
 export default function FormLayout(props: RouteSectionProps) {
