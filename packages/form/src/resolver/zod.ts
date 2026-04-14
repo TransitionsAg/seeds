@@ -165,11 +165,9 @@ function errorsTemplate(schema: MiniSchema): Record<string, unknown> | null {
  * ```
  */
 export function zodResolver<S extends ZodMiniObject>(schema: S): Resolver<output<S>> {
-  if (
-    typeof (schema as Record<string, unknown>)._def === "object" &&
-    (schema as Record<string, unknown>)._def !== null &&
-    !("def" in schema)
-  ) {
+  const schemaAny = schema as Record<string, unknown>;
+  const def = schemaAny._def as Record<string, unknown> | undefined;
+  if (def && typeof def.typeName === "string") {
     throw new Error(
       "zodResolver: Zod v3 schema detected. This resolver requires Zod Mini (zod/v4/mini). " +
         'Import from "zod/v4/mini" instead of "zod".',

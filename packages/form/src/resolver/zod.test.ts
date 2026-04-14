@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import * as z from "zod/v4/mini";
-import { z as z3 } from "zod";
+import { z as z3 } from "zod/v3";
 import { zodResolver } from "./zod.ts";
 
 const schema = z.object({
