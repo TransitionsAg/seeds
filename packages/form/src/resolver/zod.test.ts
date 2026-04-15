@@ -21,35 +21,35 @@ const resolver = zodResolver(schema);
 
 describe("attrs", () => {
   it("required for non-optional string", () => {
-    expect(resolver.attrs(["email"]).required).toBe(true);
+    expect(resolver.attrs!(["email"]).required).toBe(true);
   });
 
   it("not required for optional field", () => {
-    expect(resolver.attrs(["age"]).required).toBeUndefined();
+    expect(resolver.attrs!(["age"]).required).toBeUndefined();
   });
 
   it("minLength from string().check(z.minLength())", () => {
     const s = z.object({ name: z.string().check(z.minLength(3)) });
     const r = zodResolver(s);
-    expect(r.attrs(["name"]).minLength).toBe(3);
+    expect(r.attrs!(["name"]).minLength).toBe(3);
   });
 
   it("maxLength from string().check(z.maxLength())", () => {
     const s = z.object({ bio: z.string().check(z.maxLength(200)) });
     const r = zodResolver(s);
-    expect(r.attrs(["bio"]).maxLength).toBe(200);
+    expect(r.attrs!(["bio"]).maxLength).toBe(200);
   });
 
   it("pattern from string().check(z.regex())", () => {
     const s = z.object({ code: z.string().check(z.regex(/^[A-Z]{3}$/)) });
     const r = zodResolver(s);
-    expect(r.attrs(["code"]).pattern).toBe("^[A-Z]{3}$");
+    expect(r.attrs!(["code"]).pattern).toBe("^[A-Z]{3}$");
   });
 
   it("min/max from number().check(z.gte()).check(z.lte())", () => {
     const s = z.object({ score: z.number().check(z.gte(0), z.lte(100)) });
     const r = zodResolver(s);
-    const a = r.attrs(["score"]);
+    const a = r.attrs!(["score"]);
     expect(a.min).toBe(0);
     expect(a.max).toBe(100);
   });
@@ -57,24 +57,24 @@ describe("attrs", () => {
   it("step from number().check(z.multipleOf())", () => {
     const s = z.object({ quantity: z.number().check(z.multipleOf(5)) });
     const r = zodResolver(s);
-    expect(r.attrs(["quantity"]).step).toBe(5);
+    expect(r.attrs!(["quantity"]).step).toBe(5);
   });
 
   it("nested field", () => {
-    const a = resolver.attrs(["address", "city"]);
+    const a = resolver.attrs!(["address", "city"]);
     expect(a.required).toBe(true);
     expect(a.minLength).toBe(1);
   });
 
   it("optional nested field", () => {
-    const a = resolver.attrs(["address", "zip"]);
+    const a = resolver.attrs!(["address", "zip"]);
     expect(a.required).toBeUndefined();
   });
 
   it("unwraps ZodMiniDefault for checks", () => {
     const s = z.object({ role: z._default(z.string().check(z.minLength(2)), "user") });
     const r = zodResolver(s);
-    const a = r.attrs(["role"]);
+    const a = r.attrs!(["role"]);
     expect(a.minLength).toBe(2);
     expect(a.required).toBeUndefined();
   });
@@ -82,7 +82,7 @@ describe("attrs", () => {
   it("unwraps ZodMiniNullable", () => {
     const s = z.object({ name: z.nullable(z.string().check(z.minLength(2))) });
     const r = zodResolver(s);
-    expect(r.attrs(["name"]).minLength).toBe(2);
+    expect(r.attrs!(["name"]).minLength).toBe(2);
   });
 
   it("combined string checks", () => {
@@ -90,7 +90,7 @@ describe("attrs", () => {
       handle: z.string().check(z.minLength(3), z.maxLength(20), z.regex(/^[a-z]+$/)),
     });
     const r = zodResolver(s);
-    const a = r.attrs(["handle"]);
+    const a = r.attrs!(["handle"]);
     expect(a.required).toBe(true);
     expect(a.minLength).toBe(3);
     expect(a.maxLength).toBe(20);
@@ -98,7 +98,7 @@ describe("attrs", () => {
   });
 
   it("unknown path returns empty object", () => {
-    expect(resolver.attrs(["nonexistent"])).toEqual({});
+    expect(resolver.attrs!(["nonexistent"])).toEqual({});
   });
 });
 

@@ -1,10 +1,13 @@
 import type { InputAttrs } from "./attrs.ts";
 
-/** Reactive ARIA state for a bound field. Properties that depend on store-backed data (e.g. `invalid`) are getters — reads inside `createEffect` / JSX are automatically tracked. */
+/** Controls when field validation is triggered. */
+export type ValidationMode = "onChange" | "onBlur" | "onSubmit" | "onTouched" | "all";
+
+/** Reactive ARIA state for a bound field. `invalid` is a getter — reads inside `createEffect` / JSX are automatically tracked. */
 export type BindingAria = {
   /** `true` when the field has validation errors. Reactive — tracks the errors store. */
   readonly invalid: boolean;
-  /** `true` when the resolver marks the field as required. Static after binding creation. */
+  /** `true` when the resolver marks the field as required. Computed once at binding creation. */
   readonly required: boolean;
   /** The ID of the associated error-message element. Use as `id` on your error element. */
   readonly describedby: string;
@@ -20,6 +23,8 @@ export type Binding<T = unknown> = {
   value: T;
   /** Update the field value, marks the form as touched, and runs validation if a resolver is attached. */
   setValue(value: T): void;
+  /** Called on blur. Triggers validation depending on the form's `mode`. */
+  onBlur(): void;
   /** Current validation errors for this field, or `null` if valid. */
   errors: string[] | null;
   /** Manually set validation errors for this field. */
@@ -42,7 +47,7 @@ export type Binding<T = unknown> = {
  * form.binding("address", "city") // Binding<string>
  * ```
  */
-export interface Binder<T> {
+export type Binder<T> = {
   <K1 extends keyof T & string>(k1: K1): Binding<T[K1]>;
   <K1 extends keyof T & string, K2 extends keyof T[K1] & string>(
     k1: K1,
@@ -81,4 +86,4 @@ export interface Binder<T> {
     k4: K4,
     k5: K5,
   ): Binding<T[K1][K2][K3][K4][K5]>;
-}
+};

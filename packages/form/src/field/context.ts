@@ -1,5 +1,5 @@
 import { createContext, useContext } from "solid-js";
-import type { Binding } from "../input/index.ts";
+import type { Binding } from "../binding/index.ts";
 
 export type FieldContextValue = {
   /** Auto-generated ID for the input element. */

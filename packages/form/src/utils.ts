@@ -12,3 +12,9 @@ export function deepEqual(a: unknown, b: unknown): boolean {
   // deno-lint-ignore no-explicit-any
   return ka.every((k) => deepEqual((a as any)[k], (b as any)[k]));
 }
+
+/** Traverse `obj` by successive key lookups, e.g. `getByPath(store.values, ["address","city"])`. */
+// deno-lint-ignore no-explicit-any
+export function getByPath(obj: any, keys: string[]): any {
+  return keys.reduce((o, k) => o[k], obj);
+}

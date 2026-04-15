@@ -225,7 +225,7 @@ Compound component for declarative field rendering.
 Sub‑components:
 
 - `Field.Label` – `<label>` with `for` wired to the input's `id`
-- `Field.Input` – `<input>` with `value`, `onChange`, ARIA attributes, and
+- `Field.Input` – `<input>` with `value`, `onInput`, ARIA attributes, and
   validation constraints
 - `Field.Textarea` – `<textarea>` with same wiring
 - `Field.Select` – `<select>` with same wiring

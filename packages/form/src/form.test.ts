@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { Window } from "happy-dom";
 import { cleanup, renderHook } from "@solidjs/testing-library";
-import { createFormCore } from "./form.ts";
+import { useForm } from "./use-form.tsx";
 import type { Resolver } from "./resolver/index.ts";
 
 const _win = new Window();
@@ -32,12 +32,14 @@ const noop = () => {};
 function setup(opts?: {
   resolver?: Resolver<FormValues>;
   initialValues?: FormValues;
+  mode?: "onChange" | "onBlur" | "onSubmit" | "onTouched" | "all";
   onSubmit?: (v: FormValues) => void | Promise<void>;
 }) {
   const { result, cleanup: dispose } = renderHook(() =>
-    createFormCore<FormValues>({
+    useForm<FormValues>({
       initialValues: opts?.initialValues || defaults,
       resolver: opts?.resolver,
+      mode: opts?.mode,
       onSubmit: opts?.onSubmit || noop,
     }),
   );
@@ -70,6 +72,20 @@ describe("values", () => {
     const { f } = setup({ initialValues: init });
     f.setValues("email", "changed");
     expect(init.email).toBe("");
+  });
+});
+
+describe("initialValues", () => {
+  it("can be omitted", () => {
+    const { result } = renderHook(() =>
+      useForm<FormValues>({
+        onSubmit: noop,
+      }),
+    );
+    expect(result.values.email).toBeUndefined();
+    expect(result.binding("email").errors).toBe(null);
+    result.setValues("email", "test@example.com");
+    expect(result.values.email).toBe("test@example.com");
   });
 });
 
@@ -228,11 +244,19 @@ describe("binding", () => {
   });
 
   it("setValue without validate does not crash", () => {
-    const resolver: Resolver<FormValues> = { attrs: () => ({}) };
+    const resolver: Resolver<FormValues> = {};
     const { f } = setup({ resolver });
     const b = f.binding("email");
     b.setValue("test@example.com");
     expect(b.errors).toBe(null);
+  });
+
+  it("attrs can be omitted on resolver", () => {
+    const resolver: Resolver<FormValues> = {
+      validate: () => null,
+    };
+    const { f } = setup({ resolver });
+    expect(f.binding("email").attrs).toEqual({});
   });
 });
 
@@ -310,6 +334,32 @@ describe("submit", () => {
     f.submit();
     await new Promise((r) => setTimeout(r, 10));
     expect(called).toBe(true);
+    expect(f.state.isSubmitting).toBe(false);
+  });
+
+  it("clears isSubmitting after async validateAll and sync submit", async () => {
+    let called = false;
+    const resolver: Resolver<FormValues> = {
+      attrs: () => ({}),
+      validateAll() {
+        return Promise.resolve({
+          email: null,
+          password: null,
+          address: { city: null },
+        });
+      },
+    };
+    const { f } = setup({
+      resolver,
+      onSubmit: () => {
+        called = true;
+      },
+    });
+    f.submit();
+    expect(f.state.isSubmitting).toBe(true);
+    await new Promise((r) => setTimeout(r, 10));
+    expect(called).toBe(true);
+    expect(f.state.isSubmitting).toBe(false);
   });
 
   it("force bypasses validateAll", () => {
@@ -417,6 +467,28 @@ describe("binding - async validate", () => {
     await new Promise((r) => setTimeout(r, 100));
     expect(b.errors).toBe(null);
   });
+
+  it("async validate is discarded after reset", async () => {
+    let resolve!: (value: string[] | null) => void;
+    const pending = new Promise<string[] | null>((r) => {
+      resolve = r;
+    });
+    const resolver: Resolver<FormValues> = {
+      attrs: () => ({}),
+      validate() {
+        return pending;
+      },
+    };
+    const { f } = setup({ resolver });
+    const b = f.binding("email");
+    b.setValue("bad");
+    f.reset();
+    resolve(["Required"]);
+    await pending;
+    await new Promise((r) => setTimeout(r, 0));
+    expect(b.errors).toBe(null);
+    expect(f.errors.email).toBe(null);
+  });
 });
 
 // --- state ---
@@ -435,6 +507,28 @@ describe("state", () => {
     const { f } = setup();
     f.binding("email").setValue("a@b.com");
     expect(f.state.isTouched).toBe(true);
+  });
+
+  it("onTouched validation resets after reset", () => {
+    let validateCalls = 0;
+    const resolver: Resolver<FormValues> = {
+      attrs: () => ({}),
+      validate() {
+        validateCalls++;
+        return ["Required"];
+      },
+    };
+    const { f } = setup({ resolver, mode: "onTouched" });
+    const b = f.binding("email");
+    b.setValue("x");
+    expect(validateCalls).toBe(0);
+    b.onBlur();
+    expect(validateCalls).toBe(1);
+    f.reset();
+    b.setValue("y");
+    expect(validateCalls).toBe(1);
+    b.onBlur();
+    expect(validateCalls).toBe(2);
   });
 
   it("isDirty true after value change", () => {

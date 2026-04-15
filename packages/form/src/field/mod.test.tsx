@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { cleanup, render, renderHook } from "@solidjs/testing-library";
 import { useForm } from "../use-form.tsx";
+import { useFormComponents } from "../use-form-components.tsx";
 import type { Resolver } from "../resolver/index.ts";
 
 afterEach(() => cleanup());
@@ -14,14 +15,15 @@ function setup(opts?: {
   resolver?: Resolver<FormValues>;
   onSubmit?: (v: FormValues) => void | Promise<void>;
 }) {
-  const { result } = renderHook(() =>
+  const { result: form } = renderHook(() =>
     useForm<FormValues>({
       initialValues: defaults,
       resolver: opts?.resolver,
       onSubmit: opts?.onSubmit ?? noop,
     }),
   );
-  return result;
+  const { result: components } = renderHook(() => useFormComponents(form));
+  return { form, ...components };
 }
 
 describe("Field.Label", () => {
@@ -54,12 +56,12 @@ describe("Field.Input", () => {
   });
 
   it("aria-invalid is true when field has errors", () => {
-    const form = setup();
+    const { form, Field } = setup();
     form.setErrors("email", ["Required"]);
     const { container } = render(() => (
-      <form.Field name="email">
-        <form.Field.Input />
-      </form.Field>
+      <Field name="email">
+        <Field.Input />
+      </Field>
     ));
     expect(container.querySelector("input")!.getAttribute("aria-invalid")).toBe("true");
   });
@@ -135,14 +137,35 @@ describe("Field.Input", () => {
   });
 
   it("wires value from store", () => {
-    const form = setup();
+    const { form, Field } = setup();
     form.setValues("email", "test@example.com");
     const { container } = render(() => (
-      <form.Field name="email">
-        <form.Field.Input />
-      </form.Field>
+      <Field name="email">
+        <Field.Input />
+      </Field>
     ));
     expect((container.querySelector("input")! as HTMLInputElement).value).toBe("test@example.com");
+  });
+
+  it("binds radios by selected value", () => {
+    const { form, Field } = setup();
+    const { container } = render(() => (
+      <Field name="email">
+        <Field.Input type="radio" value="work" />
+        <Field.Input type="radio" value="home" />
+      </Field>
+    ));
+    const radios = container.querySelectorAll("input[type='radio']");
+    expect((radios[0] as HTMLInputElement).checked).toBe(false);
+    expect((radios[1] as HTMLInputElement).checked).toBe(false);
+
+    form.setValues("email", "home");
+    expect((radios[1] as HTMLInputElement).checked).toBe(true);
+
+    const first = radios[0] as HTMLInputElement;
+    first.checked = true;
+    first.dispatchEvent(new Event("input", { bubbles: true, cancelable: true }));
+    expect(form.values.email).toBe("work");
   });
 });
 
@@ -166,25 +189,51 @@ describe("Field.Description", () => {
   });
 });
 
+describe("Field.Textarea", () => {
+  it("renders a textarea", () => {
+    const { Field } = setup();
+    const { container } = render(() => (
+      <Field name="email">
+        <Field.Textarea />
+      </Field>
+    ));
+    expect(container.querySelector("textarea")).not.toBeNull();
+  });
+});
+
+describe("Field.Select", () => {
+  it("renders a select", () => {
+    const { Field } = setup();
+    const { container } = render(() => (
+      <Field name="email">
+        <Field.Select>
+          <option value="a">A</option>
+        </Field.Select>
+      </Field>
+    ));
+    expect(container.querySelector("select")).not.toBeNull();
+  });
+});
+
 describe("Field.Error", () => {
   it("auto-fills error text when no children", () => {
-    const form = setup();
+    const { form, Field } = setup();
     form.setErrors("email", ["Required", "Must be valid"]);
     const { container } = render(() => (
-      <form.Field name="email">
-        <form.Field.Error />
-      </form.Field>
+      <Field name="email">
+        <Field.Error />
+      </Field>
     ));
     expect(container.textContent).toContain("Required, Must be valid");
   });
 
   it("renders explicit children instead of auto text", () => {
-    const form = setup();
+    const { form, Field } = setup();
     form.setErrors("email", ["Required"]);
     const { container } = render(() => (
-      <form.Field name="email">
-        <form.Field.Error>Custom error</form.Field.Error>
-      </form.Field>
+      <Field name="email">
+        <Field.Error>Custom error</Field.Error>
+      </Field>
     ));
     expect(container.textContent).toContain("Custom error");
     expect(container.textContent).not.toContain("Required");
@@ -201,24 +250,24 @@ describe("Field.Error", () => {
   });
 
   it("has id matching error element", () => {
-    const form = setup();
+    const { form, Field } = setup();
     form.setErrors("email", ["Required"]);
     const { container } = render(() => (
-      <form.Field name="email">
-        <form.Field.Error />
-      </form.Field>
+      <Field name="email">
+        <Field.Error />
+      </Field>
     ));
     const errorEl = container.querySelector("[id*='error']");
     expect(errorEl).not.toBeNull();
   });
 
   it("renders as span via as prop", () => {
-    const form = setup();
+    const { form, Field } = setup();
     form.setErrors("email", ["Required"]);
     const { container } = render(() => (
-      <form.Field name="email">
-        <form.Field.Error as="span" />
-      </form.Field>
+      <Field name="email">
+        <Field.Error as="span" />
+      </Field>
     ));
     const span = container.querySelector("span")!;
     expect(span).not.toBeNull();
@@ -239,16 +288,16 @@ describe("Form", () => {
 
   it("calls onSubmit with current values on submit", () => {
     let received: FormValues | undefined;
-    const form = setup({
+    const { form, Form } = setup({
       onSubmit: (v) => {
         received = v;
       },
     });
     form.setValues("email", "test@example.com");
     const { container } = render(() => (
-      <form.Form>
+      <Form>
         <button type="submit">Go</button>
-      </form.Form>
+      </Form>
     ));
     container.querySelector("form")!.dispatchEvent(new Event("submit", { cancelable: true }));
     expect(received?.email).toBe("test@example.com");
@@ -279,11 +328,11 @@ describe("Form", () => {
   });
 
   it("increments submitCount on submit", () => {
-    const form = setup();
+    const { form, Form } = setup();
     const { container } = render(() => (
-      <form.Form>
+      <Form>
         <button type="submit">Go</button>
-      </form.Form>
+      </Form>
     ));
     container.querySelector("form")!.dispatchEvent(new Event("submit", { cancelable: true }));
     expect(form.state.submitCount).toBe(1);
@@ -291,20 +340,20 @@ describe("Form", () => {
 
   it("does not call onSubmit on render", () => {
     let called = false;
-    const form = setup({
+    const { form, Form, Field } = setup({
       onSubmit: () => {
         called = true;
       },
     });
     render(() => (
-      <form.Form>
-        <form.Field name="email">
-          <form.Field.Label>Email</form.Field.Label>
-          <form.Field.Input />
-          <form.Field.Error />
-        </form.Field>
+      <Form>
+        <Field name="email">
+          <Field.Label>Email</Field.Label>
+          <Field.Input />
+          <Field.Error />
+        </Field>
         <button type="submit">Go</button>
-      </form.Form>
+      </Form>
     ));
     expect(called).toBe(false);
     expect(form.state.submitCount).toBe(0);

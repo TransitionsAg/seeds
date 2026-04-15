@@ -1,7 +1,7 @@
 import type { ZodMiniObject } from "zod/v4/mini";
 import type { output } from "zod/v4/mini";
 import type { Resolver } from "./index.ts";
-import type { InputAttrs } from "../input/attrs.ts";
+import type { InputAttrs } from "../binding/attrs.ts";
 import type { FormErrors } from "../errors/index.ts";
 
 type MiniSchema = {
