@@ -26,6 +26,23 @@
         "default": "./dist/button/index.js"
       }
     },
+    "./avatar": {
+      "types": "./src/avatar/index.tsx",
+      "solid": {
+        "development": "./dist/avatar/dev.jsx",
+        "import": "./dist/avatar/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/avatar/index.d.ts",
+          "default": "./dist/avatar/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/avatar/index.d.ts",
+        "default": "./dist/avatar/index.js"
+      }
+    },
     "./checkbox": {
       "types": "./src/checkbox/index.tsx",
       "solid": {
@@ -102,6 +119,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@zag-js/avatar": "^1.40.0",
     "@zag-js/checkbox": "^1.39.1",
     "@zag-js/solid": "^1.39.1",
     "@zag-js/tree-view": "^1.39.1",

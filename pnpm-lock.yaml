@@ -139,6 +139,9 @@ importers:
 
   packages/primitives:
     dependencies:
+      '@zag-js/avatar':
+        specifier: ^1.40.0
+        version: 1.40.0
       '@zag-js/checkbox':
         specifier: ^1.39.1
         version: 1.40.0
@@ -1533,6 +1536,9 @@ packages:
 
   '@zag-js/anatomy@1.40.0':
     resolution: {integrity: sha512-oiB4uAaV//L38JluLVPtOHO3xvqambrfrXVOoq4kmNrBv1LLlCmFvrXA2HOR9lakn4ExK27XSUrKhUN7YlKjfQ==}
+
+  '@zag-js/avatar@1.40.0':
+    resolution: {integrity: sha512-DayZDsNXbipT+1GUkX29tVhO4hZonDnidwE3SjEQv9Ic9vCdnwP95+B0FPEuaca03F5ZXFqVXjnPmRVbRMyDYQ==}
 
   '@zag-js/checkbox@1.40.0':
     resolution: {integrity: sha512-oFCgnkOjrUDejB1wEp5s3cyJ+uFe/GoI3+wqNyckqOtcdKL1MBxy193GYVdj0LDfuCNrk8V0aIJGTdusCD2b4A==}
@@ -4863,6 +4869,14 @@ snapshots:
       tinyrainbow: 2.0.0
 
   '@zag-js/anatomy@1.40.0': {}
+
+  '@zag-js/avatar@1.40.0':
+    dependencies:
+      '@zag-js/anatomy': 1.40.0
+      '@zag-js/core': 1.40.0
+      '@zag-js/dom-query': 1.40.0
+      '@zag-js/types': 1.40.0
+      '@zag-js/utils': 1.40.0
 
   '@zag-js/checkbox@1.40.0':
     dependencies:

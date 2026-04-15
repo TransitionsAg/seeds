@@ -3,6 +3,7 @@ import * as preset from "tsup-preset-solid";
 
 const preset_options: preset.PresetOptions = {
   entries: [
+    { name: "avatar", entry: "src/avatar/index.tsx", dev_entry: true },
     { name: "button", entry: "src/button/index.tsx", dev_entry: true },
     { name: "checkbox", entry: "src/checkbox/index.tsx", dev_entry: true },
     { name: "polymorphic", entry: "src/polymorphic/index.tsx", dev_entry: true },
