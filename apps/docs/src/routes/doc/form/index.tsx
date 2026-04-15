@@ -16,13 +16,14 @@ export default function FormIndex() {
 
       <h2 class="typo-h3 mb-4">Quick Start</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-        {`import { useForm } from "@transitionsag/form";
+        {`import { useForm, useFormComponents } from "@transitionsag/form";
 
 function LoginForm() {
-  const { Form, Field } = useForm({
+  const form = useForm({
     initialValues: { email: "", password: "" },
     onSubmit: (v) => console.log(v),
   });
+  const { Form, Field } = useFormComponents(form);
 
   return (
     <Form>

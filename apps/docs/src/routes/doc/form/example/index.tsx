@@ -1,4 +1,4 @@
-import { useForm } from "@transitionsag/form";
+import { useForm, useFormComponents } from "@transitionsag/form";
 import { zodResolver } from "@transitionsag/form/resolver/zod";
 import { Card, Input, Button } from "@transitionsag/bloom";
 import { Title, Meta } from "@solidjs/meta";
@@ -13,7 +13,7 @@ const schema = z.object({
 type Registration = z.infer<typeof schema>;
 
 export default function FormExample() {
-  const { Form, Field, state, reset } = useForm<Registration>({
+  const form = useForm<Registration>({
     initialValues: { name: "", email: "", password: "" },
     resolver: zodResolver(schema),
     onSubmit: async (v) => {
@@ -21,6 +21,8 @@ export default function FormExample() {
       alert(JSON.stringify(v, null, 2));
     },
   });
+  const { Form, Field } = useFormComponents(form);
+  const { state, reset } = form;
 
   return (
     <div>
@@ -75,7 +77,7 @@ export default function FormExample() {
 
       <h2 class="typo-h3 mt-12 mb-4">Source</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-        {`import { useForm } from "@transitionsag/form";
+        {`import { useForm, useFormComponents } from "@transitionsag/form";
 import { zodResolver } from "@transitionsag/form/resolver/zod";
 import { Card, Input, Button } from "@transitionsag/bloom";
 import * as z from "zod/v4/mini";
@@ -87,7 +89,7 @@ const schema = z.object({
 });
 
 function RegistrationForm() {
-  const { Form, Field, state, reset } = useForm({
+  const form = useForm({
     initialValues: { name: "", email: "", password: "" },
     resolver: zodResolver(schema),
     onSubmit: async (v) => {
@@ -95,6 +97,8 @@ function RegistrationForm() {
       console.log(v);
     },
   });
+  const { Form, Field } = useFormComponents(form);
+  const { state, reset } = form;
 
   return (
     <Card>

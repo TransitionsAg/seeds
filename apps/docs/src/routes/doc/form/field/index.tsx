@@ -6,21 +6,22 @@ export default function FieldDocs() {
       <Title>Field — Seeds</Title>
       <Meta
         name="description"
-        content="Compound field component returned by useForm. Use with Field.Label, Field.Input, Field.Error, and more."
+        content="Compound field component returned by useFormComponents. Use with Field.Label, Field.Input, Field.Error, and more."
       />
       <h1 class="typo-h1 mb-6">Field</h1>
       <p class="typo-p mb-8">
-        Compound field component returned by <code>useForm</code>. Use with <code>Field.Label</code>
-        , <code>Field.Input</code>, <code>Field.Error</code>, and more.
+        Compound field component returned by <code>useFormComponents</code>. Use with{" "}
+        <code>Field.Label</code>, <code>Field.Input</code>, <code>Field.Error</code>, and more.
       </p>
 
       <h2 class="typo-h3 mb-4">Usage</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
         {`function LoginForm() {
-  const { Form, Field } = useForm({
+  const form = useForm({
     initialValues: { email: "" },
     onSubmit: (v) => console.log(v),
   });
+  const { Form, Field } = useFormComponents(form);
 
   return (
     <Form>

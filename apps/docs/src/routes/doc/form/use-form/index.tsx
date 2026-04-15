@@ -6,22 +6,26 @@ export default function UseFormDocs() {
       <Title>useForm — Seeds</Title>
       <Meta
         name="description"
-        content="Creates a reactive form backed by a single SolidJS store. Returns Form and Field components pre-wired to this form instance."
+        content="Creates a reactive form backed by a single SolidJS store. Returns values, errors, state, and actions. Use useFormComponents to get Form and Field components."
       />
       <h1 class="typo-h1 mb-6">useForm</h1>
       <p class="typo-p mb-8">
-        Creates a reactive form backed by a single SolidJS store. Returns <code>Form</code> and{" "}
-        <code>Field</code> components pre-wired to this form instance.
+        Creates a reactive form backed by a single SolidJS store. Returns reactive state and
+        actions. Use <code>useFormComponents</code> to get <code>Form</code> and <code>Field</code>{" "}
+        components wired to the form instance.
       </p>
 
       <h2 class="typo-h3 mb-4">Usage</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-        {`import { useForm } from "@transitionsag/form";
+        {`import { useForm, useFormComponents } from "@transitionsag/form";
 
-const { Form, Field, submit, reset, values, errors, state } = useForm({
+const form = useForm({
   initialValues: { email: "", password: "" },
   onSubmit: (v) => console.log(v),
-});`}
+});
+
+const { values, errors, state, submit, reset } = form;
+const { Form, Field } = useFormComponents(form);`}
       </pre>
 
       <h2 class="typo-h3 mb-4">Parameters</h2>
@@ -61,6 +65,15 @@ const { Form, Field, submit, reset, values, errors, state } = useForm({
             </td>
             <td class="py-2">Yes</td>
           </tr>
+          <tr class="border-b border-border">
+            <td class="py-2 pr-4">
+              <code>mode</code>
+            </td>
+            <td class="py-2 pr-4">
+              <code>&quot;onChange&quot; | &quot;onBlur&quot; | &quot;onSubmit&quot;</code>
+            </td>
+            <td class="py-2">No</td>
+          </tr>
         </tbody>
       </table>
 
@@ -95,21 +108,33 @@ const { Form, Field, submit, reset, values, errors, state } = useForm({
           </tr>
           <tr class="border-b border-border">
             <td class="py-2 pr-4">
-              <code>Form</code>
+              <code>setValues</code>
             </td>
-            <td class="py-2 pr-4">Typed form wrapper</td>
+            <td class="py-2 pr-4">Raw setter for values (does not trigger validation)</td>
           </tr>
           <tr class="border-b border-border">
             <td class="py-2 pr-4">
-              <code>Field</code>
+              <code>setErrors</code>
             </td>
-            <td class="py-2 pr-4">Compound field component</td>
+            <td class="py-2 pr-4">Raw setter for errors</td>
+          </tr>
+          <tr class="border-b border-border">
+            <td class="py-2 pr-4">
+              <code>binding</code>
+            </td>
+            <td class="py-2 pr-4">Creates a Binding for a field at a given key path</td>
           </tr>
           <tr class="border-b border-border">
             <td class="py-2 pr-4">
               <code>submit()</code>
             </td>
             <td class="py-2 pr-4">Trigger submission (validates first)</td>
+          </tr>
+          <tr class="border-b border-border">
+            <td class="py-2 pr-4">
+              <code>trigger()</code>
+            </td>
+            <td class="py-2 pr-4">Manually trigger validation for fields or entire form</td>
           </tr>
           <tr class="border-b border-border">
             <td class="py-2 pr-4">

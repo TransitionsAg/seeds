@@ -15,7 +15,7 @@ export default function ResolverDocs() {
 
       <h2 class="typo-h3 mb-4">Zod Resolver</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-        {`import { useForm } from "@transitionsag/form";
+        {`import { useForm, useFormComponents } from "@transitionsag/form";
 import { zodResolver } from "@transitionsag/form/resolver/zod";
 import * as z from "zod/v4/mini";
 
@@ -24,11 +24,12 @@ const schema = z.object({
   password: z.string().check(z.minLength(8)),
 });
 
-const { Form, Field } = useForm({
+const form = useForm({
   initialValues: { email: "", password: "" },
   resolver: zodResolver(schema),
   onSubmit: (v) => console.log(v),
-});`}
+});
+const { Form, Field } = useFormComponents(form);`}
       </pre>
 
       <h2 class="typo-h3 mb-4">Resolver Interface</h2>
