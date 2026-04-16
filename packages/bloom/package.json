@@ -32,6 +32,22 @@
     },
     "./styles.css": "./dist/styles.css",
     "./theme.css": "./dist/theme.css",
+    "./avatar": {
+      "solid": {
+        "development": "./dist/avatar/dev.jsx",
+        "import": "./dist/avatar/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/avatar/index.d.ts",
+          "default": "./dist/avatar/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/avatar/index.d.ts",
+        "default": "./dist/avatar/index.js"
+      }
+    },
     "./branding": {
       "solid": {
         "development": "./dist/branding/dev.jsx",
@@ -136,6 +152,7 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.16",
+    "@transitionsag/facehash-solid": "^0.0.1",
     "@transitionsag/phosphor-solid": "^0.0.1",
     "@transitionsag/primitives": "workspace:*",
     "cva": "1.0.0-beta.4",

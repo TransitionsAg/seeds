@@ -74,6 +74,9 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.16
         version: 0.5.19(tailwindcss@4.2.2)
+      '@transitionsag/facehash-solid':
+        specifier: ^0.0.1
+        version: 0.0.1(solid-js@1.9.12)
       '@transitionsag/phosphor-solid':
         specifier: ^0.0.1
         version: 0.0.1(solid-js@1.9.12)
@@ -1435,6 +1438,11 @@ packages:
   '@testing-library/dom@10.4.1':
     resolution: {integrity: sha512-o4PXJQidqJl82ckFaXUeoAW+XysPLauYI43Abki5hABd853iMhitooc6znOnczgbTYmEP6U6/y1ZyKAIsvMKGg==}
     engines: {node: '>=18'}
+
+  '@transitionsag/facehash-solid@0.0.1':
+    resolution: {integrity: sha512-MTAA8zwob9OduyH3AyLp6B4tVW/70CAkx8yzfh8ooTm+adqeay211aK4o/1gL0XxfMqdUMBk784zG4H0YJn9AQ==}
+    peerDependencies:
+      solid-js: ^1.9.12
 
   '@transitionsag/phosphor-solid@0.0.1':
     resolution: {integrity: sha512-pfkeOOsaTSqy09/bBOmlyZz6PucePmbSm2v9pMNQQcfHEcNTJ68n1a9tcQxwh8LMBUMpZyspM/onY2vqqQ+CiA==}
@@ -4706,6 +4714,10 @@ snapshots:
       lz-string: 1.5.0
       picocolors: 1.1.1
       pretty-format: 27.5.1
+
+  '@transitionsag/facehash-solid@0.0.1(solid-js@1.9.12)':
+    dependencies:
+      solid-js: 1.9.12
 
   '@transitionsag/phosphor-solid@0.0.1(solid-js@1.9.12)':
     dependencies:
