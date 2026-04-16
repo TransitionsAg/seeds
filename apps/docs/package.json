@@ -17,6 +17,7 @@
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.0.0",
     "@transitionsag/bloom": "workspace:*",
+    "@transitionsag/facehash-solid": "^0.0.1",
     "@transitionsag/form": "workspace:*",
     "@transitionsag/phosphor-solid": "^0.0.1",
     "@transitionsag/primitives": "workspace:*",

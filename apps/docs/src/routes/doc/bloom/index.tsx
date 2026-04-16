@@ -16,18 +16,34 @@ export default function BloomIndex() {
 
       <h2 class="typo-h3 mb-4">Quick Start</h2>
       <pre class="bg-secondary p-4 rounded mb-8 text-sm overflow-x-auto">
-        {`import { Button, Checkbox, TreeView, Branding } from "@transitionsag/bloom";
+        {`import { Avatar, Button, ButtonGroup, Checkbox, TreeView, Branding } from "@transitionsag/bloom";
 import "@transitionsag/bloom/styles.css";`}
       </pre>
 
       <h2 class="typo-h3 mb-4">Sections</h2>
       <div class="grid gap-4">
         <a
+          href="/doc/bloom/avatar"
+          class="block p-4 border border-border rounded-lg hover:border-secondary-accent hover:bg-secondary/50 transition-colors"
+        >
+          <h3 class="typo-h4 mb-1">Avatar</h3>
+          <p class="text-muted-foreground">
+            Self-contained avatar with image and fallback content.
+          </p>
+        </a>
+        <a
           href="/doc/bloom/button"
           class="block p-4 border border-border rounded-lg hover:border-secondary-accent hover:bg-secondary/50 transition-colors"
         >
           <h3 class="typo-h4 mb-1">Button</h3>
           <p class="text-muted-foreground">Styled button with CVA variants.</p>
+        </a>
+        <a
+          href="/doc/bloom/button-group"
+          class="block p-4 border border-border rounded-lg hover:border-secondary-accent hover:bg-secondary/50 transition-colors"
+        >
+          <h3 class="typo-h4 mb-1">Button Group</h3>
+          <p class="text-muted-foreground">Grouped button layout with shared defaults.</p>
         </a>
         <a
           href="/doc/bloom/checkbox"

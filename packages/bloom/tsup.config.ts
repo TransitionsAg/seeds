@@ -4,8 +4,10 @@ import * as preset from "tsup-preset-solid";
 const preset_options: preset.PresetOptions = {
   entries: [
     { entry: "src/index.tsx", dev_entry: true },
+    { name: "avatar", entry: "src/avatar/index.tsx", dev_entry: true },
     { name: "branding", entry: "src/branding/index.tsx", dev_entry: true },
     { name: "button", entry: "src/button/index.tsx", dev_entry: true },
+    { name: "button-group", entry: "src/button-group/index.tsx", dev_entry: true },
     { name: "card", entry: "src/card/index.tsx", dev_entry: true },
     { name: "checkbox", entry: "src/checkbox/index.tsx", dev_entry: true },
     { name: "input", entry: "src/input/index.tsx", dev_entry: true },

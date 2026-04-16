@@ -2,7 +2,9 @@ import { A, type RouteSectionProps } from "@solidjs/router";
 
 const items = [
   { name: "Overview", href: "/doc/bloom" },
+  { name: "Avatar", href: "/doc/bloom/avatar" },
   { name: "Button", href: "/doc/bloom/button" },
+  { name: "Button Group", href: "/doc/bloom/button-group" },
   { name: "Checkbox", href: "/doc/bloom/checkbox" },
   { name: "Input", href: "/doc/bloom/input" },
   { name: "Tree View", href: "/doc/bloom/tree-view" },

@@ -47,6 +47,9 @@ importers:
       '@transitionsag/bloom':
         specifier: workspace:*
         version: link:../../packages/bloom
+      '@transitionsag/facehash-solid':
+        specifier: ^0.0.1
+        version: 0.0.1(solid-js@1.9.12)
       '@transitionsag/form':
         specifier: workspace:*
         version: link:../../packages/form

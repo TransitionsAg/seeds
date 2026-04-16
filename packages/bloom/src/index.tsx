@@ -1,6 +1,7 @@
 export { Avatar } from "./avatar/index.tsx";
 export { Branding, type Theme } from "./branding/index.tsx";
 export { Button } from "./button/index.tsx";
+export { ButtonGroup } from "./button-group/index.tsx";
 export { Card } from "./card/index.tsx";
 export { Checkbox } from "./checkbox/index.tsx";
 export { Input } from "./input/index.tsx";

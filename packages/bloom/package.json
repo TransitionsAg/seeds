@@ -80,6 +80,22 @@
         "default": "./dist/button/index.js"
       }
     },
+    "./button-group": {
+      "solid": {
+        "development": "./dist/button-group/dev.jsx",
+        "import": "./dist/button-group/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/button-group/index.d.ts",
+          "default": "./dist/button-group/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/button-group/index.d.ts",
+        "default": "./dist/button-group/index.js"
+      }
+    },
     "./card": {
       "solid": {
         "development": "./dist/card/dev.jsx",
