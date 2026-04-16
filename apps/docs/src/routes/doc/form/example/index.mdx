@@ -1,0 +1,84 @@
+import { DocsExample, DocsPage } from "~/components/docs";
+import { FormRegistrationPreview } from "~/components/docs/previews/form-registration-preview.tsx";
+
+<DocsPage
+  section="form"
+  title="Form Example"
+  description="A working example of a registration form using useForm with Zod validation and Bloom components."
+>
+# Example
+
+A working registration form using `useForm` with Zod validation, Bloom `Input`, `Button`, and `Card`.
+
+## Preview
+
+<DocsExample>
+  <FormRegistrationPreview />
+</DocsExample>
+
+## Source
+
+```tsx
+import { useForm, useFormComponents } from "@transitionsag/form";
+import { zodResolver } from "@transitionsag/form/resolver/zod";
+import { Card, Input, Button } from "@transitionsag/bloom";
+import * as z from "zod/v4/mini";
+
+const schema = z.object({
+  name: z.string().check(z.minLength(1, "Name is required")),
+  email: z.email("Enter a valid email"),
+  password: z.string().check(z.minLength(8, "Must be at least 8 characters")),
+});
+
+function RegistrationForm() {
+  const form = useForm({
+    initialValues: { name: "", email: "", password: "" },
+    resolver: zodResolver(schema),
+    onSubmit: async (value) => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      alert(JSON.stringify(value, null, 2));
+    },
+  });
+  const { Form, Field } = useFormComponents(form);
+  const { state, reset } = form;
+
+  return (
+    <Card>
+      <Card.Header>
+        <Card.Title>Create an account</Card.Title>
+      </Card.Header>
+      <Form>
+        <Card.Content>
+          <Field name="name">
+            <Field.Input as={Input} type="text">
+              <Field.Label as={Input.Label}>Name</Field.Label>
+              <Field.Error as={Input.Error} />
+            </Field.Input>
+          </Field>
+          <Field name="email">
+            <Field.Input as={Input} type="email">
+              <Field.Label as={Input.Label}>E-mail</Field.Label>
+              <Field.Error as={Input.Error} />
+            </Field.Input>
+          </Field>
+          <Field name="password">
+            <Field.Input as={Input} type="password">
+              <Field.Label as={Input.Label}>Password</Field.Label>
+              <Field.Error as={Input.Error} />
+            </Field.Input>
+          </Field>
+        </Card.Content>
+        <Card.Footer>
+          <Button type="submit" disabled={state.isSubmitting}>
+            {state.isSubmitting ? "Creating..." : "Create account"}
+          </Button>
+          <Button type="button" intent="secondary" onClick={reset}>
+            Reset
+          </Button>
+        </Card.Footer>
+      </Form>
+    </Card>
+  );
+}
+```
+</DocsPage>

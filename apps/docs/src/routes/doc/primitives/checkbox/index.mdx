@@ -1,0 +1,66 @@
+import { Checkbox } from "@transitionsag/primitives/checkbox";
+import { DocsExample, DocsPage, DocsTable, codeCell as c } from "~/components/docs";
+
+export const compoundRows = [
+  [c("Root"), c("label"), "Wraps all parts and provides machine context."],
+  [c("Control"), c("div"), "Visual box element."],
+  [c("Indicator"), c("div"), "Checkmark or indeterminate icon."],
+  [c("Label"), c("span"), "Accessible text label."],
+  [c("HiddenInput"), c("input"), "Native input for form submission."],
+];
+
+export const apiRows = [
+  [c("id"), c("string"), "—"],
+  [c("name"), c("string"), "—"],
+  [c("value"), c("string"), c('"on"')],
+  [c("checked"), c('boolean | "indeterminate"'), "—"],
+  [c("defaultChecked"), c('boolean | "indeterminate"'), "—"],
+  [c("disabled"), c("boolean"), c("false")],
+  [c("required"), c("boolean"), c("false")],
+  [c("invalid"), c("boolean"), c("false")],
+  [c("form"), c("string"), "—"],
+  [c("onCheckedChange"), c("(details) => void"), "—"],
+  [c("as"), c("ValidComponent"), c('"label"')],
+];
+
+<DocsPage
+  section="primitives"
+  title="Checkbox Primitive"
+  description="An unstyled checkbox primitive wrapping zag-js. Supports checked, unchecked, and indeterminate states."
+>
+# Checkbox
+
+An unstyled checkbox primitive wrapping <code>@zag-js/checkbox</code>.
+
+## Installation
+
+```bash
+pnpm add @transitionsag/primitives/checkbox
+```
+
+## Usage
+
+```tsx
+import { Checkbox } from "@transitionsag/primitives/checkbox";
+
+<Checkbox id="terms">
+  <Checkbox.Control>
+    <Checkbox.Indicator>✓</Checkbox.Indicator>
+  </Checkbox.Control>
+  <Checkbox.Label>Accept terms</Checkbox.Label>
+  <Checkbox.HiddenInput />
+</Checkbox>
+```
+
+## Compound Components
+
+<DocsTable columns={["Part", "Default Element", "Description"]} rows={compoundRows} />
+
+## API
+
+<DocsTable columns={["Prop", "Type", "Default"]} rows={apiRows} />
+
+## Data Attributes
+
+Root and Control expose a `data-state` attribute with values `checked`, `unchecked`, or `indeterminate` for conditional styling.
+</DocsPage>

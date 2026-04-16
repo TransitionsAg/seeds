@@ -1,3 +1,91 @@
 @import "@transitionsag/bloom/theme.css";
 @import "tailwindcss";
 @import "@transitionsag/bloom/styles.css";
+
+@layer components {
+  .docs-content {
+    color: var(--color-foreground);
+    display: grid;
+    gap: 1.25rem;
+    color-scheme: light;
+  }
+
+  .docs-content > :where(h1) {
+    @apply text-4xl font-extrabold tracking-tight leading-tight text-foreground scroll-mt-28;
+  }
+
+  .docs-content > :where(h2) {
+    @apply mt-6 text-3xl font-extrabold tracking-tight leading-tight text-foreground scroll-mt-28;
+  }
+
+  .docs-content > :where(h3) {
+    @apply mt-5 text-2xl font-extrabold tracking-tight leading-tight text-foreground scroll-mt-28;
+  }
+
+  .docs-content > :where(h4) {
+    @apply mt-4 text-xl font-extrabold tracking-tight leading-tight text-foreground scroll-mt-28;
+  }
+
+  .docs-content > :where(p) {
+    @apply text-base leading-7 text-foreground;
+  }
+
+  .docs-content :where(a) {
+    @apply text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary;
+  }
+
+  .docs-content :where(code) {
+    @apply font-mono text-[0.875em];
+  }
+
+  .docs-content :where(p code, li code, td code, th code, blockquote code) {
+    @apply rounded bg-secondary px-1 py-0.5 text-foreground;
+  }
+
+  .docs-content :where(pre) {
+    @apply overflow-x-auto rounded-2xl border border-border/70 bg-secondary p-4 text-sm shadow-none;
+  }
+
+  .docs-content :where(pre code) {
+    @apply bg-transparent px-0 py-0 text-inherit;
+  }
+
+  .docs-content :where(figure[data-rehype-pretty-code-figure]) {
+    @apply my-0;
+  }
+
+  .docs-content :where(figure[data-rehype-pretty-code-figure] > pre) {
+    @apply my-0;
+  }
+
+  .docs-content :where(ul) {
+    @apply list-disc pl-6;
+  }
+
+  .docs-content :where(ol) {
+    @apply list-decimal pl-6;
+  }
+
+  .docs-content :where(li) {
+    @apply text-base leading-7 text-foreground;
+  }
+
+  .docs-content :where(blockquote) {
+    @apply border-l-4 border-border pl-4 text-caption;
+  }
+
+  .docs-content :where(hr) {
+    @apply border-border;
+  }
+
+  .docs-content :where(img) {
+    @apply rounded-2xl border border-border/70;
+  }
+
+}
+
+@layer base {
+  body {
+    color-scheme: light;
+  }
+}

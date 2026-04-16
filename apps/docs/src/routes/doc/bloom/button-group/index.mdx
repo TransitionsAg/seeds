@@ -1,0 +1,76 @@
+import { ButtonGroup } from "@transitionsag/bloom/button-group";
+import { DocsExample, DocsPage, DocsTable, codeCell as c } from "~/components/docs";
+
+export const partRows = [
+  [c("ButtonGroup.Root"), c("div"), "Grouped layout container that shares button defaults through context."],
+  [c("ButtonGroup.Item"), c("button"), "Styled button item. Inherits intent and size from the root."],
+  [c("ButtonGroup.variants"), c("cva"), "Exported variant recipe for extending the group layout."],
+];
+
+export const propRows = [
+  [c("orientation"), c('"horizontal" | "vertical"'), "Controls the item layout direction."],
+  [c("intent"), c("Button intent"), "Shared button intent forwarded to each item."],
+  [c("size"), c("Button size"), "Shared button size forwarded to each item."],
+  [c("class"), c("string"), "Additional CSS classes merged via twMerge."],
+];
+
+<DocsPage
+  section="bloom"
+  title="Button Group"
+  description="Layout-only grouped button wrapper with shared button defaults and orientation control."
+>
+# Button Group
+
+Layout-only grouped button wrapper.
+
+## Usage
+
+```tsx
+import { ButtonGroup } from "@transitionsag/bloom/button-group";
+import "@transitionsag/bloom/styles.css";
+
+<ButtonGroup orientation="horizontal" intent="secondary" size="sm">
+  <ButtonGroup.Item>Left</ButtonGroup.Item>
+  <ButtonGroup.Item>Center</ButtonGroup.Item>
+  <ButtonGroup.Item>Right</ButtonGroup.Item>
+</ButtonGroup>
+
+<ButtonGroup orientation="vertical">
+  <ButtonGroup.Item>One</ButtonGroup.Item>
+  <ButtonGroup.Item>Two</ButtonGroup.Item>
+  <ButtonGroup.Item>Three</ButtonGroup.Item>
+</ButtonGroup>
+```
+
+## Preview
+
+<DocsExample>
+  <div class="flex flex-col gap-6">
+    <div>
+      <h3 class="mb-3 text-base font-semibold">Horizontal</h3>
+      <ButtonGroup orientation="horizontal" intent="secondary" size="sm">
+        <ButtonGroup.Item>Left</ButtonGroup.Item>
+        <ButtonGroup.Item>Center</ButtonGroup.Item>
+        <ButtonGroup.Item>Right</ButtonGroup.Item>
+      </ButtonGroup>
+    </div>
+
+    <div>
+      <h3 class="mb-3 text-base font-semibold">Vertical</h3>
+      <ButtonGroup orientation="vertical" intent="secondary" size="sm">
+        <ButtonGroup.Item>Day</ButtonGroup.Item>
+        <ButtonGroup.Item>Week</ButtonGroup.Item>
+        <ButtonGroup.Item>Month</ButtonGroup.Item>
+      </ButtonGroup>
+    </div>
+  </div>
+</DocsExample>
+
+## Parts
+
+<DocsTable columns={["Part", "Element", "Description"]} rows={partRows} />
+
+## Props
+
+<DocsTable columns={["Prop", "Type", "Description"]} rows={propRows} />
+</DocsPage>

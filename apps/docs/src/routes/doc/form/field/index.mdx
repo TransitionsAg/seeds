@@ -1,0 +1,53 @@
+import { DocsPage, DocsTable, codeCell as c } from "~/components/docs";
+
+export const partRows = [
+  [c("Label"), "Field label, linked via htmlFor"],
+  [c("Input"), "Bound input element (auto-detects type)"],
+  [c("Error"), "Displays validation errors for the field"],
+];
+
+<DocsPage
+  section="form"
+  title="Field"
+  description="Compound field component returned by useFormComponents. Use with Field.Label, Field.Input, Field.Error, and more."
+>
+# Field
+
+Compound field component returned by `useFormComponents`.
+
+## Usage
+
+```tsx
+function LoginForm() {
+  const form = useForm({
+    initialValues: { email: "" },
+    onSubmit: (value) => console.log(value),
+  });
+  const { Form, Field } = useFormComponents(form);
+
+  return (
+    <Form>
+      <Field name="email">
+        <Field.Label>Email</Field.Label>
+        <Field.Input type="email" />
+        <Field.Error />
+      </Field>
+    </Form>
+  );
+}
+```
+
+## Compound Parts
+
+<DocsTable columns={["Part", "Description"]} rows={partRows} />
+
+## Nested Paths
+
+```tsx
+<Field name="address.street">
+  <Field.Label>Street</Field.Label>
+  <Field.Input />
+  <Field.Error />
+</Field>
+```
+</DocsPage>

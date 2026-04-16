@@ -2,7 +2,7 @@ import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { type JSX, Suspense } from "solid-js";
 import { A } from "@solidjs/router";
-import { Title, Meta, MetaProvider } from "@solidjs/meta";
+import { MetaProvider } from "@solidjs/meta";
 import { Branding, Button } from "@transitionsag/bloom";
 import { GithubLogoIcon } from "@transitionsag/phosphor-solid/github-logo";
 import { FacehashProvider } from "@transitionsag/facehash-solid";
@@ -24,27 +24,22 @@ export default function App(): JSX.Element {
                 },
               }}
             >
-              <div class="min-h-screen flex flex-col">
-                <Title>Seeds — SolidJS UI</Title>
-                <Meta
-                  name="description"
-                  content="SolidJS UI from seed to bloom. Headless primitives, type-safe forms, and styled components."
-                />
+              <div class="min-h-screen flex flex-col bg-background text-foreground">
                 <header class="border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-10">
-                  <div class="max-w-[1400px] mx-auto px-8 py-4 flex items-center justify-between">
-                    <A href="/" class="flex items-center gap-2">
-                      <span class="text-2xl">🌱</span>
-                      <span class="typo-h4">Seeds</span>
+                  <div class="max-w-[1400px] mx-auto px-6 sm:px-8 py-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <A href="/" class="flex items-center gap-3" aria-label="Seeds home">
+                      <span class="size-3 rounded-full bg-primary shadow-[0_0_20px_rgba(39,99,235,0.35)]" />
+                      <span class="typo-h4 tracking-tight">Seeds</span>
                     </A>
-                    <nav class="flex items-center gap-3">
+                    <nav class="flex flex-wrap items-center gap-2 sm:gap-3" aria-label="Primary">
                       <Button as={A} href="/doc/primitives" intent="link" size="fit">
-                        🌱 Primitives
+                        Primitives
                       </Button>
                       <Button as={A} href="/doc/form" intent="link" size="fit">
-                        📋 Form
+                        Form
                       </Button>
                       <Button as={A} href="/doc/bloom" intent="link" size="fit">
-                        🌸 Bloom
+                        Bloom
                       </Button>
                       <Button
                         as="a"

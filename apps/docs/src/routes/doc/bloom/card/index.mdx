@@ -1,0 +1,129 @@
+import { Button, Card } from "@transitionsag/bloom";
+import { DocsExample, DocsPage, DocsTable, codeCell as c } from "~/components/docs";
+
+export const partRows = [
+  [c("Card.Root"), c("div"), "Polymorphic container. Ring border, background, flex column with gap-4."],
+  [c("Card.Header"), c("div"), "Groups title and description with space-y-1."],
+  [c("Card.Title"), c("h3"), "Card heading using typo-h4."],
+  [c("Card.Description"), c("p"), "Secondary text using typo-span text-caption."],
+  [c("Card.Content"), c("div"), "Unstyled container for body content."],
+  [c("Card.Footer"), c("div"), "Flex row, right-justified. For actions and buttons."],
+];
+
+export const propRows = [
+  [c("as"), c("ValidComponent"), c('"div"')],
+  [c("class"), c("string"), "Additional CSS classes merged via twMerge."],
+];
+
+<DocsPage
+  section="bloom"
+  title="Card"
+  description="A container for grouping related content. Supports polymorphism with header, content, and footer sub-components."
+>
+# Card
+
+A container for grouping related content.
+
+## Usage
+
+```tsx
+import { Card, Button } from "@transitionsag/bloom";
+import "@transitionsag/bloom/styles.css";
+
+<Card>
+  <Card.Header>
+    <Card.Title>Card Title</Card.Title>
+    <Card.Description>Card description goes here.</Card.Description>
+  </Card.Header>
+  <Card.Content>
+    <p>Card body content.</p>
+  </Card.Content>
+  <Card.Footer>
+    <Button intent="secondary">Cancel</Button>
+    <Button>Confirm</Button>
+  </Card.Footer>
+</Card>
+```
+
+## Preview
+
+<DocsExample>
+  <div class="flex flex-col gap-6">
+    <div class="max-w-sm">
+      <h3 class="mb-3 text-base font-semibold">Default</h3>
+      <Card>
+        <Card.Header>
+          <Card.Title>Notification Settings</Card.Title>
+          <Card.Description>Manage how you receive notifications.</Card.Description>
+        </Card.Header>
+        <Card.Content>
+          <p class="typo-p">You will receive email notifications for important updates.</p>
+        </Card.Content>
+        <Card.Footer>
+          <Button intent="secondary">Cancel</Button>
+          <Button>Save</Button>
+        </Card.Footer>
+      </Card>
+    </div>
+
+    <div class="max-w-sm">
+      <h3 class="mb-3 text-base font-semibold">Title and Description Only</h3>
+      <Card>
+        <Card.Header>
+          <Card.Title>Team Plan</Card.Title>
+          <Card.Description>Collaborate with up to 10 team members.</Card.Description>
+        </Card.Header>
+      </Card>
+    </div>
+
+    <div class="max-w-sm">
+      <h3 class="mb-3 text-base font-semibold">Polymorphic</h3>
+      <Card as="section">
+        <Card.Header>
+          <Card.Title>As Section</Card.Title>
+          <Card.Description>Rendered as a semantic &lt;section&gt; element.</Card.Description>
+        </Card.Header>
+        <Card.Content>
+          <p class="typo-p">
+            This card uses the <code class="font-mono text-sm bg-secondary px-1 rounded">as</code> prop.
+          </p>
+        </Card.Content>
+      </Card>
+    </div>
+
+    <div class="max-w-sm">
+      <h3 class="mb-3 text-base font-semibold">Sizes</h3>
+      <div class="flex flex-col gap-4">
+        <Card size="normal">
+          <Card.Header>
+            <Card.Title>Normal</Card.Title>
+            <Card.Description>px-5 py-4</Card.Description>
+          </Card.Header>
+        </Card>
+        <Card size="sm">
+          <Card.Header>
+            <Card.Title>Small</Card.Title>
+            <Card.Description>px-4 py-3</Card.Description>
+          </Card.Header>
+        </Card>
+        <Card size="fit">
+          <Card.Header>
+            <Card.Title>Fit</Card.Title>
+            <Card.Description>px-3 py-2</Card.Description>
+          </Card.Header>
+        </Card>
+      </div>
+    </div>
+  </div>
+</DocsExample>
+
+## Parts
+
+<DocsTable columns={["Part", "Element", "Description"]} rows={partRows} />
+
+## Props
+
+<DocsTable columns={["Prop", "Type", "Description"]} rows={propRows} />
+
+All other parts (`Header`, `Title`, `Description`, `Content`, `Footer`) accept native props for their respective elements plus a `class` prop.
+</DocsPage>

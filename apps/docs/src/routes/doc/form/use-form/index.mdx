@@ -1,0 +1,52 @@
+import { DocsPage, DocsTable, codeCell as c } from "~/components/docs";
+
+export const parameterRows = [
+  [c("initialValues"), c("T"), "No"],
+  [c("resolver"), c("Resolver<T>"), "No"],
+  [c("onSubmit"), c("SubmitHandler<T>"), "Yes"],
+  [c("mode"), c('"onChange" | "onBlur" | "onSubmit"'), "No"],
+];
+
+export const returnRows = [
+  [c("values"), "Current form values (reactive store proxy)"],
+  [c("errors"), "Per-field validation errors"],
+  [c("state"), "Lifecycle state: isSubmitting, isDirty, isTouched, isValid, submitCount"],
+  [c("setValues"), "Raw setter for values (does not trigger validation)"],
+  [c("setErrors"), "Raw setter for errors"],
+  [c("binding"), "Creates a Binding for a field at a given key path"],
+  [c("submit()"), "Trigger submission (validates first)"],
+  [c("trigger()"), "Manually trigger validation for fields or entire form"],
+  [c("reset()"), "Restore to initial values"],
+];
+
+<DocsPage
+  section="form"
+  title="useForm"
+  description="Creates a reactive form backed by a single SolidJS store. Returns values, errors, state, and actions."
+>
+# useForm
+
+Creates a reactive form backed by a single SolidJS store. Use `useFormComponents` to get `Form` and `Field` components wired to the form instance.
+
+## Usage
+
+```tsx
+import { useForm, useFormComponents } from "@transitionsag/form";
+
+const form = useForm({
+  initialValues: { email: "", password: "" },
+  onSubmit: (value) => console.log(value),
+});
+
+const { values, errors, state, submit, reset } = form;
+const { Form, Field } = useFormComponents(form);
+```
+
+## Parameters
+
+<DocsTable columns={["Prop", "Type", "Required"]} rows={parameterRows} />
+
+## Return
+
+<DocsTable columns={["Property", "Description"]} rows={returnRows} />
+</DocsPage>

@@ -1,0 +1,86 @@
+import { DocsExample, DocsPage, DocsTable } from "~/components/docs";
+import { PrimitiveTreeViewPreview } from "~/components/docs/previews/primitives-tree-view-preview.tsx";
+import { codeCell as c } from "~/components/docs";
+
+export const compoundRows = [
+  [c("Root"), "Tree container"],
+  [c("Label"), "Accessible label"],
+  [c("Tree"), "Tree list container"],
+  [c("Item.Root"), "Leaf node"],
+  [c("Item.Text"), "Item label text"],
+  [c("Branch.Root"), "Expandable node"],
+  [c("Branch.Control"), "Branch interactive area"],
+  [c("Branch.Trigger"), "Expand/collapse toggle"],
+  [c("Branch.Content"), "Collapsible children container"],
+  [c("Branch.Indicator"), "Expand/collapse icon"],
+  [c("Branch.IndentGuide"), "Visual indentation line"],
+];
+
+<DocsPage
+  section="primitives"
+  title="Tree View Primitive"
+  description="A tree view primitive for hierarchical navigation, built on zag-js."
+>
+# Tree View
+
+A tree view primitive for hierarchical navigation, built on zag-js.
+
+## Installation
+
+```tsx
+import { TreeView, collection } from "@transitionsag/primitives/tree-view";
+```
+
+## Usage
+
+```tsx
+const coll = collection({
+  rootNode: { children: [{ name: "Item" }] },
+  nodeToValue: (node) => node.name,
+  nodeToString: (node) => node.name,
+});
+
+function TreeNode({ node, indexPath }) {
+  return (
+    <Show
+      when={node.children?.length}
+      fallback={
+        <TreeView.Item node={node} indexPath={indexPath}>
+          <TreeView.Item.Text>{node.name}</TreeView.Item.Text>
+        </TreeView.Item>
+      }
+    >
+      <TreeView.Branch node={node} indexPath={indexPath}>
+        <TreeView.Branch.Control>
+          <TreeView.Branch.Trigger />
+          <TreeView.Branch.Text>{node.name}</TreeView.Branch.Text>
+        </TreeView.Branch.Control>
+        <TreeView.Branch.Content>
+          <For each={node.children}>
+            {(child, i) => <TreeNode node={child} indexPath={[...indexPath, i()]} />}
+          </For>
+        </TreeView.Branch.Content>
+      </TreeView.Branch>
+    </Show>
+  );
+}
+
+<TreeView id="nav" collection={coll}>
+  <TreeView.Tree>
+    <For each={coll.rootNode.children}>
+      {(node, i) => <TreeNode node={node} indexPath={[i()]} />}
+    </For>
+  </TreeView.Tree>
+</TreeView>
+```
+
+## Compound Components
+
+<DocsTable columns={["Part", "Description"]} rows={compoundRows} />
+
+## Preview
+
+<DocsExample>
+  <PrimitiveTreeViewPreview />
+</DocsExample>
+</DocsPage>

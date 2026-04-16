@@ -1,5 +1,5 @@
 import { Navigate } from "@solidjs/router";
 
 export default function DocIndex() {
-  return <Navigate href="/" />;
+  return <Navigate href="/doc/primitives" />;
 }

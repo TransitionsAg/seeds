@@ -1,0 +1,30 @@
+import { DocsPage, DocsTable, codeCell as c } from "~/components/docs";
+
+export const utilityRows = [
+  [c("hasErrors(errors)"), "Returns true if any field has errors"],
+  [c("initErrors(values)"), "Creates an empty errors object matching the shape of values"],
+];
+
+<DocsPage
+  section="form"
+  title="Errors"
+  description="The FormErrors type and utilities for working with per-field validation errors."
+>
+# Errors
+
+The `FormErrors` type and utilities for working with per-field validation errors.
+
+## FormErrors
+
+Errors are represented as `string[] | null` per field. Nested objects mirror the shape of your form values.
+
+```ts
+type FormErrors<T> = {
+  [K in keyof T]: T[K] extends object ? FormErrors<T[K]> : string[] | null;
+};
+```
+
+## Utilities
+
+<DocsTable columns={["Function", "Description"]} rows={utilityRows} />
+</DocsPage>

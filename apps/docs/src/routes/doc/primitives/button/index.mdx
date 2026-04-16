@@ -1,0 +1,46 @@
+import { Button } from "@transitionsag/primitives/button";
+import { DocsExample, DocsPage, DocsTable, codeCell as c } from "~/components/docs";
+
+export const apiRows = [[c("as"), c("ValidComponent"), c('"button"')]];
+
+<DocsPage
+  section="primitives"
+  title="Button Primitive"
+  description="An unstyled button primitive with polymorphic support for SolidJS."
+>
+# Button
+
+An unstyled button primitive with polymorphic support.
+
+## Installation
+
+```bash
+pnpm add @transitionsag/primitives/button
+```
+
+## Usage
+
+```tsx
+import { Button } from "@transitionsag/primitives/button";
+
+<Button>Click me</Button>
+<Button as="a" href="/link">
+  As a link
+</Button>
+```
+
+## API
+
+<DocsTable columns={["Prop", "Type", "Default"]} rows={apiRows} />
+
+## Preview
+
+<DocsExample>
+  <div class="flex flex-wrap gap-4">
+    <Button>Default</Button>
+    <Button as="a" href="#">
+      As anchor
+    </Button>
+  </div>
+</DocsExample>
+</DocsPage>

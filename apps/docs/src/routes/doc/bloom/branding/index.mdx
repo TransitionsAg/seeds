@@ -1,0 +1,82 @@
+import { Branding } from "@transitionsag/bloom";
+import { DocsExample, DocsPage, DocsTable, codeCell as c } from "~/components/docs";
+
+export const tokenRows = [
+  [c("primary"), c("--color-primary")],
+  [c("primary-accent"), c("--color-primary-accent")],
+  [c("primary-foreground"), c("--color-primary-foreground")],
+  [c("secondary"), c("--color-secondary")],
+  [c("secondary-accent"), c("--color-secondary-accent")],
+  [c("secondary-foreground"), c("--color-secondary-foreground")],
+  [c("border"), c("--color-border")],
+  [c("background"), c("--color-background")],
+  [c("foreground"), c("--color-foreground")],
+  [c("destructive"), c("--color-destructive")],
+  [c("destructive-accent"), c("--color-destructive-accent")],
+  [c("destructive-foreground"), c("--color-destructive-foreground")],
+];
+
+<DocsPage
+  section="bloom"
+  title="Branding"
+  description="Theme context for runtime color customization using CSS custom properties in SolidJS."
+>
+# Branding
+
+Theme context for runtime color customization. Wrap children in a div with CSS custom properties derived from the theme object.
+
+## Usage
+
+```tsx
+import { Branding } from "@transitionsag/bloom";
+
+<Branding
+  theme={{
+    primary: "#3b82f6",
+    "primary-accent": "#2563eb",
+    background: "#ffffff",
+    foreground: "#111827",
+  }}
+>
+  {children}
+</Branding>
+```
+
+## Theme Tokens
+
+<DocsTable columns={["Token", "CSS Variable"]} rows={tokenRows} />
+
+## useBranding Hook
+
+```tsx
+import { Branding } from "@transitionsag/bloom";
+
+const theme = Branding.useBranding();
+```
+
+## Preview
+
+<DocsExample>
+  <Branding
+    theme={{
+      primary: "#3b82f6",
+      "primary-accent": "#2563eb",
+      "primary-foreground": "#ffffff",
+      secondary: "#f3f4f6",
+      "secondary-accent": "#e5e7eb",
+      "secondary-foreground": "#374151",
+      border: "#d1d5db",
+      background: "#ffffff",
+      foreground: "#111827",
+      destructive: "#ef4444",
+      "destructive-accent": "#dc2626",
+      "destructive-foreground": "#ffffff",
+    }}
+  >
+    <div class="rounded border border-border p-4">
+      <p class="text-foreground">Themed content here</p>
+      <div class="mt-2 size-8 rounded bg-[var(--color-primary)]" />
+    </div>
+  </Branding>
+</DocsExample>
+</DocsPage>

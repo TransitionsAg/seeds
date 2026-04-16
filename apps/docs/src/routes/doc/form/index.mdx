@@ -1,0 +1,45 @@
+import { DocsPage, DocsSectionGrid } from "~/components/docs";
+
+<DocsPage
+  section="form"
+  title="Form"
+  description="Reactive form state with binding, validation, and compound fields for SolidJS."
+>
+# Form
+
+The form package keeps state reactive, validation explicit, and field composition ergonomic.
+
+## Quick Start
+
+```tsx
+import { useForm, useFormComponents } from "@transitionsag/form";
+
+function LoginForm() {
+  const form = useForm({
+    initialValues: { email: "", password: "" },
+    onSubmit: (value) => console.log(value),
+  });
+  const { Form, Field } = useFormComponents(form);
+
+  return (
+    <Form>
+      <Field name="email">
+        <Field.Label>Email</Field.Label>
+        <Field.Input type="email" />
+        <Field.Error />
+      </Field>
+      <Field name="password">
+        <Field.Label>Password</Field.Label>
+        <Field.Input type="password" />
+        <Field.Error />
+      </Field>
+      <button type="submit">Submit</button>
+    </Form>
+  );
+}
+```
+
+## Sections
+
+<DocsSectionGrid section="form" />
+</DocsPage>

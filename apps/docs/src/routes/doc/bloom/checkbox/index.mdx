@@ -1,0 +1,86 @@
+import { Checkbox } from "@transitionsag/bloom/checkbox";
+import { DocsExample, DocsPage, DocsTable, codeCell as c } from "~/components/docs";
+
+export const propRows = [
+  [c("id"), c("string"), "Required. Unique identifier."],
+  [c("children"), c("JSX.Element"), "Label text rendered inside the checkbox."],
+  [c("name"), c("string"), "Forwarded to hidden input for form submission."],
+  [c("value"), c("string"), "Forwarded to hidden input."],
+  [c("checked"), c('boolean | "indeterminate"'), "Controlled checked state."],
+  [c("defaultChecked"), c('boolean | "indeterminate"'), "Uncontrolled initial state."],
+  [c("disabled"), c("boolean"), "Disables the checkbox."],
+  [c("invalid"), c("boolean"), "Shows destructive ring state."],
+  [c("onCheckedChange"), c("(details) => void"), "Callback when checked state changes."],
+  [c("class"), c("string"), "Additional CSS classes merged via twMerge."],
+];
+
+<DocsPage
+  section="bloom"
+  title="Checkbox"
+  description="A self-contained styled checkbox wrapping all primitive parts into a single callable component."
+>
+# Checkbox
+
+A self-contained styled checkbox. It wraps all primitive parts into a single callable component.
+
+## Usage
+
+```tsx
+import { Checkbox } from "@transitionsag/bloom/checkbox";
+import "@transitionsag/bloom/styles.css";
+
+<Checkbox id="terms" name="terms" value="yes">
+  Accept terms
+</Checkbox>
+<Checkbox id="newsletter" name="newsletter" value="yes" defaultChecked>
+  Subscribe
+</Checkbox>
+<Checkbox id="confirm" name="confirm" value="yes" disabled>
+  Disabled
+</Checkbox>
+```
+
+## Preview
+
+<DocsExample>
+  <div class="flex flex-col gap-6">
+    <div>
+      <h3 class="mb-3 text-base font-semibold">States</h3>
+      <div class="flex flex-col gap-3">
+        <Checkbox id="bloom-unchecked" name="state" value="unchecked">
+          Unchecked
+        </Checkbox>
+        <Checkbox id="bloom-checked" name="state" value="checked" defaultChecked>
+          Checked
+        </Checkbox>
+        <Checkbox
+          id="bloom-indeterminate"
+          name="state"
+          value="indeterminate"
+          defaultChecked="indeterminate"
+        >
+          Indeterminate
+        </Checkbox>
+        <Checkbox id="bloom-disabled" name="state" value="disabled" disabled>
+          Disabled
+        </Checkbox>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="mb-3 text-base font-semibold">Invalid</h3>
+      <Checkbox id="bloom-invalid" name="state" value="invalid" invalid>
+        Invalid
+      </Checkbox>
+    </div>
+  </div>
+</DocsExample>
+
+## Props
+
+<DocsTable columns={["Prop", "Type", "Description"]} rows={propRows} />
+
+## Data Attributes
+
+`Root` and `Control` expose a `data-state` attribute with values `checked`, `unchecked`, or `indeterminate` for conditional styling.
+</DocsPage>

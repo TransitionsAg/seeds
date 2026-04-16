@@ -1,0 +1,51 @@
+import { Polymorphic } from "@transitionsag/primitives/polymorphic";
+import { DocsExample, DocsPage, DocsTable, codeCell as c } from "~/components/docs";
+
+export const apiRows = [[c("as"), c("ValidComponent"), c('"div"')]];
+
+<DocsPage
+  section="primitives"
+  title="Polymorphic Primitive"
+  description="A generic polymorphic component that renders as any HTML element or custom component via the as prop."
+>
+# Polymorphic
+
+A generic polymorphic component that renders as any HTML element or custom component via the `as` prop.
+
+## Installation
+
+```tsx
+import { Polymorphic } from "@transitionsag/primitives/polymorphic";
+```
+
+## Usage
+
+```tsx
+import { Polymorphic } from "@transitionsag/primitives/polymorphic";
+
+<Polymorphic as="a" href="/home">
+  Home
+</Polymorphic>
+<Polymorphic as="button" type="submit">
+  Send
+</Polymorphic>
+<Polymorphic as={MyComponent} custom="prop" />
+```
+
+## API
+
+<DocsTable columns={["Prop", "Type", "Default"]} rows={apiRows} />
+
+## Preview
+
+<DocsExample>
+  <div class="flex flex-wrap gap-4">
+    <Polymorphic as="button" class="rounded border border-border px-4 py-2">
+      As button
+    </Polymorphic>
+    <Polymorphic as="a" href="#" class="rounded border border-border px-4 py-2">
+      As link
+    </Polymorphic>
+  </div>
+</DocsExample>
+</DocsPage>

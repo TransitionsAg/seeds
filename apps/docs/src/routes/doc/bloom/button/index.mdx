@@ -1,0 +1,54 @@
+import { Button } from "@transitionsag/bloom";
+import { DocsExample, DocsPage, DocsTable, codeCell as c } from "~/components/docs";
+
+export const variantRows = [
+  [c("primary"), c("bg-primary"), c("bg-primary-accent"), c("text-primary-foreground")],
+  [c("secondary"), c("bg-secondary"), c("bg-secondary-accent"), c("text-secondary-foreground")],
+  [c("destructive"), c("bg-destructive"), c("bg-destructive-accent"), c("text-destructive-foreground")],
+];
+
+export const sizeRows = [
+  [c("sm"), c("px-5 py-3, text-sm")],
+  [c("md"), c("px-5 py-3 (default)")],
+  [c("lg"), c("px-5 py-3, text-lg")],
+  [c("square"), c("p-2, size-10")],
+];
+
+<DocsPage
+  section="bloom"
+  title="Button"
+  description="Styled button variants built on the primitives layer with CVA theming for SolidJS."
+>
+# Button
+
+Styled button variants built on the primitives layer.
+
+## Usage
+
+```tsx
+import { Button } from "@transitionsag/bloom";
+import "@transitionsag/bloom/styles.css";
+
+<Button>Default</Button>
+<Button intent="secondary">Secondary</Button>
+<Button intent="destructive">Destructive</Button>
+```
+
+## Preview
+
+<DocsExample>
+  <div class="flex flex-wrap gap-4">
+    <Button>Primary</Button>
+    <Button intent="secondary">Secondary</Button>
+    <Button intent="destructive">Destructive</Button>
+  </div>
+</DocsExample>
+
+## Variants
+
+<DocsTable columns={["Variant", "Background", "Hover", "Text"]} rows={variantRows} />
+
+## Sizes
+
+<DocsTable columns={["Size", "Padding"]} rows={sizeRows} />
+</DocsPage>

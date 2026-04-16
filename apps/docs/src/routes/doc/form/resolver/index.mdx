@@ -1,0 +1,41 @@
+import { DocsPage, DocsTable, codeCell as c } from "~/components/docs";
+
+export const resolverRows = [
+  [c("validate(path, value)"), "Validate a single field. Returns errors or Promise."],
+  [c("validateAll(values)"), "Validate the entire form. Returns FormErrors."],
+  [c("attrs(path)"), "HTML constraint attributes (required, min, max, etc.)."],
+];
+
+<DocsPage
+  section="form"
+  title="Resolver"
+  description="Schema validation adapters. The form package ships with a Zod resolver out of the box."
+>
+# Resolver
+
+Schema validation adapters for `useForm`.
+
+## Zod Resolver
+
+```tsx
+import { useForm, useFormComponents } from "@transitionsag/form";
+import { zodResolver } from "@transitionsag/form/resolver/zod";
+import * as z from "zod/v4/mini";
+
+const schema = z.object({
+  email: z.email(),
+  password: z.string().check(z.minLength(8)),
+});
+
+const form = useForm({
+  initialValues: { email: "", password: "" },
+  resolver: zodResolver(schema),
+  onSubmit: (value) => console.log(value),
+});
+const { Form, Field } = useFormComponents(form);
+```
+
+## Resolver Interface
+
+<DocsTable columns={["Method", "Description"]} rows={resolverRows} />
+</DocsPage>

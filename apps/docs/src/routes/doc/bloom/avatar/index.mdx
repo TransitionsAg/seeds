@@ -1,0 +1,69 @@
+import { Avatar } from "@transitionsag/bloom/avatar";
+import { DocsExample, DocsPage, DocsTable, codeCell as c } from "~/components/docs";
+
+export const partRows = [
+  [c("Avatar.Root"), c("div"), "Styled avatar container with image and fallback content."],
+  [c("Avatar.variants"), c("cva"), "Exported variant recipe for extending the avatar styles."],
+];
+
+export const propRows = [
+  [c("name"), c("string"), "Used for fallback content when no image is shown."],
+  [c("alt"), c("string"), "Image alt text and fallback source."],
+  [c("src"), c("string"), "Optional image source."],
+  [c("class"), c("string"), "Additional CSS classes merged via twMerge."],
+];
+
+<DocsPage
+  section="bloom"
+  title="Avatar"
+  description="Self-contained avatar component with image and fallback content built on Bloom primitives."
+>
+# Avatar
+
+Self-contained avatar component with image and fallback content. Pass `name`, `alt`, and `src` directly to the root.
+
+## Usage
+
+```tsx
+import { Avatar } from "@transitionsag/bloom/avatar";
+import "@transitionsag/bloom/styles.css";
+
+<Avatar
+  name="Ada Lovelace"
+  alt="Ada Lovelace"
+  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160&h=160&fit=crop&crop=faces"
+/>
+<Avatar name="Grace Hopper" />
+```
+
+## Preview
+
+<DocsExample>
+  <div class="flex flex-wrap items-start gap-8">
+    <div class="flex flex-col items-center gap-2">
+      <Avatar
+        name="Ada Lovelace"
+        alt="Ada Lovelace"
+        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160&h=160&fit=crop&crop=faces"
+      />
+      <p class="text-sm text-muted-foreground">Image</p>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <Avatar name="Grace Hopper" />
+      <p class="text-sm text-muted-foreground">Name fallback</p>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <Avatar alt="Marie Curie" />
+      <p class="text-sm text-muted-foreground">Alt fallback</p>
+    </div>
+  </div>
+</DocsExample>
+
+## Parts
+
+<DocsTable columns={["Part", "Element", "Description"]} rows={partRows} />
+
+## Props
+
+<DocsTable columns={["Prop", "Type", "Description"]} rows={propRows} />
+</DocsPage>

@@ -1,0 +1,58 @@
+import { DocsExample, DocsPage, DocsTable } from "~/components/docs";
+import { BloomTreeViewPreview } from "~/components/docs/previews/bloom-tree-view-preview.tsx";
+import { codeCell as c } from "~/components/docs";
+
+export const compoundRows = [
+  [c("Root"), c("div"), "Tree container"],
+  [c("Label"), c("span"), "Accessible label"],
+  [c("Tree"), c("div"), "Tree list container"],
+  [c("Item.Root"), c("div"), "Leaf node"],
+  [c("Item.Text"), c("span"), "Item label text"],
+  [c("Branch.Root"), c("div"), "Expandable node"],
+  [c("Branch.Control"), c("div"), "Branch interactive area"],
+  [c("Branch.Trigger"), c("button"), "Expand/collapse toggle"],
+  [c("Branch.Content"), c("div"), "Collapsible children container"],
+  [c("Branch.Indicator"), c("div"), "Expand/collapse icon"],
+  [c("Branch.IndentGuide"), c("div"), "Visual indentation line"],
+];
+
+<DocsPage
+  section="bloom"
+  title="Tree View"
+  description="Styled tree view with CVA-based theming, built on the primitives layer for SolidJS."
+>
+# Tree View
+
+Styled tree view with CVA-based theming, built on the primitives layer.
+
+## Usage
+
+```tsx
+import { TreeView, collection } from "@transitionsag/bloom";
+import "@transitionsag/bloom/styles.css";
+
+const coll = collection({
+  rootNode: { children: [{ name: "Item" }] },
+  nodeToValue: (node) => node.name,
+  nodeToString: (node) => node.name,
+});
+
+<TreeView id="nav" collection={coll}>
+  <TreeView.Tree>
+    <TreeView.Item node={{ name: "Item" }} indexPath={[0]}>
+      <TreeView.Item.Text>Item</TreeView.Item.Text>
+    </TreeView.Item>
+  </TreeView.Tree>
+</TreeView>
+```
+
+## Preview
+
+<DocsExample>
+  <BloomTreeViewPreview />
+</DocsExample>
+
+## Compound Components
+
+<DocsTable columns={["Part", "Description"]} rows={compoundRows} />
+</DocsPage>
