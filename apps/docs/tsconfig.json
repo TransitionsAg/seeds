@@ -3,7 +3,19 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "@transitionsag/bloom": ["../../packages/bloom/src/index.tsx"],
+      "@transitionsag/bloom/*": ["../../packages/bloom/src/*"],
+      "@transitionsag/form": ["../../packages/form/src/index.ts"],
+      "@transitionsag/form/*": ["../../packages/form/src/*"],
+      "@transitionsag/primitives/avatar": ["../../packages/primitives/src/avatar/index.tsx"],
+      "@transitionsag/primitives/button": ["../../packages/primitives/src/button/index.tsx"],
+      "@transitionsag/primitives/checkbox": ["../../packages/primitives/src/checkbox/index.tsx"],
+      "@transitionsag/primitives/input": ["../../packages/primitives/src/input/index.tsx"],
+      "@transitionsag/primitives/polymorphic": [
+        "../../packages/primitives/src/polymorphic/index.tsx"
+      ],
+      "@transitionsag/primitives/tree-view": ["../../packages/primitives/src/tree-view/index.tsx"]
     }
   },
   "include": ["app.config.ts", "src"]
