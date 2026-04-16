@@ -81,7 +81,6 @@
   .docs-content :where(img) {
     @apply rounded-2xl border border-border/70;
   }
-
 }
 
 @layer base {

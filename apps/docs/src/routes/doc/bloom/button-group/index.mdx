@@ -2,8 +2,16 @@ import { ButtonGroup } from "@transitionsag/bloom/button-group";
 import { DocsExample, DocsPage, DocsTable, codeCell as c } from "~/components/docs";
 
 export const partRows = [
-  [c("ButtonGroup.Root"), c("div"), "Grouped layout container that shares button defaults through context."],
-  [c("ButtonGroup.Item"), c("button"), "Styled button item. Inherits intent and size from the root."],
+  [
+    c("ButtonGroup.Root"),
+    c("div"),
+    "Grouped layout container that shares button defaults through context.",
+  ],
+  [
+    c("ButtonGroup.Item"),
+    c("button"),
+    "Styled button item. Inherits intent and size from the root.",
+  ],
   [c("ButtonGroup.variants"), c("cva"), "Exported variant recipe for extending the group layout."],
 ];
 
@@ -63,6 +71,7 @@ import "@transitionsag/bloom/styles.css";
         <ButtonGroup.Item>Month</ButtonGroup.Item>
       </ButtonGroup>
     </div>
+
   </div>
 </DocsExample>
 

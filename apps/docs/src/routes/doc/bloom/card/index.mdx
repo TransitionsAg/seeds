@@ -2,7 +2,11 @@ import { Button, Card } from "@transitionsag/bloom";
 import { DocsExample, DocsPage, DocsTable, codeCell as c } from "~/components/docs";
 
 export const partRows = [
-  [c("Card.Root"), c("div"), "Polymorphic container. Ring border, background, flex column with gap-4."],
+  [
+    c("Card.Root"),
+    c("div"),
+    "Polymorphic container. Ring border, background, flex column with gap-4.",
+  ],
   [c("Card.Header"), c("div"), "Groups title and description with space-y-1."],
   [c("Card.Title"), c("h3"), "Card heading using typo-h4."],
   [c("Card.Description"), c("p"), "Secondary text using typo-span text-caption."],
@@ -42,7 +46,7 @@ import "@transitionsag/bloom/styles.css";
     <Button intent="secondary">Cancel</Button>
     <Button>Confirm</Button>
   </Card.Footer>
-</Card>
+</Card>;
 ```
 
 ## Preview
@@ -114,6 +118,7 @@ import "@transitionsag/bloom/styles.css";
         </Card>
       </div>
     </div>
+
   </div>
 </DocsExample>
 
@@ -126,4 +131,5 @@ import "@transitionsag/bloom/styles.css";
 <DocsTable columns={["Prop", "Type", "Description"]} rows={propRows} />
 
 All other parts (`Header`, `Title`, `Description`, `Content`, `Footer`) accept native props for their respective elements plus a `class` prop.
+
 </DocsPage>
