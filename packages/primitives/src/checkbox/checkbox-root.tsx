@@ -9,10 +9,9 @@ import {
   type ValidComponent,
   Accessor,
 } from "solid-js";
-import { Dynamic } from "solid-js/web";
 import { normalizeProps, PropTypes, useMachine } from "@zag-js/solid";
 import * as checkbox from "@zag-js/checkbox";
-import type { PolymorphicProps } from "../polymorphic/index.tsx";
+import { Polymorphic, type PolymorphicProps } from "../polymorphic/index.tsx";
 
 export type CheckboxApi = checkbox.Api<PropTypes>;
 
@@ -21,8 +20,10 @@ export const CheckboxApiContext: Context<Accessor<checkbox.Api<PropTypes>> | und
 export const useCheckboxApi = (): Accessor<checkbox.Api<PropTypes>> | undefined =>
   useContext(CheckboxApiContext)!;
 
-type CheckboxRootProps<T extends ValidComponent = "label"> = PolymorphicProps<T> &
-  checkbox.Props & { children: JSX.Element };
+type CheckboxRootProps<T extends ValidComponent = "label"> = PolymorphicProps<
+  T,
+  checkbox.Props & { children: JSX.Element }
+>;
 
 /**
  * Root component for the checkbox. Provides the zag-js checkbox machine context
@@ -42,17 +43,14 @@ type CheckboxRootProps<T extends ValidComponent = "label"> = PolymorphicProps<T>
 export function CheckboxRoot<T extends ValidComponent = "label">(
   rawProps: CheckboxRootProps<T>,
 ): JSX.Element {
-  const merged = mergeProps({ as: "label" as T }, rawProps);
-  const [local, rest] = splitProps(merged, ["children", "as"]);
-  const service = useMachine(checkbox.machine, rest);
+  const [local, machineProps] = splitProps(rawProps, ["children", "as"]);
+  const service = useMachine(checkbox.machine, machineProps);
   const api = createMemo(() => checkbox.connect(service, normalizeProps));
+  const props = mergeProps({ as: local.as ?? ("label" as T) }, machineProps, api().getRootProps());
 
   return (
     <CheckboxApiContext.Provider value={api}>
-      {/* @ts-ignore: Props are valid but not worth calculating */}
-      <Dynamic {...mergeProps(api().getRootProps(), rest)} component={local.as}>
-        {local.children}
-      </Dynamic>
+      <Polymorphic {...props}>{local.children}</Polymorphic>
     </CheckboxApiContext.Provider>
   );
 }

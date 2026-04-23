@@ -1,25 +1,29 @@
-import {
-  type ComponentProps,
-  type JSX,
-  mergeProps,
-  splitProps,
-  type ValidComponent,
-} from "solid-js";
+import { type ComponentProps, type JSX, splitProps, type ValidComponent } from "solid-js";
 import { Dynamic } from "solid-js/web";
 
 /**
- * Props for a polymorphic component that can render as any valid SolidJS component.
- *
- * @example
- * ```tsx
- * function Button<T extends ValidComponent = "button">(props: PolymorphicProps<T>) {
- *   return <Dynamic component={props.as || "button"} {...props} />
- * }
- * ```
+ * Override source props with a more specific prop shape.
  */
-export type PolymorphicProps<T extends ValidComponent> = {
+export type OverrideProps<SourceProps extends {}, OverrideProps extends {}> = Omit<
+  SourceProps,
+  keyof OverrideProps
+> &
+  OverrideProps;
+
+/**
+ * Props for a polymorphic component that can render as any valid SolidJS component.
+ */
+export type PolymorphicAttributes<T extends ValidComponent> = {
   as?: T;
-} & Omit<ComponentProps<T>, "as">;
+};
+
+/**
+ * Props used by a polymorphic component.
+ */
+export type PolymorphicProps<T extends ValidComponent, Props extends {} = {}> = OverrideProps<
+  ComponentProps<T>,
+  Props & PolymorphicAttributes<T>
+>;
 
 /**
  * A generic polymorphic component that renders as any HTML element or
@@ -33,11 +37,12 @@ export type PolymorphicProps<T extends ValidComponent> = {
  * <Polymorphic as={MyComponent} custom="prop" />
  * ```
  */
-function PolymorphicRoot<T extends ValidComponent = "div">(
-  rawProps: PolymorphicProps<T>,
-): JSX.Element {
-  const merged = mergeProps({ as: "div" as T }, rawProps);
-  const [local, others] = splitProps(merged, ["as"]);
+function PolymorphicRoot(props: { as: ValidComponent } & Record<string, unknown>): JSX.Element {
+  const [local, others] = splitProps(props, ["as"]);
+
+  if (!local.as) {
+    throw Error("Polymorphic component requires an `as` prop");
+  }
 
   // @ts-ignore: Props are valid but not worth calculating
   return <Dynamic {...others} component={local.as} />;

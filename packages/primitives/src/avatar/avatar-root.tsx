@@ -21,8 +21,10 @@ export const AvatarApiContext: Context<Accessor<AvatarApi> | undefined> = create
 >();
 export const useAvatarApi = (): Accessor<AvatarApi> | undefined => useContext(AvatarApiContext);
 
-type AvatarRootProps<T extends ValidComponent = "div"> = PolymorphicProps<T> &
-  Omit<avatar.Props, "id"> & { id?: string; children: JSX.Element };
+type AvatarRootProps<T extends ValidComponent = "div"> = PolymorphicProps<
+  T,
+  Omit<avatar.Props, "id"> & { id?: string; children: JSX.Element }
+>;
 
 /**
  * Root component for the avatar. Provides the zag-js avatar machine context
@@ -39,17 +41,19 @@ type AvatarRootProps<T extends ValidComponent = "div"> = PolymorphicProps<T> &
 export function AvatarRoot<T extends ValidComponent = "div">(
   rawProps: AvatarRootProps<T>,
 ): JSX.Element {
-  const merged = mergeProps({ as: "div" as T, id: createUniqueId() }, rawProps);
-  const [local, rest] = splitProps(merged, ["children", "as"]);
-  const service = useMachine(avatar.machine, rest);
+  const id = createUniqueId();
+  const [local, machineProps] = splitProps(rawProps, ["children", "as"]);
+  const service = useMachine(avatar.machine, mergeProps({ id }, machineProps));
   const api = createMemo(() => avatar.connect(service, normalizeProps));
+  const props = mergeProps(
+    { as: local.as ?? ("div" as T), id },
+    machineProps,
+    api().getRootProps(),
+  );
 
   return (
     <AvatarApiContext.Provider value={api}>
-      {/* @ts-ignore: polymorphic spread props are valid but too complex for TS */}
-      <Polymorphic {...mergeProps(api().getRootProps(), rest)} as={local.as}>
-        {local.children}
-      </Polymorphic>
+      <Polymorphic {...props}>{local.children}</Polymorphic>
     </AvatarApiContext.Provider>
   );
 }

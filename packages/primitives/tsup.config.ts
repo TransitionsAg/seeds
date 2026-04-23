@@ -6,6 +6,7 @@ const preset_options: preset.PresetOptions = {
     { name: "avatar", entry: "src/avatar/index.tsx", dev_entry: true },
     { name: "button", entry: "src/button/index.tsx", dev_entry: true },
     { name: "checkbox", entry: "src/checkbox/index.tsx", dev_entry: true },
+    { name: "combobox", entry: "src/combobox/index.tsx", dev_entry: true },
     { name: "polymorphic", entry: "src/polymorphic/index.tsx", dev_entry: true },
     { name: "input", entry: "src/input/index.tsx", dev_entry: true },
     { name: "tree-view", entry: "src/tree-view/index.tsx", dev_entry: true },

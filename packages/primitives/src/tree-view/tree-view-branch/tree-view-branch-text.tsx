@@ -1,6 +1,5 @@
-import { type JSX, mergeProps, splitProps, type ValidComponent } from "solid-js";
-import { Dynamic } from "solid-js/web";
-import type { PolymorphicProps } from "../../polymorphic/index.tsx";
+import { type JSX, mergeProps, type ValidComponent } from "solid-js";
+import { Polymorphic, type PolymorphicProps } from "../../polymorphic/index.tsx";
 import { useTreeViewApi, useTreeViewNode } from "../tree-view-root.tsx";
 
 /**
@@ -16,10 +15,7 @@ export function TreeViewBranchText<T extends ValidComponent = "span">(
 ): JSX.Element {
   const api = useTreeViewApi();
   const node = useTreeViewNode();
-  const merged = mergeProps({ as: "span" as T }, rawProps);
-  const [local, others] = splitProps(merged, ["as"]);
   return (
-    // @ts-ignore: polymorphic spread props are valid but too complex for TS
-    <Dynamic {...mergeProps(api().getBranchTextProps(node), others)} component={local.as} />
+    <Polymorphic {...mergeProps({ as: "span" as T }, api().getBranchTextProps(node), rawProps)} />
   );
 }

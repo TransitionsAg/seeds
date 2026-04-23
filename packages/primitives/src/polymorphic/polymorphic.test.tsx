@@ -5,8 +5,8 @@ import { Polymorphic } from "./polymorphic-root.tsx";
 afterEach(() => cleanup());
 
 describe("Polymorphic", () => {
-  it("renders a <div> by default", () => {
-    const { container } = render(() => <Polymorphic>Content</Polymorphic>);
+  it("renders the provided element", () => {
+    const { container } = render(() => <Polymorphic as="div">Content</Polymorphic>);
     expect(container.querySelector("div")).not.toBeNull();
     expect(container.querySelector("div")!.textContent).toBe("Content");
   });
@@ -42,7 +42,7 @@ describe("Polymorphic", () => {
 
   it("spreads extra props", () => {
     const { container } = render(() => (
-      <Polymorphic class="custom" data-testid="poly" id="root">
+      <Polymorphic as="div" class="custom" data-testid="poly" id="root">
         Test
       </Polymorphic>
     ));
@@ -61,5 +61,14 @@ describe("Polymorphic", () => {
     const el = container.querySelector("[data-card]");
     expect(el).not.toBeNull();
     expect(el!.textContent).toBe("Hello");
+  });
+
+  it("throws when as is missing", () => {
+    expect(() =>
+      render(() => {
+        // @ts-expect-error: runtime guard verifies missing `as`
+        return <Polymorphic>Missing</Polymorphic>;
+      }),
+    ).toThrow("Polymorphic component requires an `as` prop");
   });
 });

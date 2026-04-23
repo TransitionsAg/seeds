@@ -60,6 +60,23 @@
         "default": "./dist/checkbox/index.js"
       }
     },
+    "./combobox": {
+      "types": "./src/combobox/index.tsx",
+      "solid": {
+        "development": "./dist/combobox/dev.jsx",
+        "import": "./dist/combobox/index.jsx"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/combobox/index.d.ts",
+          "default": "./dist/combobox/dev.js"
+        }
+      },
+      "import": {
+        "types": "./dist/combobox/index.d.ts",
+        "default": "./dist/combobox/index.js"
+      }
+    },
     "./polymorphic": {
       "types": "./src/polymorphic/index.tsx",
       "solid": {
@@ -121,6 +138,7 @@
   "dependencies": {
     "@zag-js/avatar": "^1.40.0",
     "@zag-js/checkbox": "^1.39.1",
+    "@zag-js/combobox": "^1.40.0",
     "@zag-js/solid": "^1.39.1",
     "@zag-js/tree-view": "^1.39.1",
     "solid-js": "^1.9.12"

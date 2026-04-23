@@ -1,6 +1,5 @@
-import { type JSX, mergeProps, splitProps, type ValidComponent } from "solid-js";
-import { Dynamic } from "solid-js/web";
-import type { PolymorphicProps } from "../polymorphic/index.tsx";
+import { type JSX, mergeProps, type ValidComponent } from "solid-js";
+import { Polymorphic, type PolymorphicProps } from "../polymorphic/index.tsx";
 import { useCheckboxApi } from "./checkbox-root.tsx";
 
 /**
@@ -19,13 +18,13 @@ export function CheckboxIndicator<T extends ValidComponent = "div">(
   if (!api) {
     throw Error("Checkbox.Indicator component should be used inside of a Checkbox");
   }
-  const merged = mergeProps({ as: "div" as T }, rawProps);
-  const [local, others] = splitProps(merged, ["as"]);
   return (
-    // @ts-ignore: Props are valid but not worth calculating
-    <Dynamic
-      {...mergeProps({ style: { "pointer-events": "none" } }, api().getIndicatorProps(), others)}
-      component={local.as}
+    <Polymorphic
+      {...mergeProps(
+        { as: "div" as T, style: { "pointer-events": "none" } },
+        api().getIndicatorProps(),
+        rawProps,
+      )}
     />
   );
 }

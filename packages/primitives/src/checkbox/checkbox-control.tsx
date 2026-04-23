@@ -1,6 +1,5 @@
-import { type JSX, mergeProps, splitProps, type ValidComponent } from "solid-js";
-import { Dynamic } from "solid-js/web";
-import type { PolymorphicProps } from "../polymorphic/index.tsx";
+import { type JSX, mergeProps, type ValidComponent } from "solid-js";
+import { Polymorphic, type PolymorphicProps } from "../polymorphic/index.tsx";
 import { useCheckboxApi } from "./checkbox-root.tsx";
 
 /**
@@ -20,10 +19,5 @@ export function CheckboxControl<T extends ValidComponent = "div">(
   if (!api) {
     throw Error("Checkbox.Control component should be used inside of a Checkbox");
   }
-  const merged = mergeProps({ as: "div" as T }, rawProps);
-  const [local, others] = splitProps(merged, ["as"]);
-  return (
-    // @ts-ignore: Props are valid but not worth calculating
-    <Dynamic {...mergeProps(api().getControlProps(), others)} component={local.as} />
-  );
+  return <Polymorphic {...mergeProps({ as: "div" as T }, api().getControlProps(), rawProps)} />;
 }
