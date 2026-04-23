@@ -168,7 +168,7 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.16",
-    "@transitionsag/facehash-solid": "^0.0.1",
+    "@transitionsag/facehash-solid": "^0.0.2",
     "@transitionsag/phosphor-solid": "^0.0.1",
     "@transitionsag/primitives": "workspace:*",
     "cva": "1.0.0-beta.4",
